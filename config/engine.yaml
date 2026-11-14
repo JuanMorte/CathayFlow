@@ -75,6 +75,15 @@ planner:
   # ASSUMED (AGENTS.md §7.4): Airport Express from Hong Kong Station, 24 min, every 10 min;
   # plus the trip from the door to the station.
   airport_express: {ride: 24, headway: 10, to_station: {mean: 15, sd: 5, floor: 5}}
+  # Train and bus trips come from Google's transit timetables (REAL), which give one time, not a
+  # range. ASSUMED upper end: a train trip can run `extra_upper` minutes over (a missed train, a slow
+  # change). A bus also shares the road, so its timetabled ride is stretched by Google's own
+  # bad-traffic ratio for a drive at that hour (`traffic_ratio_default` when no drive time is cached).
+  transit:
+    train: {extra_upper: 10}
+    bus: {extra_upper: 15, traffic_ratio_default: 1.3}
+  # ASSUMED: nothing is faster than 90% of the no-traffic drive or of the timetabled trip.
+  fastest_share: 0.9
   # Google's PESSIMISTIC traffic model is read as the 95th percentile of the road time.
   road_upper_quantile: 0.95
   # Walking starts at the check-in hall, Terminal 1 (data/reference/hkg_zones.yaml zone).

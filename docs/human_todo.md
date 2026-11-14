@@ -16,12 +16,12 @@ Steps only a person can do (console, keys, approvals). Tick them off as you go.
 
 ## AWS (AGENTS.md §8.1)
 - [x] Which account: the hackathon account, straight away (profile `flow-hackathon`). Region `ap-southeast-1`.
-- [ ] IAM Identity Center + `aws configure sso --profile flow`; in `~/.aws/config` the sso-session needs `sso_registration_scopes = sso:account:access`.
+- [x] SSO profile: not needed; the hackathon profile `flow-hackathon` is used instead (2026-11-14).
 - [x] Budget alert: dropped; billing is closed to participants on the hackathon account.
 
 ## Keys (stored with `make secrets`)
-- [ ] OAG account(s): the portal issues **three keys**; store Flight Info and Connections. Copy the Connections URL from the portal into `OAG_CONNECTIONS_URL`.
-- [ ] Google Routes: GCP project, Routes API enabled, billing on, key unrestricted to IPs while testing.
+- [x] OAG account(s) (2026-11-14): the portal issues **three keys**; store Flight Info and Connections. Copy the Connections URL from the portal into `OAG_CONNECTIONS_URL`.
+- [x] Google Routes (2026-11-14): GCP project, Routes API enabled, billing on, key unrestricted to IPs while testing.
 - [x] `make check-apis` passes (2026-11-14).
 
 ## Data

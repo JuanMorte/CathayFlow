@@ -30,7 +30,7 @@ CDK_DESTROY_FLAGS ?=
 CDK_CONTEXT = -c prefix=$(FLOW_PREFIX)
 MASK := sed -E 's/[0-9]{12}/************/g'
 
-.PHONY: help setup check-profile aws-whoami cdk-bootstrap synth diff-data diff-recorder diff-app \
+.PHONY: notebooks help setup check-profile aws-whoami cdk-bootstrap synth diff-data diff-recorder diff-app \
         deploy-data deploy-recorder secrets backfill-hkia data-down data-up check-apis dev test \
         contract lock-backend build-web deploy app-url logs demo destroy-app e2e
 
@@ -109,6 +109,9 @@ e2e: build-web ## Browser test of the demo loop (uses the installed Chrome)
 contract: ## Export OpenAPI to contracts/ and regenerate the web types
 	uv run python scripts/export_contract.py
 	@if [ -f web/package.json ]; then cd web && npx --no-install openapi-typescript ../contracts/openapi.json -o src/api/types.ts; fi
+
+notebooks: ## Re-run the research notebooks in place (stored data only, about 4 minutes)
+	OFFLINE=1 uv run jupyter nbconvert --to notebook --execute --inplace research/notebooks/*.ipynb
 
 lock-backend: ## Write the image's exact Python versions from uv.lock
 	@uv export --package flow-backend --no-dev --no-emit-workspace --no-hashes --frozen \

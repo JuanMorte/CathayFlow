@@ -194,3 +194,15 @@ Per milestone: wall-clock time, who/which agent, what went wrong and the rule th
   - The screen's three-second throttle dropped a re-plan that arrived inside the window (a seek while paused), so
     it never caught up. It now plans once the window ends.
   - Two tests expected exact values that depended on sampling or on two changes landing at once; corrected.
+
+### Research notebooks (2026-11-15, about 1 h)
+- **Built:** two notebooks for the presentation, saved with outputs (`research/notebooks/`, `make notebooks`):
+  the Gate Planner's road and terminal data, and the flight data with the engine's accuracy.
+- **Backtest:** split into `build_records` (one row per connection) and `run` (the summary), so the notebooks
+  chart the same records. `data/backtest.json` is byte-identical after the change.
+- **New result:** with in-flight estimates twice as wrong as measured (±22 min), the engine still catches 90% of
+  breaks but flags 33% of tight connections instead of 22%.
+- **Found while charting:** the planner's road model lets a drive be faster than Google's no-traffic time (the
+  floor is 60% of typical). It does not move the leave-by time, which uses the slow end, but it is visible in
+  the chart. Proposed fix: carry Google's `staticDuration` into `Road` and use it as the floor.
+- **What went wrong:** pandas stores a missing stand or gate as NaN, not None, which broke the zone lookup once.

@@ -195,6 +195,24 @@ def test_google_transit_has_no_traffic_fields(monkeypatch):
                                            http=fake.http)
     body = envelope["request"]["body"]
     assert "routingPreference" not in body and "trafficModel" not in body
+    assert "transitPreferences" not in body
+
+
+def test_google_transit_modes_and_lines(monkeypatch):
+    monkeypatch.setenv("GOOGLE_ROUTES_KEY", "g-secret")
+    reply = {"routes": [{"duration": "2700s", "distanceMeters": 36000, "legs": [{"steps": [
+        {"travelMode": "WALK", "staticDuration": "300s"},
+        {"travelMode": "TRANSIT", "staticDuration": "1440s", "transitDetails": {"transitLine": {
+            "name": "Airport Express", "nameShort": "AEL", "vehicle": {"type": "HEAVY_RAIL"}}}},
+    ]}]}]}
+    fake = Fake(json_ok(reply))
+    envelope = google_routes.compute_route("Central, Hong Kong", WHEN, travel_mode="TRANSIT",
+                                           transit_modes=("RAIL",), http=fake.http)
+    assert envelope["request"]["body"]["transitPreferences"] == {"allowedTravelModes": ["RAIL"]}
+    assert fake.requests[0].headers["X-Goog-FieldMask"] == google_routes.TRANSIT_FIELD_MASK
+    assert google_routes.duration_seconds(envelope) == 2700.0
+    assert google_routes.transit_lines(envelope) == [{"name": "AEL", "vehicle": "HEAVY_RAIL", "seconds": 1440.0}]
+    assert google_routes.transit_lines({"body": {}}) == []
 
 
 def test_google_stops_after_one_key_rejection(monkeypatch):

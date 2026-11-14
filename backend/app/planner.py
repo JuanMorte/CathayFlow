@@ -1,10 +1,10 @@
-"""Gate Planner service: road times for the engine, and the list of choices (AGENTS.md §12).
+"""Gate Planner service: times to the airport for the engine, and the list of choices (AGENTS.md §12).
 
-Road times come from Google Routes through the read-through cache (flowcore.sources). Google only
-quotes traffic for the future, so a replay time is mapped to the same weekday and hour on a fixed
-future date (ROAD_DATE), rounded to the hour so a small set of cached answers covers the evening.
-Any failure (offline cache miss, rejected key, budget, network) falls back to the Airport Express
-timetable, and the plan says so.
+Drive, train and bus times come from Google Routes through the read-through cache (flowcore.sources).
+Google only quotes traffic and timetables for the future, so a replay time is mapped to the same
+weekday and hour on a fixed future date (ROAD_DATE), rounded to the hour so a small set of cached
+answers covers the evening. Any failure (offline cache miss, rejected key, budget, network, no
+route) falls back to the Airport Express timetable, and the plan says so.
 """
 
 from __future__ import annotations
@@ -54,18 +54,50 @@ def google_road(origin_id: str, when: datetime, config: dict) -> Road:
     typical = google_routes.compute_route(place["address"], at, traffic_model="BEST_GUESS")
     t_min = google_routes.duration_seconds(typical) / 60
     u_min = max(google_routes.duration_seconds(upper) / 60, t_min)
+    free_flow = google_routes.duration_seconds(typical, "staticDuration")
+    fastest = min(t_min, free_flow / 60 if free_flow else t_min) * config["planner"]["fastest_share"]
     return Road(t_min, u_min, "google",
-                f"Google traffic model for {at:%a} {at:%H:%M} (same weekday and hour)", "REAL")
+                f"Google traffic model for {at:%a} {at:%H:%M} (same weekday and hour)", "REAL", floor=fastest)
+
+
+# Which vehicles Google may use for each planner mode. RAIL covers the MTR lines and the Airport Express.
+TRANSIT_MODES = {"train": ("RAIL",), "bus": ("BUS",)}
+
+
+def google_transit(origin_id: str, mode: str, when: datetime, config: dict) -> Road:
+    """A train or bus trip from Google's timetables, with our ASSUMED upper end (config `planner.transit`)."""
+    place = origin(origin_id)
+    at = road_time(when)
+    envelope = google_routes.compute_route(place["address"], at, travel_mode="TRANSIT",
+                                           transit_modes=TRANSIT_MODES[mode])
+    seconds = google_routes.duration_seconds(envelope)
+    rides = google_routes.transit_lines(envelope)
+    if seconds is None or not rides:
+        raise LookupError(f"Google has no {mode} route from {place['name']}.")
+    spec = config["planner"]["transit"][mode]
+    typical = seconds / 60
+    upper = typical + spec["extra_upper"]
+    if mode == "bus":
+        try:
+            drive = google_road(origin_id, when, config)
+            ratio = drive.upper / drive.typical
+        except Exception:  # no cached drive for this hour: the documented default
+            ratio = spec["traffic_ratio_default"]
+        upper += sum(ride["seconds"] for ride in rides) / 60 * (ratio - 1)
+    names = list(dict.fromkeys(ride["name"] for ride in rides if ride["name"]))
+    return Road(typical, upper, "google_transit",
+                f"Google timetable for {at:%a} {at:%H:%M}: {', then '.join(names)}", "REAL",
+                floor=typical * config["planner"]["fastest_share"])
 
 
 def road_for(origin_id: str, mode: str, config: dict):
     def lookup(when: datetime) -> Road:
-        if mode == "airport_express":
-            return airport_express(config)
         try:
+            if mode in TRANSIT_MODES:
+                return google_transit(origin_id, mode, when, config)
             return google_road(origin_id, when, config)
         except Exception as err:  # any failure: the timetable, and the plan says so
-            log.info("Road time unavailable (%s); using the Airport Express timetable", type(err).__name__)
+            log.info("%s time unavailable (%s); using the Airport Express timetable", mode, type(err).__name__)
             return airport_express(config)
     return lookup
 

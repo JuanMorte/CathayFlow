@@ -1048,7 +1048,8 @@
             "default": "car",
             "enum": [
               "car",
-              "airport_express"
+              "train",
+              "bus"
             ],
             "title": "Mode",
             "type": "string"
@@ -1130,6 +1131,7 @@
           "road_source": {
             "enum": [
               "google",
+              "google_transit",
               "airport_express"
             ],
             "title": "Road Source",

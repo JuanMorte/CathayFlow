@@ -249,7 +249,7 @@ class PlannerRequest(BaseModel):
     bags: int = 1
     checked_in_online: bool = False
     hk_resident: bool = True
-    mode: Literal["car", "airport_express"] = "car"
+    mode: Literal["car", "train", "bus"] = "car"
     buffer: Literal["relaxed", "balanced", "tight"] = "balanced"
 
 
@@ -276,7 +276,7 @@ class PlannerResult(BaseModel):
     typical_total: int
     upper_total: int
     steps: list[PlannerStep]
-    road_source: Literal["google", "airport_express"]
+    road_source: Literal["google", "google_transit", "airport_express"]
     road_note: str
     nudges: list[str]
     labels: dict[str, str]

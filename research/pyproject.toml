@@ -3,9 +3,14 @@ name = "flowresearch"
 version = "0.1.0"
 description = "Cathay Flow research: dataset, backtests, policy simulation, evidence"
 requires-python = ">=3.12"
-# Heavy libraries (pandas, DuckDB, LightGBM, scikit-learn, matplotlib) are added in M4.
+# pandas, matplotlib and the Jupyter pieces are for research/notebooks only (`make notebooks`).
+# No model is trained (docs/decisions.md), so there is no LightGBM or scikit-learn.
 dependencies = [
     "flowcore",
+    "pandas>=2.2",
+    "matplotlib>=3.9",
+    "ipykernel>=6.29",
+    "nbconvert>=7.16",
 ]
 
 [tool.uv.sources]

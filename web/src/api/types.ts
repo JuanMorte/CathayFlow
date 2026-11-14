@@ -671,7 +671,7 @@ export interface components {
              * @default car
              * @enum {string}
              */
-            mode: "car" | "airport_express";
+            mode: "car" | "train" | "bus";
             /** Origin Id */
             origin_id: string;
         };
@@ -714,7 +714,7 @@ export interface components {
              * Road Source
              * @enum {string}
              */
-            road_source: "google" | "airport_express";
+            road_source: "google" | "google_transit" | "airport_express";
             /**
              * Sched Departure
              * Format: date-time

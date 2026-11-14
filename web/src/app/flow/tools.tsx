@@ -5,7 +5,7 @@ import { api, type PlannerOptions, type PlannerRequest, type PlannerResult } fro
 import { Card, HeroCard, Icon, Notice } from "./kit";
 import { clock, instant } from "./journey";
 
-const MODES = [{ id: "car", label: "Car or taxi" }, { id: "airport_express", label: "Airport Express" }] as const;
+const MODES = [{ id: "car", label: "Car or taxi" }, { id: "train", label: "MTR" }, { id: "bus", label: "Bus" }] as const;
 const MARGINS = [{ id: "relaxed", label: "Relaxed" }, { id: "balanced", label: "Balanced" }, { id: "tight", label: "Tight" }] as const;
 
 export function PlannerScreen({ nowIso }: { nowIso: string }) {

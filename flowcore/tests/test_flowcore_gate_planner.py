@@ -97,6 +97,19 @@ def test_a_published_delay_moves_the_plan(config, zones):
     assert any("now leaves at 19:40" in n for n in after.nudges)
 
 
+def test_road_floor_and_bus_fallback_note(config, zones):
+    from flowcore.engine.gate_planner import road_samples
+    from flowcore.engine.time_to_gate import rng_for
+    wide = Road(30, 60, "google", "test", "REAL", floor=27)
+    assert road_samples(wide, config, rng_for(1, "x"), 500).min() == 27
+    assert road_samples(Road(30, 60, "google", "test", "REAL"), config, rng_for(1, "x"), 500).min() == 18
+    fallback = lambda when: airport_express(config)  # noqa: E731
+    bus = plan(PlanRequest("central", "CX135@x", mode="bus"), flight(), at(15), config, zones, fallback, seed=1)
+    assert any("Bus times are unavailable" in n for n in bus.nudges)
+    train = plan(PlanRequest("central", "CX135@x", mode="train"), flight(), at(15), config, zones, fallback, seed=1)
+    assert not any("unavailable" in n for n in train.nudges)
+
+
 def test_airport_express_timetable(config):
     road = airport_express(config)
     # 15 to the station + half a 10-minute headway + 24 ride = 44 typical.

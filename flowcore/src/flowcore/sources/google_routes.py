@@ -17,6 +17,11 @@ from flowcore.sources import MissingKey, http_client, parse
 
 URL = "https://routes.googleapis.com/directions/v2:computeRoutes"
 FIELD_MASK = "routes.duration,routes.staticDuration,routes.distanceMeters"
+# Transit replies also say which lines the route uses, so the planner can name them.
+TRANSIT_FIELD_MASK = ("routes.duration,routes.distanceMeters,routes.legs.steps.travelMode,"
+                      "routes.legs.steps.staticDuration,routes.legs.steps.transitDetails.transitLine.name,"
+                      "routes.legs.steps.transitDetails.transitLine.nameShort,"
+                      "routes.legs.steps.transitDetails.transitLine.vehicle.type")
 AIRPORT = "Hong Kong International Airport Terminal 1"
 ROUND_MINUTES = 15
 
@@ -41,7 +46,7 @@ def round_departure(when: datetime) -> datetime:
 
 
 def build_body(origin: str, destination: str, departure_time: datetime, travel_mode: str,
-               traffic_model: str | None) -> dict:
+               traffic_model: str | None, transit_modes: tuple[str, ...] | None = None) -> dict:
     body = {
         "origin": {"address": origin},
         "destination": {"address": destination},
@@ -51,18 +56,23 @@ def build_body(origin: str, destination: str, departure_time: datetime, travel_m
     if travel_mode == "DRIVE":
         body["routingPreference"] = "TRAFFIC_AWARE_OPTIMAL"
         body["trafficModel"] = traffic_model or "BEST_GUESS"
+    if travel_mode == "TRANSIT" and transit_modes:
+        body["transitPreferences"] = {"allowedTravelModes": list(transit_modes)}
     return body
 
 
 def compute_route(origin: str, departure_time: datetime, *, destination: str = AIRPORT,
                   travel_mode: str = "DRIVE", traffic_model: str | None = None,
+                  transit_modes: tuple[str, ...] | None = None,
                   cache: Cache | None = None, http: httpx.Client | None = None,
                   settings: Settings | None = None) -> dict:
-    """The stored envelope. `traffic_model`: PESSIMISTIC (upper) or BEST_GUESS (typical); DRIVE only."""
+    """The stored envelope. `traffic_model`: PESSIMISTIC (upper) or BEST_GUESS (typical); DRIVE only.
+    `transit_modes`: TRANSIT only, e.g. ("RAIL",) or ("BUS",); Google then uses only those vehicles."""
     global _key_rejected
     s = settings or get_settings()
     cache = cache or Cache(s)
-    body = build_body(origin, destination, departure_time, travel_mode, traffic_model)
+    body = build_body(origin, destination, departure_time, travel_mode, traffic_model, transit_modes)
+    field_mask = TRANSIT_FIELD_MASK if travel_mode == "TRANSIT" else FIELD_MASK
     request = make_request("google", URL, body=body)
     state: dict = {}
 
@@ -71,7 +81,7 @@ def compute_route(origin: str, departure_time: datetime, *, destination: str = A
         session = http or http_client()
         try:
             return parse(session.post(URL, json=body, headers={
-                "X-Goog-Api-Key": state["key"], "X-Goog-FieldMask": FIELD_MASK}))
+                "X-Goog-Api-Key": state["key"], "X-Goog-FieldMask": field_mask}))
         finally:
             if owned:
                 session.close()
@@ -94,6 +104,20 @@ def compute_route(origin: str, departure_time: datetime, *, destination: str = A
             _key_rejected = True
             raise KeyRejected(str(err)) from err
         raise
+
+
+def transit_lines(envelope: dict) -> list[dict]:
+    """The transit rides of the first route, in order: `{"name", "vehicle", "seconds"}`."""
+    routes = (envelope.get("body") or {}).get("routes") or []
+    rides = []
+    for leg in (routes[0].get("legs") or []) if routes else []:
+        for step in leg.get("steps") or []:
+            line = (step.get("transitDetails") or {}).get("transitLine")
+            if line:
+                rides.append({"name": line.get("nameShort") or line.get("name") or "",
+                              "vehicle": (line.get("vehicle") or {}).get("type", ""),
+                              "seconds": float(str(step.get("staticDuration", "0s")).rstrip("s"))})
+    return rides
 
 
 def duration_seconds(envelope: dict, field: str = "duration") -> float | None:

@@ -91,7 +91,13 @@ def auc(scores: np.ndarray, labels: np.ndarray) -> float:
     return float((ranks[labels].sum() - positives * (positives + 1) / 2) / (positives * negatives))
 
 
-def run() -> dict:
+def build_records(error_scale: float = 1.0) -> tuple[list[dict], dict]:
+    """One record per tight connection (what happened, and each forecast), plus the context `run` needs.
+
+    `error_scale` multiplies the measured OAG estimate errors: 1 is what we measured, 0 a perfect in-flight
+    estimate, 2 an estimate twice as wrong. The notebooks use it to show how much the estimate's accuracy
+    matters; the random draws are the same for every scale.
+    """
     settings = get_settings()
     root = settings.repo_root
     config = {**load_config(), "samples": SAMPLES}
@@ -108,7 +114,8 @@ def run() -> dict:
     # A late departure moves gate close later; an early one does not move it earlier.
     out_quantiles = list(np.quantile([max(delay_minutes(r), 0.0) for r in train if r["kind"] == "dep"],
                                      np.linspace(0, 1, 41)))
-    oag_errors = measured_estimate_errors(root)
+    measured_errors = measured_estimate_errors(root)
+    oag_errors = [error * error_scale for error in measured_errors]
 
     pairs = tight_pairs(cathay, airports_file["airports"], airports_file["implausible_pairs"])
     by_destination = defaultdict(list)
@@ -142,11 +149,24 @@ def run() -> dict:
         later = [t for t in by_destination[outbound["airport"]] if t > outbound["sched"]]
         records.append({
             "day": inbound["sched_date"], "disrupted": inbound["sched_date"] in disrupted,
+            "inbound": inbound["flight"], "outbound": outbound["flight"],
+            "inbound_delay": delay_minutes(inbound), "outbound_delay": delay_minutes(outbound),
+            "passenger_transfer": passenger,
             "gap": (outbound["sched"] - inbound["sched"]).total_seconds() / 60, "broke": broke,
             "p": forecast, "p_day_before": day_before, "p_in_flight": in_flight, "typical_transfer": typical,
             "next_hours": (later[0] - outbound["sched"]).total_seconds() / 3600 if later else None,
         })
 
+    context = {"config": config, "cathay": cathay, "split": split, "first_day": first_day, "disrupted": disrupted,
+               "disruption_rule": disruption_rule, "oag_errors": measured_errors, "root": root}
+    return records, context
+
+
+def run() -> dict:
+    records, context = build_records()
+    config, cathay, split, first_day = context["config"], context["cathay"], context["split"], context["first_day"]
+    disrupted, disruption_rule, oag_errors, root = (context["disrupted"], context["disruption_rule"],
+                                                    context["oag_errors"], context["root"])
     test = [r for r in records if r["day"] >= split]
     labels = np.array([r["broke"] for r in test])
     scores = np.array([r["p"] for r in test])

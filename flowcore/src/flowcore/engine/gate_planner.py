@@ -4,8 +4,9 @@
     deadline     = bag drop close (departure - 60 min) with checked bags, else gate close (departure - 15 min)
     leave_by     = deadline - door_to_gate at the chosen percentile
 
-The road leg comes from a function the caller passes in (Google Routes through the cache, or the
-Airport Express timetable), so the engine itself makes no network calls. Everything else is in
+The leg to the airport comes from a function the caller passes in (Google Routes through the cache:
+a drive, or a train or bus trip; or the Airport Express timetable when Google has no answer), so the
+engine itself makes no network calls. Everything else is in
 config/engine.yaml (`planner`) with its source. Only what is published at time t is used: the
 departure time moves only once the airline publishes a delay, and the gate counts only once it
 has been published.
@@ -31,9 +32,10 @@ class Road:
     """Door to the terminal: typical and upper minutes, and where they came from."""
     typical: float
     upper: float
-    source: str        # "google" | "airport_express"
+    source: str        # "google" (drive) | "google_transit" (train or bus) | "airport_express" (timetable)
     note: str
-    label: str         # REAL (Google traffic model) | ASSUMED (timetable)
+    label: str         # REAL (Google) | ASSUMED (our timetable)
+    floor: float | None = None   # fastest possible minutes; None = 60% of typical
 
 
 @dataclass(frozen=True)
@@ -43,7 +45,7 @@ class PlanRequest:
     bags: int = 1
     checked_in_online: bool = False
     hk_resident: bool = True
-    mode: str = "car"                  # car | airport_express
+    mode: str = "car"                  # car | train | bus
     buffer: str = "balanced"           # relaxed | balanced | tight
 
 
@@ -84,10 +86,12 @@ def _normal(rng: np.random.Generator, spec: dict, n: int) -> np.ndarray:
 
 
 def road_samples(road: Road, config: dict, rng: np.random.Generator, n: int) -> np.ndarray:
-    """Typical as the median and upper as the 95th percentile of a normal, never below 60% of typical."""
+    """Typical as the median and upper as the 95th percentile of a normal, never below the road's
+    floor (the no-traffic drive or the timetable; 60% of typical when the road gives none)."""
     z = 1.6449  # 95th percentile of a standard normal
     sd = max((road.upper - road.typical) / z, 1.0)
-    return np.maximum(rng.normal(road.typical, sd, n), road.typical * 0.6)
+    floor = road.floor if road.floor is not None else road.typical * 0.6
+    return np.maximum(rng.normal(road.typical, sd, n), floor)
 
 
 def airport_express(config: dict) -> Road:
@@ -167,6 +171,8 @@ def plan(request: PlanRequest, flight: dict, t: datetime, config: dict, zones: Z
         nudges.append("Check in online to skip the counter queue.")
     if request.mode == "car" and road.source == "airport_express":
         nudges.append("Road times are unavailable; this plan uses the Airport Express timetable.")
+    if request.mode == "bus" and road.source == "airport_express":
+        nudges.append("Bus times are unavailable; this plan uses the Airport Express timetable.")
     if view.est and view.est > flight["sched"]:
         nudges.append(f"{flight['flight']} now leaves at {departure:%H:%M}; your plan has moved with it.")
     return Plan(

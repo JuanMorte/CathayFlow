@@ -13,6 +13,18 @@ uv run python -m flowresearch.backtest           # data/backtest.json
 uv run python scripts/build_evidence.py          # data/evidence.json (shown on /impact)
 ```
 
+## Notebooks (charts for the presentation)
+
+Both are saved with their outputs, so they open ready to read. `make notebooks` re-runs them from the stored data
+(no outside calls, about 4 minutes). Charts share one style (`flowresearch/charts.py`); tables come from
+`flowresearch/eda.py` and the backtest's own records (`backtest.build_records`).
+
+- **`notebooks/01_gate_planner_road_and_terminal.ipynb`:** the Google Routes road times, the terminal zone and
+  walking model, when gates are published, and a worked Gate Planner example.
+- **`notebooks/02_flight_data_and_model_accuracy.ipynb`:** the 91 days of flight data, tight connections and break
+  rates, how accurate OAG's in-flight estimates are, the engine's accuracy and calibration, and what each
+  ingredient added.
+
 ## What the backtest measures
 
 - **Data:** every Cathay-operated arrival and departure at Hong Kong, 2026-08-15 to 2026-11-13 (HKIA, REAL).
