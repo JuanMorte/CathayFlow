@@ -10,10 +10,10 @@ from __future__ import annotations
 
 from datetime import datetime
 
-# The only two reasons an original seat may ever be released (non-negotiable 1).
-PASSENGER_CHOSE = "passenger_chose_alternative"
+# The only reason an original seat may ever be released (non-negotiable 1, amended 2026-11-15):
+# its gate has closed and the passenger is not on board. An agent's rebooking does not release it.
 GATE_CLOSED = "gate_closed_not_boarded"
-ALLOWED_RELEASE_REASONS = {PASSENGER_CHOSE, GATE_CLOSED}
+ALLOWED_RELEASE_REASONS = {GATE_CLOSED}
 
 
 class OriginalSeatError(RuntimeError):
@@ -26,8 +26,6 @@ def release_original_seat(party_state, reason: str, t: datetime, gate_close: dat
         raise OriginalSeatError(f"Original seat may not be released for reason '{reason}'.")
     if reason == GATE_CLOSED and t < gate_close:
         raise OriginalSeatError("Original seat may not be released before gate close.")
-    if reason == PASSENGER_CHOSE and not party_state.chosen_kind:
-        raise OriginalSeatError("Original seat may not be released without the passenger's choice.")
     party_state.original_seat_held = False
     party_state.release_reason = reason
 

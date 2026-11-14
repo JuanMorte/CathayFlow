@@ -27,6 +27,8 @@ def _isolated_env(monkeypatch, tmp_path):
     monkeypatch.setenv("AWS_REGION", "ap-southeast-1")
     monkeypatch.setenv("AWS_DEFAULT_REGION", "ap-southeast-1")
     monkeypatch.setenv("FLOW_DATA_DIR", str(tmp_path / "data"))
+    # Tests run on the real-flight replay unless they ask for another scenario.
+    monkeypatch.setenv("FLOW_SCENARIO", "2026-10-22-evening")
     try:
         from flowcore import aws
     except ImportError:

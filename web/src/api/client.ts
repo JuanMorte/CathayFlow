@@ -3,7 +3,7 @@ import type { components } from "./types";
 
 type S = components["schemas"];
 export type ConnectionStatus = S["ConnectionStatus"];
-export type Option = S["Option"];
+export type Alternative = S["Alternative"];
 export type Draft = S["Draft"];
 export type Trip = S["Trip"];
 export type Wave = S["Wave"];
@@ -47,9 +47,6 @@ export const api = {
     post<ReplayState>("/api/replay/control", { action, ...extra }),
   trip: (pid: string) => call<Trip>(`/api/passengers/${pid}/trip`),
   protect: (pid: string) => call<ConnectionStatus>(`/api/passengers/${pid}/protect`),
-  options: (pid: string) => call<Option[]>(`/api/passengers/${pid}/options`),
-  choose: (pid: string, optionId: string) =>
-    post<ConnectionStatus>(`/api/passengers/${pid}/choose`, { option_id: optionId }),
   wave: () => call<Wave>("/api/staff/wave"),
   drafts: (status?: string) => call<Draft[]>(`/api/staff/drafts${status ? `?status=${status}` : ""}`),
   decide: (id: string, decision: "approve" | "reject", note?: string) =>

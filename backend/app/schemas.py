@@ -13,9 +13,8 @@ from pydantic import BaseModel
 
 Label = Literal["REAL", "ASSUMED", "SYNTHETIC", "SIMULATED"]
 Zone = Literal["SAFE", "AT_RISK", "WONT_MAKE"]
-ConnState = Literal["MONITORING", "BACKUP_HELD", "DRAFT_PENDING", "OFFERED",
-                    "PASSENGER_CHOSE", "MADE_ORIGINAL", "REBOOKED"]
-OptionKind = Literal["ORIGINAL_EXPEDITE", "ALT_FLIGHT", "OVERNIGHT"]
+ConnState = Literal["MONITORING", "BACKUP_HELD", "DRAFT_PENDING", "AGENT_REBOOKED",
+                    "MADE_ORIGINAL", "REBOOKED"]
 
 
 class Health(BaseModel):
@@ -29,6 +28,7 @@ class Health(BaseModel):
 class ScenarioInfo(BaseModel):
     id: str
     title: str
+    default: bool = False     # the demo story the app opens with
 
 
 class ReplayState(BaseModel):
@@ -39,6 +39,7 @@ class ReplayState(BaseModel):
     start: datetime
     end: datetime
     hero_pid: str
+    illustrative: bool = False   # True for a scripted story, False for a replay of a recorded day
 
 
 class ReplayLoad(BaseModel):
@@ -64,6 +65,9 @@ class FlightRef(BaseModel):
     gate: str | None
     status: str               # Scheduled | Airborne | Landed | At gate | Departed | Cancelled
     origin_departure: datetime | None = None  # scheduled, local time at the origin (no offset)
+    origin_departed: datetime | None = None   # actual, local time at the origin; only once known at t
+    origin_terminal: str | None = None
+    dest_terminal: str | None = None
     dest_arrival: datetime | None = None      # scheduled, local time at the destination (no offset)
     labels: dict[str, str]
 
@@ -89,6 +93,21 @@ class Hold(BaseModel):
     expires_at: datetime
 
 
+class Alternative(BaseModel):
+    """The later flight held or booked for a party."""
+    flight: str
+    dest: str
+    dest_city: str
+    dep: datetime
+    final_arrival: datetime | None      # scheduled, local time at the destination; None if no source
+    gate: str | None                    # only once published
+    cabin: str
+    seat: str | None
+    hours_later: float                  # after the original departure
+    booked: bool                        # True once an agent has rebooked; False while only held
+    labels: dict[str, str]
+
+
 class ConnectionStatus(BaseModel):
     connection_id: str
     pid: str
@@ -98,6 +117,14 @@ class ConnectionStatus(BaseModel):
     assistance: bool
     tier: str
     t: datetime
+    bags: int | None = None
+    assistance_note: str | None = None
+    walk_to_gate_min: int | None = None  # stand to the current flight's gate, once the gate is published
+    companions: list[str] = []
+    alternative: Alternative | None = None
+    draft_id: str | None = None
+    decision: Literal["REBOOK", "KEEP"] | None = None   # the agent's decision, if one was made
+    decided_at: datetime | None = None
     inbound: FlightRef
     outbound: FlightRef
     gate_close: datetime
@@ -116,21 +143,6 @@ class ConnectionStatus(BaseModel):
     labels: dict[str, str]
 
 
-class Option(BaseModel):
-    option_id: str
-    kind: OptionKind
-    title: str
-    flight: str
-    dep: datetime
-    final_arrival: datetime | None      # scheduled, local time at the destination; None if no source
-    cabin: str
-    seat: str | None
-    guaranteed: bool                    # False for ORIGINAL_EXPEDITE ("if you make the gate")
-    extras: list[str]
-    approved: bool
-    labels: dict[str, str]
-
-
 class Draft(BaseModel):
     draft_id: str
     connection_id: str
@@ -144,7 +156,9 @@ class Draft(BaseModel):
     zone: Zone
     inbound_flight: str
     outbound_flight: str
-    option: Option
+    alt_flight: str
+    alt_dep: datetime
+    alt_arrival: datetime | None
     rationale: str
     status: Literal["PENDING", "APPROVED", "REJECTED"]
     note: str | None = None
@@ -154,6 +168,7 @@ class Draft(BaseModel):
 class Passenger(BaseModel):
     pid: str
     name: str
+    title: str | None = None
     cabin: str
     seat: str
     tier: str
@@ -170,10 +185,6 @@ class Trip(BaseModel):
     outbound: FlightRef
     sched_gap_min: int
     labels: dict[str, str]
-
-
-class ChooseRequest(BaseModel):
-    option_id: str
 
 
 class DraftDecision(BaseModel):
@@ -292,7 +303,7 @@ class ImpactMetric(BaseModel):
 
 
 class WsMessage(BaseModel):
-    """Every WebSocket message: `clock`, `connection_update`, `draft_update`, `options_update`,
+    """Every WebSocket message: `clock`, `connection_update`, `draft_update`,
     `notification` or `ping`."""
 
     type: str

@@ -86,12 +86,16 @@ def _normal(rng: np.random.Generator, spec: dict, n: int) -> np.ndarray:
 
 
 def road_samples(road: Road, config: dict, rng: np.random.Generator, n: int) -> np.ndarray:
-    """Typical as the median and upper as the 95th percentile of a normal, never below the road's
-    floor (the no-traffic drive or the timetable; 60% of typical when the road gives none)."""
+    """Trip times with `typical` as the median and `upper` as the 95th percentile, never below the
+    road's floor (the no-traffic drive or the timetable; 60% of typical when the road gives none).
+
+    The minutes above the floor are log-normal: most trips sit near the typical time and a few run
+    long, which is how road and transit delays behave. A trip cannot be much faster than typical.
+    """
     z = 1.6449  # 95th percentile of a standard normal
-    sd = max((road.upper - road.typical) / z, 1.0)
-    floor = road.floor if road.floor is not None else road.typical * 0.6
-    return np.maximum(rng.normal(road.typical, sd, n), floor)
+    floor = min(road.floor if road.floor is not None else road.typical * 0.6, road.typical - 1.0)
+    usual, slow = road.typical - floor, max(road.upper, road.typical) - floor
+    return floor + usual * np.exp(rng.standard_normal(n) * np.log(slow / usual) / z)
 
 
 def airport_express(config: dict) -> Road:

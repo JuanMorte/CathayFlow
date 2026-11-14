@@ -65,7 +65,7 @@
  },
  {
   "id": "missed_passengers",
-  "value": 145,
+  "value": 136,
   "unit": "passengers",
   "label": "SIMULATED",
   "source": "Replay of 2026-10-22-evening: real flights, synthetic passengers",
@@ -81,11 +81,11 @@
  },
  {
   "id": "flow_plan_before_landing",
-  "value": 94,
+  "value": 87,
   "unit": "passengers",
   "label": "SIMULATED",
   "source": "Replay of 2026-10-22-evening: real flights, synthetic passengers",
-  "note": "have a staff-approved plan before landing with Flow"
+  "note": "are rebooked by a Cathay agent before landing with Flow"
  },
  {
   "id": "auto_plan_before_landing",
@@ -109,7 +109,7 @@
   "unit": "passengers",
   "label": "SIMULATED",
   "source": "Replay of 2026-10-22-evening: real flights, synthetic passengers",
-  "note": "wrong bumps with Flow: nobody moves without choosing, and a held seat is confirmed only after a miss"
+  "note": "wrong bumps with Flow: the original seat is kept until its gate closes, so 53 rebooked passengers who made it after all kept their flight"
  },
  {
   "id": "oag_estimate_error",

@@ -8,7 +8,8 @@ research/ never imports backend/ (AGENTS.md §6).
 
 Policy replay on the scenario day (SIMULATED), three ways of handling the same passengers:
 - TODAY: no plan before landing; rebooking starts at the transfer desk after the miss (ASSUMED baseline).
-- FLOW: backup held when at risk, staff approve drafts (here every 10 minutes), the passenger chooses.
+- FLOW: backup held when at risk; an agent rebooks every draft (here every 10 minutes) and the original seat stays
+  held until its gate closes, so a passenger who makes it after all keeps the original flight.
 - AURA-style auto-rebook: anyone at 70% or more one hour before their inbound reaches the gate is moved to a
   later flight automatically, without asking.
 A wrong bump is a passenger moved off a flight that, in the replay's ground truth, they would have made.
@@ -55,7 +56,9 @@ def policy_replay() -> dict:
         "settled_passengers": pax(settled),
         "missed_passengers": pax(missed),
         "flow_plan_before_landing": pax(planned),
-        "flow_wrong_bumps": 0,
+        # Counted, not assumed: rebooked by an agent, would have made it, and lost the original seat.
+        "flow_wrong_bumps": pax([ps for ps in made if ps.decision == "REBOOK" and not ps.original_seat_held]),
+        "flow_rebooked_but_made_it": pax([ps for ps in made if ps.decision == "REBOOK"]),
         "auto_plan_before_landing": pax([ps for ps in missed if auto(ps)]),
         "auto_wrong_bumps": pax([ps for ps in made if auto(ps)]),
         "needs_manual_rebooking": pax([ps for ps in missed if ps.state != "REBOOKED"]),
@@ -101,13 +104,14 @@ def main() -> int:
         item("today_plan_before_landing", 0, "passengers", "ASSUMED", replay,
              "have a plan before landing today: rebooking starts at the transfer desk after the miss"),
         item("flow_plan_before_landing", policy["flow_plan_before_landing"], "passengers", "SIMULATED", replay,
-             "have a staff-approved plan before landing with Flow"),
+             "are rebooked by a Cathay agent before landing with Flow"),
         item("auto_plan_before_landing", policy["auto_plan_before_landing"], "passengers", "SIMULATED", replay,
              "would be auto-rebooked before landing by an AURA-style rule (70%+ an hour out)"),
         item("auto_wrong_bumps", policy["auto_wrong_bumps"], "passengers", "SIMULATED", replay,
              "would be moved off a flight they would have made by that auto-rebook rule"),
         item("flow_wrong_bumps", policy["flow_wrong_bumps"], "passengers", "SIMULATED", replay,
-             "wrong bumps with Flow: nobody moves without choosing, and a held seat is confirmed only after a miss"),
+             "wrong bumps with Flow: the original seat is kept until its gate closes, so "
+             f"{policy['flow_rebooked_but_made_it']} rebooked passengers who made it after all kept their flight"),
         item("oag_estimate_error", backtest["oag_estimate_error"]["sd"], "min", "REAL",
              "OAG Flight Info, 30 Cathay arrivals on 22 Oct 2026",
              "typical error of the in-flight gate estimate 90 min out; the engine uses this spread"),

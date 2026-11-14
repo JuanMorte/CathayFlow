@@ -1,41 +1,28 @@
-// Flow Ops staff console (/staff), after docs/design/staff-flow-ops.png. Every number carries its
-// source label (non-negotiable 6). Staff approve drafted rebookings here (non-negotiable 2).
-import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
-import { api, type ConnectionStatus, type Draft, type InboundSummary, type ReplayState, type Wave } from "../api/client";
+// Flow Ops (/staff), after the Figma frame "S4 Agent dashboard". An agent decides each drafted
+// rebooking: Rebook books the later flight and tells the passenger; the original seat stays held until
+// its gate closes (AGENTS.md §2). Replay controls for the demo sit below the design's layout.
+import { useCallback, useMemo, useRef, useState } from "react";
+import { api, type ConnectionStatus, type Draft, type ReplayState, type Wave } from "../api/client";
 import { useLive, type LiveMessage } from "../api/live";
-import { dayLabel, duration, hhmm, minutesBetween, percent } from "../design/format";
+import iconPlane from "../assets/flow/icon-plane.png";
+import { CABIN, clock, instant, longDate, zoneOf } from "../app/flow/journey";
 
-const CABIN: Record<string, string> = { F: "First", J: "Business", W: "Premium Eco", Y: "Economy" };
-
-function Badge({ label }: { label?: string }) {
-  if (!label) return null;
-  const style: Record<string, string> = {
-    REAL: "bg-ok-bg text-ok", ASSUMED: "bg-warn text-warn-text",
-    SYNTHETIC: "bg-[#ECE8F5] text-[#5B4B8A]", SIMULATED: "bg-info text-deep",
-  };
-  return (
-    <span title={`Source: ${label.toLowerCase()}`}
-      className={`ml-1 inline-block rounded px-1 align-middle text-[11px] font-bold tracking-wide ${style[label] ?? ""}`}>
-      {label}
-    </span>
-  );
-}
-
-function riskColour(chance: number): string {
-  return chance >= 0.7 ? "text-late" : chance >= 0.2 ? "text-amber" : "text-ok";
-}
-
-function barColour(chance: number): string {
-  return chance >= 0.7 ? "bg-late" : chance >= 0.2 ? "bg-amber" : "bg-ok";
-}
+const AGENT = "S. Alicia";
+const shortName = (name: string) => {
+  const parts = name.split(" ");
+  return `${parts[parts.length - 1]}, ${parts[0][0]}.`;
+};
+const window_ = (seat: string | null) => (!seat ? "" : /[AK]$/.test(seat) ? `, window` : /[CDGH]$/.test(seat) ? ", aisle" : "");
+const later = (hours: number) => {
+  const h = Math.floor(hours);
+  const m = Math.round((hours - h) * 60);
+  return m ? `${h} h ${m} later` : `${h} h later`;
+};
 
 export function StaffConsole() {
   const [wave, setWave] = useState<Wave | null>(null);
   const [drafts, setDrafts] = useState<Draft[]>([]);
   const [replay, setReplay] = useState<ReplayState | null>(null);
-  const [hero, setHero] = useState<ConnectionStatus | null>(null);
-  const [selected, setSelected] = useState<string | null>(null);
-  const [reviewing, setReviewing] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const timer = useRef<number | undefined>(undefined);
@@ -46,320 +33,191 @@ export function StaffConsole() {
       setWave(nextWave);
       setDrafts(nextDrafts);
       setReplay(nextReplay);
-      setHero(await api.protect(nextReplay.hero_pid));
       setError(null);
     } catch {
       setError("The demo server is not answering.");
     }
   }, []);
-
-  // Many updates arrive together during play: refresh at most every 400 ms.
   const onMessage = useCallback((message: LiveMessage) => {
     if (message.type === "clock") return;
     window.clearTimeout(timer.current);
-    timer.current = window.setTimeout(refresh, 400);
+    timer.current = window.setTimeout(refresh, 300);
   }, [refresh]);
-  const { clock, connected } = useLive("role=staff", onMessage);
-  const now = clock?.t ?? replay?.t ?? null;
-  const playing = clock?.playing ?? replay?.playing ?? false;
-
-  useEffect(() => {
-    if (!selected && hero) setSelected(hero.inbound.flight);
-  }, [hero, selected]);
+  const { clock: live, connected } = useLive("role=staff", onMessage);
+  const now = live?.t ?? replay?.t ?? null;
+  const playing = live?.playing ?? replay?.playing ?? false;
 
   const draftFor = useMemo(() => {
     const map = new Map<string, Draft>();
-    for (const draft of drafts) {
-      const seen = map.get(draft.connection_id);
-      if (!seen || draft.status === "PENDING") map.set(draft.connection_id, draft);
-    }
+    for (const d of drafts) if (!map.get(d.connection_id) || d.status === "PENDING") map.set(d.connection_id, d);
     return map;
   }, [drafts]);
 
-  const inbounds = wave?.summary.inbounds ?? [];
-  const inbound = inbounds.find((i) => i.flight === selected) ?? null;
-  // The hero's row first, so the demo never has to scroll for it; the rest by chance of missing.
-  const rows = (wave?.connections ?? [])
-    .filter((row) => !selected || row.inbound.flight === selected)
-    .filter((row) => !reviewing || draftFor.get(row.connection_id)?.status === "PENDING")
-    .sort((a, b) => Number(b.pid === hero?.pid) - Number(a.pid === hero?.pid));
-  const pending = rows.map((row) => draftFor.get(row.connection_id)).filter((d): d is Draft => d?.status === "PENDING");
+  // The inbound flight with the most passengers at risk.
+  const inbound = [...(wave?.summary.inbounds ?? [])].sort((a, b) => (b.at_risk + b.wont_make) - (a.at_risk + a.wont_make))[0];
+  const rows = (wave?.connections ?? []).filter((r) => r.inbound.flight === inbound?.flight);
+  const pendingOf = (r: ConnectionStatus) => draftFor.get(r.connection_id)?.status === "PENDING";
+  rows.sort((a, b) => Number(pendingOf(b)) - Number(pendingOf(a))
+    || (a.decided_at ?? "").localeCompare(b.decided_at ?? "") || b.p_miss - a.p_miss);
+  const atRisk = rows.filter((r) => r.zone !== "SAFE").length;
+  const onwardFlights = new Set(rows.map((r) => r.outbound.flight)).size;
+  const rebooked = rows.filter((r) => r.decision === "REBOOK").length;
+  const waiting = rows.filter(pendingOf).length;
+  const sample = rows[0]?.inbound;
 
   const act = async (work: () => Promise<unknown>) => {
     setBusy(true);
-    try {
-      await work();
-      await refresh();
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "That didn't work.");
-    } finally {
-      setBusy(false);
-    }
+    try { await work(); await refresh(); } catch (err) { setError(err instanceof Error ? err.message : "That didn't work."); } finally { setBusy(false); }
   };
-
-  const heroLanding = hero ? hero.inbound.actual ?? hero.inbound.est ?? hero.inbound.sched : null;
-  const jump = (minutesBeforeLanding: number) => {
-    if (!heroLanding) return;
-    const target = new Date(new Date(heroLanding).getTime() - minutesBeforeLanding * 60000);
-    act(() => api.control("seek", { t: target.toISOString() }));
-  };
+  const seek = (iso: string) => act(() => api.control("seek", { t: iso }));
+  const nowMs = now ? instant(now) : null;
 
   return (
-    <div className="min-h-screen bg-staffpage text-ink">
-      <header className="flex items-center gap-4 bg-gradient-to-r from-heroFrom to-heroTo px-8 py-4 text-white">
-        <span className="rounded-full border border-dashed border-white/70 px-3 py-1 text-[11px] font-bold">CATHAY</span>
-        <span className="text-[20px] font-bold">Flow Ops</span>
-        <span className="text-[16px] text-white/90">Connection Protect · HKG Transfer</span>
-        <div className="ml-auto text-right text-[13px]">
-          <div className="font-bold">Transfer desk</div>
-          <div>{now ? `${dayLabel(now)} · ${hhmm(now)} HKT` : ""} <Badge label="SIMULATED" /></div>
+    <div className="min-h-screen bg-[#F7F6F3] font-jost text-black">
+      <header className="flex items-center border-b border-[#E6E6E6] bg-white px-8 py-[18px]">
+        <span className="text-[24px]">Flow Ops</span>
+        <span className="ml-[13px] mt-[4px] text-[14px] text-muted">Connection decisions</span>
+        <div className="ml-auto text-right">
+          <div className="text-[15px] font-bold">Agent: {AGENT}</div>
+          <div className="text-[12.5px] text-muted">{nowMs ? `${longDate(nowMs).split(" ").slice(0, 3).join(" ")}, ${clock(nowMs)} HKT` : ""}</div>
         </div>
       </header>
 
-      <div className="flex flex-wrap items-center gap-2 border-b border-line bg-white px-8 py-2 text-[13px]">
-        <span className="font-bold text-deep">Replay</span>
-        <span className={`h-2 w-2 rounded-full ${connected ? "bg-ok" : "bg-saffron"}`} title={connected ? "Live" : "Reconnecting"} />
-        <ControlButton onClick={() => act(() => api.control(playing ? "pause" : "play"))} disabled={busy}>
-          {playing ? "Pause" : "Play"}
-        </ControlButton>
-        <ControlButton onClick={() => act(() => api.control("speed", { speed: 60 }))} disabled={busy}>Real minute per second</ControlButton>
-        <ControlButton onClick={() => act(() => api.control("speed", { speed: 600 }))} disabled={busy}>Fast</ControlButton>
-        <span className="mx-2 h-4 w-px bg-line" />
-        <ControlButton onClick={() => act(() => api.control("reset"))} disabled={busy}>Start of day</ControlButton>
-        <ControlButton onClick={() => jump(90)} disabled={busy || !heroLanding}>Before landing</ControlButton>
-        <ControlButton onClick={() => jump(0)} disabled={busy || !heroLanding}>At landing</ControlButton>
-        {hero && (
-          <span className="ml-auto text-muted">
-            Hero: <b className="text-ink">{hero.passenger_name}</b> · {hero.inbound.flight} → {hero.outbound.flight}
-            <Badge label="SYNTHETIC" />
-          </span>
-        )}
-      </div>
-
-      <main className="mx-auto max-w-[1280px] px-8 py-6">
+      <main className="mx-auto max-w-[1280px] px-8 pb-10 pt-6">
         {error && <p className="mb-4 rounded-[8px] bg-warn px-4 py-2 text-[14px] text-warn-text">{error}</p>}
+        {inbound && sample && (
+          <section className="rounded-[15px] bg-white shadow-[0_0_20px_rgba(0,0,0,0.05)]">
+            <div className="flex px-4 pt-[14px]">
+              <div className="w-[560px] pr-6">
+                <div className="flex items-center text-[12.5px] font-light">
+                  <span>{longDate(instant(inbound.sched))}</span>
+                  {(inbound.delay_min ?? 0) >= 15 && <><span className="mx-[9px] h-[14px] w-px bg-[#BDBDBD]" /><span className="text-late">Inbound delay</span></>}
+                </div>
+                <div className="mt-[2px] text-[20px]">
+                  <span className="font-bold text-primary">{inbound.flight}</span> {inbound.origin_city} <span>to</span> <span className="font-bold text-primary">Hong Kong</span>
+                </div>
+                <div className="mt-[8px] flex justify-between text-[15px] font-bold text-primary"><span>{inbound.origin}</span><span>HKG</span></div>
+                <div className="flex items-center">
+                  <span className="w-[80px] text-[26px]">{sample.origin_departed ? clock(instant(sample.origin_departed, zoneOf(inbound.origin)), zoneOf(inbound.origin)) : "–"}</span>
+                  <div className="relative mx-2 h-[30px] flex-1">
+                    <div className="absolute left-[24px] right-0 top-1/2 h-px bg-[#D9D9D9]" />
+                    <img src={iconPlane} alt="" className="absolute left-0 top-1/2 h-[18px] w-[18px] -translate-y-1/2 brightness-0" />
+                    <span className="absolute right-0 top-1/2 h-[8px] w-[8px] -translate-y-1/2 rounded-full bg-[#D9D9D9]" />
+                    {inbound.delay_min != null && inbound.delay_min > 0 && (
+                      <span className="absolute -top-[10px] left-1/2 -translate-x-1/2 text-[12.5px] text-late">+{inbound.delay_min} min late</span>
+                    )}
+                  </div>
+                  <span className="w-[80px] text-right text-[26px]">{clock(instant(inbound.actual ?? inbound.est ?? inbound.sched))}</span>
+                </div>
+                <div className="flex justify-between text-[11px] font-light">
+                  <span>{sample.origin_departed ? "Departed" : "Scheduled"}{sample.origin_departure ? `, planned ${clock(instant(sample.origin_departure, zoneOf(inbound.origin)), zoneOf(inbound.origin))}` : ""}</span>
+                  <span>{inbound.actual ? "On-block" : "Predicted on-block"}</span>
+                </div>
+              </div>
+              <div className="flex flex-1">
+                {[[atRisk, "passengers at risk"], [onwardFlights, "onward flights"], [rebooked, "rebooked"], [waiting, "waiting for you"]].map(([value, label]) => (
+                  <div key={label as string} className="flex-1 border-l border-[#E2E2E2] pl-[22px] pt-[56px]">
+                    <div className="text-[34px] leading-none text-primary">{value}</div>
+                    <div className="mt-[8px] text-[13px] text-black">{label}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="mt-[24px] flex items-center border-t border-[#E2E2E2] px-4 py-[14px]">
+              <span className="text-[13px] font-light">Predicted from live flight position, updated {nowMs ? clock(nowMs) : ""}</span>
+              <button className="ml-auto rounded-[8px] border border-primary px-[34px] py-[8px] text-[14px] text-primary">View flight</button>
+            </div>
+          </section>
+        )}
 
-        <InboundPicker inbounds={inbounds} selected={selected} onSelect={setSelected} />
-
-        {inbound && <InboundCard inbound={inbound} rows={rows} />}
-
-        <section className="mt-5 overflow-hidden rounded-[12px] border border-line bg-white">
-          <table className="w-full text-left text-[14px]">
-            <thead className="bg-[#F7F6F3] text-[13px] text-muted">
-              <tr>
-                <th className="px-5 py-3 font-medium">Passenger <Badge label="SYNTHETIC" /></th>
-                <th className="px-3 py-3 font-medium">Connection <Badge label="REAL" /></th>
-                <th className="px-3 py-3 font-medium">Miss risk <Badge label="SIMULATED" /></th>
-                <th className="px-3 py-3 font-medium">Impact</th>
-                <th className="px-3 py-3 font-medium">Recommended backup <Badge label="ASSUMED" /></th>
-                <th className="px-5 py-3 font-medium" />
+        <h2 className="mt-[22px] text-[22px]">Needs your decision</h2>
+        <section className="mt-[14px] rounded-[15px] bg-white px-4 pb-2 shadow-[0_0_20px_rgba(0,0,0,0.05)]">
+          <table className="w-full text-left">
+            <thead>
+              <tr className="border-b border-[#E2E2E2] text-[13px] text-black/80">
+                <th className="w-[46px]" /><th className="py-[14px] font-normal">Passenger</th><th className="font-normal">Connection</th>
+                <th className="font-normal">Miss risk</th><th className="font-normal">Why it matters</th><th className="font-normal">Flow suggests</th>
+                <th className="text-right font-normal">Decision</th>
               </tr>
             </thead>
             <tbody>
-              {rows.length === 0 && (
-                <tr><td colSpan={6} className="px-5 py-8 text-center text-muted">Nobody on this flight is at risk right now.</td></tr>
-              )}
               {rows.map((row) => (
-                <Row key={row.connection_id} row={row} draft={draftFor.get(row.connection_id)} busy={busy}
-                  hero={row.pid === hero?.pid}
-                  onApprove={(id) => act(() => api.decide(id, "approve"))}
-                  onReject={(id) => act(() => api.decide(id, "reject", "Kept on original flight by staff"))} />
+                <DecisionRow key={row.connection_id} row={row} draft={draftFor.get(row.connection_id)} busy={busy}
+                  onDecide={(id, decision) => act(() => api.decide(id, decision, decision === "reject" ? "Kept on the original flight" : undefined))} />
               ))}
+              {!rows.length && <tr><td colSpan={7} className="py-6 text-center text-[14px] text-muted">No connections at risk right now.</td></tr>}
             </tbody>
           </table>
         </section>
 
-        <div className="mt-5 flex flex-wrap items-center gap-4">
-          <div className="flex flex-1 items-start gap-3 rounded-[12px] bg-info px-5 py-4 text-[14px]">
-            <span className="mt-[2px] text-deep">ⓘ</span>
-            <div>
-              <div className="font-bold">Seats shared fairly</div>
-              <div className="text-muted">
-                Assistance needs first, families kept together, then chance of missing; tier only weights it. Held seats
-                release when the passenger boards the original flight. Nothing changes for a passenger until they choose.
-              </div>
-            </div>
-          </div>
-          <button disabled={busy || pending.length === 0}
-            onClick={() => act(() => api.approveBatch(pending.map((d) => d.draft_id)))}
-            className="h-[48px] min-w-[220px] rounded-[8px] bg-button px-6 text-[16px] font-medium text-white disabled:opacity-40">
-            Approve all ({pending.length})
-          </button>
-          <button onClick={() => setReviewing(!reviewing)}
-            className={`h-[48px] min-w-[140px] rounded-[8px] border-[1.5px] border-primary px-6 text-[16px] font-medium ${reviewing ? "bg-primary text-white" : "bg-white text-primary"}`}>
-            {reviewing ? "Show all" : "Review"}
-          </button>
+        <div className="mt-8 flex flex-wrap items-center gap-2 rounded-[10px] border border-dashed border-[#CFCBC4] bg-white/60 px-4 py-2 text-[13px] text-muted">
+          <span className="font-bold text-ink">Demo replay</span>
+          <span className={`h-2 w-2 rounded-full ${connected ? "bg-ok" : "bg-saffron"}`} />
+          <span>{nowMs ? `${longDate(nowMs)} ${clock(nowMs)} HKT` : ""}{replay?.illustrative ? " · scripted story" : ""}</span>
+          <Ctl onClick={() => act(() => api.control(playing ? "pause" : "play"))} disabled={busy}>{playing ? "Pause" : "Play"}</Ctl>
+          <Ctl onClick={() => act(() => api.control("speed", { speed: 60 }))} disabled={busy}>Normal speed</Ctl>
+          <Ctl onClick={() => act(() => api.control("speed", { speed: 1200 }))} disabled={busy}>Fast</Ctl>
+          <Ctl onClick={() => act(() => api.control("reset"))} disabled={busy}>Start of day</Ctl>
+          {replay?.illustrative && (
+            <>
+              {[["Leave home", "06:05"], ["At the airport", "07:10"], ["Decision time", "13:46"], ["Landed", "15:35"], ["Arrived", "14:05"]].map(([label, t], i) => (
+                <Ctl key={label} disabled={busy} onClick={() => seek(`${replay.start.slice(0, 8)}${i === 4 ? "16" : "15"}T${t}:00+08:00`)}>{label}</Ctl>
+              ))}
+            </>
+          )}
         </div>
-
-        {wave && <WaveFooter wave={wave} />}
       </main>
     </div>
   );
 }
 
-function ControlButton({ children, onClick, disabled }: { children: ReactNode; onClick: () => void; disabled?: boolean }) {
-  return (
-    <button onClick={onClick} disabled={disabled}
-      className="rounded-[6px] border border-line px-3 py-1 font-medium text-deep hover:bg-info disabled:opacity-40 focus-visible:ring-2 focus-visible:ring-primary">
-      {children}
-    </button>
-  );
+function Ctl({ children, onClick, disabled }: { children: React.ReactNode; onClick: () => void; disabled?: boolean }) {
+  return <button onClick={onClick} disabled={disabled} className="rounded-[6px] border border-[#CFCBC4] bg-white px-2 py-1 text-ink hover:bg-info disabled:opacity-40">{children}</button>;
 }
 
-function InboundPicker({ inbounds, selected, onSelect }: {
-  inbounds: InboundSummary[]; selected: string | null; onSelect: (flight: string | null) => void;
+function DecisionRow({ row, draft, busy, onDecide }: {
+  row: ConnectionStatus; draft?: Draft; busy: boolean; onDecide: (id: string, decision: "approve" | "reject") => void;
 }) {
-  const busy = inbounds.filter((i) => i.at_risk + i.wont_make > 0);
-  return (
-    <div className="mb-4 flex flex-wrap gap-2 text-[13px]">
-      <button onClick={() => onSelect(null)}
-        className={`rounded-full border px-3 py-1 ${selected === null ? "border-deep bg-deep text-white" : "border-line bg-white"}`}>
-        Every inbound
-      </button>
-      {busy.map((i) => (
-        <button key={i.flight} onClick={() => onSelect(i.flight)}
-          className={`rounded-full border px-3 py-1 ${selected === i.flight ? "border-deep bg-deep text-white" : "border-line bg-white"}`}>
-          {i.flight} {i.origin} · {i.at_risk + i.wont_make}
-        </button>
-      ))}
-    </div>
-  );
-}
-
-function InboundCard({ inbound, rows }: { inbound: InboundSummary; rows: ConnectionStatus[] }) {
-  const delay = inbound.delay_min ?? 0;
-  const atGate = inbound.actual ?? inbound.est;
-  const atRisk = rows.filter((r) => r.zone !== "SAFE").reduce((sum, r) => sum + r.group_size, 0);
-  const onward = new Set(rows.filter((r) => r.zone !== "SAFE").map((r) => r.outbound.flight)).size;
-  const held = rows.filter((r) => r.backup_hold).reduce((sum, r) => sum + r.group_size, 0);
-  const stat = (value: number, label: string, badge: string) => (
-    <div className="border-l border-line px-5">
-      <div className="text-[30px] font-bold text-deep">{value}</div>
-      <div className="text-[13px] text-muted">{label} <Badge label={badge} /></div>
-    </div>
-  );
-  return (
-    <section className="flex flex-wrap items-center gap-6 rounded-[12px] border border-line bg-white px-6 py-5">
-      <div className="flex-1">
-        <span className={`rounded-full px-3 py-1 text-[11px] font-bold tracking-wide ${delay >= 10 ? "bg-[#FBE7DA] text-late" : "bg-ok-bg text-ok"}`}>
-          {delay >= 10 ? "INBOUND DELAY" : "INBOUND"}
-        </span>
-        <h2 className="mt-2 text-[24px] font-bold">{inbound.flight} {inbound.origin_city} → Hong Kong</h2>
-        <p className="mt-1 text-[14px] text-muted">
-          {inbound.actual ? "At gate" : inbound.est ? "Estimated at gate" : "Scheduled at gate"}{" "}
-          {hhmm(atGate ?? inbound.sched)}
-          {delay ? ` (${delay > 0 ? "+" : ""}${delay} min)` : ""} · stand {inbound.stand ?? "unknown"} · {inbound.status.toLowerCase()}
-          <Badge label="REAL" />
-        </p>
-      </div>
-      <div className="flex">
-        {stat(atRisk, "passengers at risk", "SIMULATED")}
-        {stat(onward, "onward flights", "REAL")}
-        {stat(held, "seats held", "SIMULATED")}
-        {stat(inbound.connecting, "connecting", "SYNTHETIC")}
-      </div>
-    </section>
-  );
-}
-
-function impactOf(row: ConnectionStatus): { level: "High" | "Medium" | "Low"; why: string } {
-  const hold = row.backup_hold;
-  const gap = hold ? minutesBetween(row.outbound.sched, hold.dep) : null;
-  const next = gap !== null ? `next flight +${duration(gap)}` : "no seat held yet";
-  if (row.needs_manual_rebooking) return { level: "High", why: "missed, no seat left" };
-  if (row.zone === "SAFE") return { level: "Low", why: "likely to make it" };
-  if (row.assistance) return { level: "High", why: "assistance booked" };
-  if (row.group_size >= 3) return { level: "High", why: `group of ${row.group_size} · ${next}` };
-  if (gap !== null && gap >= 360) return { level: "High", why: next };
-  return { level: "Medium", why: next };
-}
-
-function Row({ row, draft, busy, hero, onApprove, onReject }: {
-  row: ConnectionStatus; draft?: Draft; busy: boolean; hero: boolean;
-  onApprove: (id: string) => void; onReject: (id: string) => void;
-}) {
-  const impact = impactOf(row);
-  const hold = row.backup_hold;
-  return (
-    <tr title={draft?.rationale} className={`border-t border-line align-top ${hero ? "bg-[#EEF5F4]" : ""}`}>
-      <td className="px-5 py-3">
-        <div className="font-bold">{row.passenger_name}{row.group_size > 1 ? ` (${row.group_size})` : ""}</div>
-        <div className="text-[13px] text-muted">
-          {row.tier === "None" ? "No tier" : row.tier} · {CABIN[row.cabin] ?? row.cabin}{row.assistance ? " · assistance" : ""}
-        </div>
-      </td>
-      <td className="px-3 py-3">
-        <div className="font-bold">{row.outbound.flight} {row.outbound.dest} {hhmm(row.outbound.sched)}</div>
-        <div className="text-[13px] text-muted">Gate closes {hhmm(row.gate_close)}</div>
-      </td>
-      <td className="px-3 py-3">
-        <div className={`text-[18px] font-bold ${riskColour(row.p_miss)}`}>{percent(row.p_miss)}</div>
-        <div className="mt-1 h-[5px] w-[70px] rounded bg-[#ECEAE6]">
-          <div className={`h-[5px] rounded ${barColour(row.p_miss)}`} style={{ width: `${Math.round(row.p_miss * 100)}%` }} />
-        </div>
-      </td>
-      <td className="px-3 py-3">
-        <div className={`font-bold ${impact.level === "High" ? "text-late" : impact.level === "Medium" ? "text-amber" : "text-ok"}`}>{impact.level}</div>
-        <div className="text-[13px] text-muted">{impact.why}</div>
-      </td>
-      <td className="px-3 py-3">
-        {row.needs_manual_rebooking ? (
-          <div className="font-bold text-late">Needs manual rebooking</div>
-        ) : hold ? (
-          <>
-            <div className="font-bold">{hold.flight} {hhmm(hold.dep)}</div>
-            <div className="text-[13px] text-muted">{CABIN[hold.cabin] ?? hold.cabin}{row.group_size > 1 ? " · together" : ""}</div>
-          </>
-        ) : (
-          <>
-            <div className="font-bold">Monitor only</div>
-            <div className="text-[13px] text-muted">no seat held</div>
-          </>
-        )}
-      </td>
-      <td className="px-5 py-3 text-right">
-        <Action row={row} draft={draft} busy={busy} onApprove={onApprove} onReject={onReject} />
-      </td>
-    </tr>
-  );
-}
-
-function Action({ row, draft, busy, onApprove, onReject }: {
-  row: ConnectionStatus; draft?: Draft; busy: boolean; onApprove: (id: string) => void; onReject: (id: string) => void;
-}) {
-  if (row.state === "REBOOKED") return <span className="font-bold text-ok">✓ Rebooked on {row.backup_hold?.flight}</span>;
-  if (row.state === "MADE_ORIGINAL") return <span className="font-bold text-ok">✓ Made {row.outbound.flight}</span>;
-  if (row.state === "PASSENGER_CHOSE") return <span className="font-bold text-deep">Going for {row.outbound.flight}</span>;
-  if (draft?.status === "PENDING") {
-    return (
-      <div className="flex flex-col items-end gap-1">
-        <button onClick={() => onApprove(draft.draft_id)} disabled={busy}
-          className="h-[34px] w-[138px] rounded-[6px] bg-button text-[14px] font-medium text-white disabled:opacity-40">Approve</button>
-        <button onClick={() => onReject(draft.draft_id)} disabled={busy} className="text-[12px] text-muted underline">Keep on original</button>
-      </div>
+  const alt = row.alternative;
+  const out = row.outbound;
+  const gateClose = clock(instant(row.gate_close));
+  const who = row.assistance_note ?? [row.tier, CABIN[row.cabin], row.bags && row.bags > 1 ? `${row.bags} bags` : null].filter(Boolean).join(", ");
+  const why = row.assistance
+    ? ["Assistance must move too", "Needs a booked helper"]
+    : row.zone === "SAFE" ? ["Likely to make it", "Backup held, just in case"]
+      : alt ? [`Next ${alt.dest_city} flight`, later(alt.hours_later)] : ["No later flight", "Needs manual rebooking"];
+  const suggest = draft || alt
+    ? [`Rebook ${alt?.flight ?? draft?.alt_flight} ${clock(instant(alt?.dep ?? draft!.alt_dep))}`,
+       row.assistance ? "Aisle seat + assist" : alt?.seat ? `Seat ${alt.seat}${window_(alt.seat)}` : ""]
+    : [`Keep ${out.flight}`, row.expedite_offered ? "Fast-transfer route" : ""];
+  const risk = Math.round(row.p_miss * 100);
+  let decision;
+  if (row.outcome === "MADE") decision = <span className="text-[15px] text-muted">Made {out.flight}</span>;
+  else if (row.decision === "REBOOK") decision = <span className="text-[15px] text-primary">Rebooked {row.decided_at ? clock(instant(row.decided_at)) : ""}</span>;
+  else if (row.decision === "KEEP") decision = <span className="text-[15px] text-muted">Kept on {out.flight}</span>;
+  else if (draft?.status === "PENDING") {
+    decision = (
+      <span className="inline-flex gap-[12px]">
+        <button disabled={busy} onClick={() => onDecide(draft.draft_id, "reject")}
+          className="h-[40px] w-[70px] rounded-[8px] border border-primary text-[14px] text-primary disabled:opacity-40">Keep</button>
+        <button disabled={busy} onClick={() => onDecide(draft.draft_id, "approve")}
+          className="h-[40px] w-[80px] rounded-[8px] bg-[#2C4035] text-[14px] text-white disabled:opacity-40">Rebook</button>
+      </span>
     );
-  }
-  if (row.state === "OFFERED") return <span className="font-bold text-ok">✓ Approved</span>;
-  if (draft?.status === "REJECTED") return <span className="text-muted">Kept on original</span>;
-  return <span className="text-muted">Watching</span>;
-}
-
-function WaveFooter({ wave }: { wave: Wave }) {
-  const s = wave.summary;
-  const item = (value: number, label: string, badge: string) => (
-    <span className="whitespace-nowrap">{label} <b className="text-ink">{value}</b><Badge label={badge} /></span>
-  );
+  } else decision = <span className="text-[15px] text-muted">Watching</span>;
   return (
-    <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-[13px] text-muted">
-      {item(s.connecting, "Connecting today", "SYNTHETIC")}
-      {item(s.at_risk, "At risk", "SIMULATED")}
-      {item(s.wont_make, "Won't make it", "SIMULATED")}
-      {item(s.holds, "Seats held", "SIMULATED")}
-      {item(s.drafts_pending, "Awaiting approval", "SIMULATED")}
-      {item(s.rebooked, "Rebooked", "SIMULATED")}
-      {item(s.made_original, "Made their flight", "SIMULATED")}
-      {item(s.needs_manual_rebooking, "Need manual rebooking", "SIMULATED")}
-      <span className="ml-auto">Student concept · Cathay Hackathon · flights real, passengers synthetic</span>
-    </div>
+    <tr className="border-b border-[#EEEEEE] last:border-0">
+      <td className="py-[14px]">
+        <span className="flex h-[34px] w-[34px] items-center justify-center rounded-full bg-[#F1F1F1] text-primary">
+          <svg viewBox="0 0 24 24" className="h-[16px] w-[16px]" fill="currentColor" aria-hidden="true"><path d="M12 12a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9zm-8 9a8 8 0 0 1 16 0z" /></svg>
+        </span>
+      </td>
+      <td><div className="text-[16px] font-bold">{shortName(row.passenger_name)}</div><div className="text-[13px] text-muted">{who}</div></td>
+      <td><div className="text-[16px] font-bold">{out.flight} {out.dest} {clock(instant(out.sched))}</div><div className="text-[13px] text-muted">Gate closes {gateClose}</div></td>
+      <td className={`text-[16px] ${row.zone === "SAFE" ? "text-primary" : "text-late"}`}>{risk}%</td>
+      <td><div className="text-[16px] font-bold">{why[0]}</div><div className="text-[13px] text-muted">{why[1]}</div></td>
+      <td><div className="text-[16px] font-bold">{suggest[0]}</div><div className="text-[13px] text-muted">{suggest[1]}</div></td>
+      <td className="text-right">{decision}</td>
+    </tr>
   );
 }

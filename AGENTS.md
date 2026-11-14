@@ -31,9 +31,9 @@ Both sit inside the **Flow app shell**: five journey stages, *Prepare, Navigate,
 
 ## 2. Non-negotiables (never violate; each has a test)
 
-1. **The original seat is never released early.** It is released only when (a) the passenger explicitly picks an alternative, or (b) gate close passes and the passenger has not boarded. Guard every code path that releases a seat; test it.
-2. **No rebooking without staff approval.** The engine drafts rebookings automatically; a human approves in the staff console; only then is the option offered to the passenger as confirmed.
-3. **The passenger chooses.** No silent rebooking. A held backup seat is a *hold*, not a booking.
+1. **The original seat is never released early.** *Amended 2026-11-15 (Alex):* it is released only when gate close passes and the passenger has not boarded. An agent's rebooking does **not** release it: a rebooked passenger who makes the original flight after all keeps it, and the later booking is given back (this is what prevents the auto-rebook "wrong bump"). Guard every code path that releases a seat; test it.
+2. **No rebooking without an agent.** The engine drafts rebookings automatically; a Cathay agent decides each one in Flow Ops (Keep or Rebook). Nothing is booked before that, except a held seat confirmed after a missed gate close.
+3. **The passenger is told at once.** *Amended 2026-11-15 (Alex, after the December Figma):* the agent decides, not the passenger. Every rebooking sends "Your connection has changed" immediately, shows who rebooked and when, and gives the hotline to change it. No silent rebooking. A held backup seat is a *hold*, not a booking.
 4. **Hard fairness rules beat scores.** Families/groups move together or not at all. Passengers with declared assistance needs are always protected first. Loyalty tier is a weight, never an override.
 5. **No invented facts.** Every flight number, time, seat, probability or price on a screen comes from the engine, the policy or a scenario file. Staff rationales are templates filled with structured fields; a test asserts each number and flight number in a rationale equals the draft's fields.
 6. **Real vs synthetic is always visible.** Every number shown carries a source label: `REAL` (HKIA/OAG/Google data), `ASSUMED` (our parameter), `SYNTHETIC` (generated passengers/bookings) or `SIMULATED` (output of a simulation). Show the label in the UI (small badge or tooltip) and keep it in the API payload.
@@ -223,7 +223,7 @@ The app, the shared core, research and infrastructure live in **one repo**. Reas
 
 - `POST https://routes.googleapis.com/directions/v2:computeRoutes`, headers `X-Goog-Api-Key` (SSM `/flow/google-routes-key`) and `X-Goog-FieldMask: routes.duration,routes.staticDuration,routes.distanceMeters`.
 - Driving: `travelMode: DRIVE`, `routingPreference: TRAFFIC_AWARE_OPTIMAL`, future `departureTime` (RFC 3339), `trafficModel: PESSIMISTIC` (upper estimate, historical) and `BEST_GUESS` (typical, includes live traffic near now). Traffic models are marked experimental and billed at a higher rate.
-- Transit: `travelMode: TRANSIT` (no `routingPreference`/`trafficModel`); or Airport Express ASSUMED 24 min from Hong Kong Station, every 10 min.
+- Transit (amended 2026-11-15): `travelMode: TRANSIT` with `transitPreferences.allowedTravelModes` `["RAIL"]` (planner mode `train`: MTR lines and Airport Express) or `["BUS"]` (mode `bus`); no `routingPreference`/`trafficModel`; its own field mask adds the lines used. Google returns one timetable time; the upper end is ASSUMED (`config/engine.yaml` `planner.transit`). Fallback when Google has no answer: Airport Express ASSUMED 24 min from Hong Kong Station, every 10 min.
 - Destination: address string `"Hong Kong International Airport Terminal 1"`. Cache key rounds `departureTime` to 15 min.
 - Google key comes from your own GCP project (Routes API enabled, billing on). If the team has no key, Gate Planner uses cached responses + the Airport Express fallback.
 
@@ -510,7 +510,7 @@ Offered to `AT_RISK` passengers where it lowers `p_miss` most; capacity ASSUMED 
 
 ## 12. Gate Planner (`flowcore/engine/gate_planner.py`)
 
-Input: origin, flight + date, checked bags, checked in online, HK resident, mode (car/taxi or Airport Express), buffer (`relaxed` P95 / `balanced` P85 / `tight` P70).
+Input: origin, flight + date, checked bags, checked in online, HK resident, mode (car/taxi, MTR or bus), buffer (`relaxed` P95 / `balanced` P85 / `tight` P70).
 
 ```
 door_to_gate = road (Routes PESSIMISTIC upper; BEST_GUESS typical) + check-in/bag drop (0 if online + no bags; else ASSUMED queue by hour)

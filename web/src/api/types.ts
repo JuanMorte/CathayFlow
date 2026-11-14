@@ -38,40 +38,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/passengers/{pid}/choose": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Choose */
-        post: operations["choose_api_passengers__pid__choose_post"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/passengers/{pid}/options": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Options */
-        get: operations["options_api_passengers__pid__options_get"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/api/passengers/{pid}/protect": {
         parameters: {
             query?: never;
@@ -280,25 +246,69 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        /**
+         * Alternative
+         * @description The later flight held or booked for a party.
+         */
+        Alternative: {
+            /** Booked */
+            booked: boolean;
+            /** Cabin */
+            cabin: string;
+            /**
+             * Dep
+             * Format: date-time
+             */
+            dep: string;
+            /** Dest */
+            dest: string;
+            /** Dest City */
+            dest_city: string;
+            /** Final Arrival */
+            final_arrival: string | null;
+            /** Flight */
+            flight: string;
+            /** Gate */
+            gate: string | null;
+            /** Hours Later */
+            hours_later: number;
+            /** Labels */
+            labels: {
+                [key: string]: string;
+            };
+            /** Seat */
+            seat: string | null;
+        };
         /** ApproveBatch */
         ApproveBatch: {
             /** Ids */
             ids: string[];
         };
-        /** ChooseRequest */
-        ChooseRequest: {
-            /** Option Id */
-            option_id: string;
-        };
         /** ConnectionStatus */
         ConnectionStatus: {
+            alternative?: components["schemas"]["Alternative"] | null;
             /** Assistance */
             assistance: boolean;
+            /** Assistance Note */
+            assistance_note?: string | null;
             backup_hold: components["schemas"]["Hold"] | null;
+            /** Bags */
+            bags?: number | null;
             /** Cabin */
             cabin: string;
+            /**
+             * Companions
+             * @default []
+             */
+            companions: string[];
             /** Connection Id */
             connection_id: string;
+            /** Decided At */
+            decided_at?: string | null;
+            /** Decision */
+            decision?: ("REBOOK" | "KEEP") | null;
+            /** Draft Id */
+            draft_id?: string | null;
             /** Drivers */
             drivers: components["schemas"]["Driver"][];
             /** Expedite Offered */
@@ -340,7 +350,7 @@ export interface components {
              * State
              * @enum {string}
              */
-            state: "MONITORING" | "BACKUP_HELD" | "DRAFT_PENDING" | "OFFERED" | "PASSENGER_CHOSE" | "MADE_ORIGINAL" | "REBOOKED";
+            state: "MONITORING" | "BACKUP_HELD" | "DRAFT_PENDING" | "AGENT_REBOOKED" | "MADE_ORIGINAL" | "REBOOKED";
             /**
              * T
              * Format: date-time
@@ -348,6 +358,8 @@ export interface components {
             t: string;
             /** Tier */
             tier: string;
+            /** Walk To Gate Min */
+            walk_to_gate_min?: number | null;
             /**
              * Zone
              * @enum {string}
@@ -356,6 +368,15 @@ export interface components {
         };
         /** Draft */
         Draft: {
+            /** Alt Arrival */
+            alt_arrival: string | null;
+            /**
+             * Alt Dep
+             * Format: date-time
+             */
+            alt_dep: string;
+            /** Alt Flight */
+            alt_flight: string;
             /** Assistance */
             assistance: boolean;
             /** Cabin */
@@ -374,7 +395,6 @@ export interface components {
             };
             /** Note */
             note?: string | null;
-            option: components["schemas"]["Option"];
             /** Outbound Flight */
             outbound_flight: string;
             /** P Miss */
@@ -427,6 +447,8 @@ export interface components {
             dest_arrival?: string | null;
             /** Dest City */
             dest_city: string;
+            /** Dest Terminal */
+            dest_terminal?: string | null;
             /** Est */
             est: string | null;
             /** Flight */
@@ -441,8 +463,12 @@ export interface components {
             origin: string;
             /** Origin City */
             origin_city: string;
+            /** Origin Departed */
+            origin_departed?: string | null;
             /** Origin Departure */
             origin_departure?: string | null;
+            /** Origin Terminal */
+            origin_terminal?: string | null;
             /**
              * Sched
              * Format: date-time
@@ -544,41 +570,6 @@ export interface components {
             /** Wont Make */
             wont_make: number;
         };
-        /** Option */
-        Option: {
-            /** Approved */
-            approved: boolean;
-            /** Cabin */
-            cabin: string;
-            /**
-             * Dep
-             * Format: date-time
-             */
-            dep: string;
-            /** Extras */
-            extras: string[];
-            /** Final Arrival */
-            final_arrival: string | null;
-            /** Flight */
-            flight: string;
-            /** Guaranteed */
-            guaranteed: boolean;
-            /**
-             * Kind
-             * @enum {string}
-             */
-            kind: "ORIGINAL_EXPEDITE" | "ALT_FLIGHT" | "OVERNIGHT";
-            /** Labels */
-            labels: {
-                [key: string]: string;
-            };
-            /** Option Id */
-            option_id: string;
-            /** Seat */
-            seat: string | null;
-            /** Title */
-            title: string;
-        };
         /** Passenger */
         Passenger: {
             /** Assistance */
@@ -603,6 +594,8 @@ export interface components {
             seat: string;
             /** Tier */
             tier: string;
+            /** Title */
+            title?: string | null;
         };
         /** PlannerFlight */
         PlannerFlight: {
@@ -776,6 +769,11 @@ export interface components {
             end: string;
             /** Hero Pid */
             hero_pid: string;
+            /**
+             * Illustrative
+             * @default false
+             */
+            illustrative: boolean;
             /** Playing */
             playing: boolean;
             /** Scenario Id */
@@ -795,6 +793,11 @@ export interface components {
         };
         /** ScenarioInfo */
         ScenarioInfo: {
+            /**
+             * Default
+             * @default false
+             */
+            default: boolean;
             /** Id */
             id: string;
             /** Title */
@@ -930,72 +933,6 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["ImpactMetric"][];
-                };
-            };
-        };
-    };
-    choose_api_passengers__pid__choose_post: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                pid: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["ChooseRequest"];
-            };
-        };
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ConnectionStatus"];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
-    };
-    options_api_passengers__pid__options_get: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                pid: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Option"][];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
                 };
             };
         };

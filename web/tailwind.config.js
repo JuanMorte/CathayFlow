@@ -4,7 +4,9 @@ export default {
   darkMode: "class",
   theme: {
     extend: {
-      fontFamily: { sans: ["Figtree", "system-ui", "sans-serif"] },
+      // The design uses Sofia Pro (commercial); Jost is the closest free match and is already in the design.
+      fontFamily: { sans: ["system-ui", "-apple-system", "sans-serif"], jost: ["Jost", "system-ui", "sans-serif"],
+        figtree: ["Figtree", "system-ui", "sans-serif"] },
       colors: {
         page: "#F9F8F6",
         staffpage: "#F4F3F0",

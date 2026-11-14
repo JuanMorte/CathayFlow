@@ -50,7 +50,7 @@ def test_openapi_lists_every_endpoint(client):
     paths = client.get("/openapi.json").json()["paths"]
     for path in ["/api/health", "/api/scenarios", "/api/replay/load", "/api/replay/control",
                  "/api/replay/state", "/api/passengers/{pid}/trip", "/api/passengers/{pid}/protect",
-                 "/api/passengers/{pid}/options", "/api/passengers/{pid}/choose", "/api/staff/wave",
+                 "/api/staff/wave",
                  "/api/staff/drafts", "/api/staff/drafts/{draft_id}", "/api/staff/drafts/approve-batch",
                  "/api/impact"]:
         assert path in paths, path

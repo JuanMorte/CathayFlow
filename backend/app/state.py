@@ -62,8 +62,12 @@ class Runtime:
 
     @staticmethod
     def default_scenario(wanted: str | None) -> str | None:
-        ids = [item["id"] for item in list_scenarios()]
-        return wanted if wanted in ids else (ids[0] if ids else None)
+        """The scenario asked for (FLOW_SCENARIO), else the one marked as the demo story, else the first."""
+        found = list_scenarios()
+        ids = [item["id"] for item in found]
+        if wanted in ids:
+            return wanted
+        return next((item["id"] for item in found if item.get("default")), ids[0] if ids else None)
 
     def load(self, scenario_id: str) -> None:
         self.sim, self.playing = Sim(scenario_id), False
@@ -71,7 +75,8 @@ class Runtime:
     def replay_state(self) -> dict:
         sim = self.sim
         return {"scenario_id": sim.meta["id"], "t": sim.t, "speed": self.speed, "playing": self.playing,
-                "start": sim.start, "end": sim.end, "hero_pid": sim.meta["hero_pid"]}
+                "start": sim.start, "end": sim.end, "hero_pid": sim.meta["hero_pid"],
+                "illustrative": bool(sim.meta.get("illustrative"))}
 
     async def publish(self, events: list[dict]) -> None:
         for event in events:

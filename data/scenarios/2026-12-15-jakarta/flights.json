@@ -1,0 +1,568 @@
+[
+ {
+  "key": "CX718@2026-12-15T13:55",
+  "kind": "arr",
+  "flight": "CX718",
+  "airport": "CGK",
+  "airports": [
+   "CGK"
+  ],
+  "city": "Jakarta",
+  "sched": "2026-12-15T13:55:00+08:00",
+  "actual": "2026-12-15T15:30:00+08:00",
+  "cancelled": false,
+  "stand": "N64",
+  "gate": null,
+  "terminal": null,
+  "aircraft_type": "333",
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
+  },
+  "origin_sched_departure": "2026-12-15T08:10",
+  "origin_actual_departure": "2026-12-15T09:45",
+  "origin_terminal": "Terminal 3",
+  "dest_sched_arrival": null,
+  "wave_load": 1.0,
+  "timeline": [
+   {
+    "at": "2026-12-14T20:00:00+08:00",
+    "state": "Scheduled",
+    "est": null,
+    "on_ground": null
+   },
+   {
+    "at": "2026-12-15T08:30:00+08:00",
+    "state": "Scheduled",
+    "est": "2026-12-15T13:55:00+08:00",
+    "on_ground": null
+   },
+   {
+    "at": "2026-12-15T08:20:00+08:00",
+    "state": "Scheduled",
+    "est": "2026-12-15T14:40:00+08:00",
+    "on_ground": null
+   },
+   {
+    "at": "2026-12-15T10:45:00+08:00",
+    "state": "OutGate",
+    "est": "2026-12-15T15:30:00+08:00",
+    "on_ground": null
+   },
+   {
+    "at": "2026-12-15T11:02:00+08:00",
+    "state": "InAir",
+    "est": "2026-12-15T15:30:00+08:00",
+    "on_ground": null
+   },
+   {
+    "at": "2026-12-15T15:21:00+08:00",
+    "state": "Landed",
+    "est": "2026-12-15T15:30:00+08:00",
+    "on_ground": "2026-12-15T15:21:00+08:00"
+   }
+  ],
+  "labels": {
+   "sched": "SYNTHETIC",
+   "actual": "SYNTHETIC",
+   "stand": "SYNTHETIC",
+   "gate": "SYNTHETIC",
+   "timeline": "SYNTHETIC",
+   "dest_sched_arrival": "SYNTHETIC",
+   "origin_sched_departure": "SYNTHETIC",
+   "origin_actual_departure": "SYNTHETIC",
+   "aircraft_type": "SYNTHETIC",
+   "cabin_seats": "ASSUMED"
+  }
+ },
+ {
+  "key": "CX251@2026-12-15T16:05",
+  "kind": "dep",
+  "flight": "CX251",
+  "airport": "LHR",
+  "airports": [
+   "LHR"
+  ],
+  "city": "London",
+  "sched": "2026-12-15T16:05:00+08:00",
+  "actual": "2026-12-15T16:05:00+08:00",
+  "cancelled": false,
+  "stand": null,
+  "gate": "6",
+  "terminal": "T1",
+  "aircraft_type": "333",
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
+  },
+  "origin_sched_departure": null,
+  "dest_sched_arrival": "2026-12-15T22:05",
+  "dest_terminal": "Terminal 3",
+  "timeline": [
+   {
+    "at": "2026-12-14T16:05:00+08:00",
+    "state": "Scheduled",
+    "est": null,
+    "on_ground": null,
+    "gate": null
+   },
+   {
+    "at": "2026-12-15T08:05:00+08:00",
+    "state": "Scheduled",
+    "est": "2026-12-15T16:05:00+08:00",
+    "on_ground": null,
+    "gate": null
+   },
+   {
+    "at": "2026-12-15T05:05:00+08:00",
+    "state": "Scheduled",
+    "est": "2026-12-15T16:05:00+08:00",
+    "on_ground": null,
+    "gate": "6"
+   }
+  ],
+  "labels": {
+   "sched": "SYNTHETIC",
+   "actual": "SYNTHETIC",
+   "stand": "SYNTHETIC",
+   "gate": "SYNTHETIC",
+   "timeline": "SYNTHETIC",
+   "dest_sched_arrival": "SYNTHETIC",
+   "origin_sched_departure": "SYNTHETIC",
+   "origin_actual_departure": "SYNTHETIC",
+   "aircraft_type": "SYNTHETIC",
+   "cabin_seats": "ASSUMED"
+  }
+ },
+ {
+  "key": "CX880@2026-12-15T16:15",
+  "kind": "dep",
+  "flight": "CX880",
+  "airport": "LAX",
+  "airports": [
+   "LAX"
+  ],
+  "city": "Los Angeles",
+  "sched": "2026-12-15T16:15:00+08:00",
+  "actual": "2026-12-15T16:15:00+08:00",
+  "cancelled": false,
+  "stand": null,
+  "gate": "30",
+  "terminal": "T1",
+  "aircraft_type": "333",
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
+  },
+  "origin_sched_departure": null,
+  "dest_sched_arrival": "2026-12-15T12:40",
+  "dest_terminal": null,
+  "timeline": [
+   {
+    "at": "2026-12-14T16:15:00+08:00",
+    "state": "Scheduled",
+    "est": null,
+    "on_ground": null,
+    "gate": null
+   },
+   {
+    "at": "2026-12-15T08:15:00+08:00",
+    "state": "Scheduled",
+    "est": "2026-12-15T16:15:00+08:00",
+    "on_ground": null,
+    "gate": null
+   },
+   {
+    "at": "2026-12-15T05:15:00+08:00",
+    "state": "Scheduled",
+    "est": "2026-12-15T16:15:00+08:00",
+    "on_ground": null,
+    "gate": "30"
+   }
+  ],
+  "labels": {
+   "sched": "SYNTHETIC",
+   "actual": "SYNTHETIC",
+   "stand": "SYNTHETIC",
+   "gate": "SYNTHETIC",
+   "timeline": "SYNTHETIC",
+   "dest_sched_arrival": "SYNTHETIC",
+   "origin_sched_departure": "SYNTHETIC",
+   "origin_actual_departure": "SYNTHETIC",
+   "aircraft_type": "SYNTHETIC",
+   "cabin_seats": "ASSUMED"
+  }
+ },
+ {
+  "key": "CX101@2026-12-15T16:30",
+  "kind": "dep",
+  "flight": "CX101",
+  "airport": "SYD",
+  "airports": [
+   "SYD"
+  ],
+  "city": "Sydney",
+  "sched": "2026-12-15T16:30:00+08:00",
+  "actual": "2026-12-15T16:30:00+08:00",
+  "cancelled": false,
+  "stand": null,
+  "gate": "210",
+  "terminal": "T1",
+  "aircraft_type": "333",
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
+  },
+  "origin_sched_departure": null,
+  "dest_sched_arrival": "2026-12-16T05:00",
+  "dest_terminal": null,
+  "timeline": [
+   {
+    "at": "2026-12-14T16:30:00+08:00",
+    "state": "Scheduled",
+    "est": null,
+    "on_ground": null,
+    "gate": null
+   },
+   {
+    "at": "2026-12-15T08:30:00+08:00",
+    "state": "Scheduled",
+    "est": "2026-12-15T16:30:00+08:00",
+    "on_ground": null,
+    "gate": null
+   },
+   {
+    "at": "2026-12-15T05:30:00+08:00",
+    "state": "Scheduled",
+    "est": "2026-12-15T16:30:00+08:00",
+    "on_ground": null,
+    "gate": "210"
+   }
+  ],
+  "labels": {
+   "sched": "SYNTHETIC",
+   "actual": "SYNTHETIC",
+   "stand": "SYNTHETIC",
+   "gate": "SYNTHETIC",
+   "timeline": "SYNTHETIC",
+   "dest_sched_arrival": "SYNTHETIC",
+   "origin_sched_departure": "SYNTHETIC",
+   "origin_actual_departure": "SYNTHETIC",
+   "aircraft_type": "SYNTHETIC",
+   "cabin_seats": "ASSUMED"
+  }
+ },
+ {
+  "key": "CX504@2026-12-15T16:00",
+  "kind": "dep",
+  "flight": "CX504",
+  "airport": "NRT",
+  "airports": [
+   "NRT"
+  ],
+  "city": "Tokyo",
+  "sched": "2026-12-15T16:00:00+08:00",
+  "actual": "2026-12-15T16:00:00+08:00",
+  "cancelled": false,
+  "stand": null,
+  "gate": "28",
+  "terminal": "T1",
+  "aircraft_type": "333",
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
+  },
+  "origin_sched_departure": null,
+  "dest_sched_arrival": "2026-12-15T21:10",
+  "dest_terminal": null,
+  "timeline": [
+   {
+    "at": "2026-12-14T16:00:00+08:00",
+    "state": "Scheduled",
+    "est": null,
+    "on_ground": null,
+    "gate": null
+   },
+   {
+    "at": "2026-12-15T08:00:00+08:00",
+    "state": "Scheduled",
+    "est": "2026-12-15T16:00:00+08:00",
+    "on_ground": null,
+    "gate": null
+   },
+   {
+    "at": "2026-12-15T05:00:00+08:00",
+    "state": "Scheduled",
+    "est": "2026-12-15T16:00:00+08:00",
+    "on_ground": null,
+    "gate": "28"
+   }
+  ],
+  "labels": {
+   "sched": "SYNTHETIC",
+   "actual": "SYNTHETIC",
+   "stand": "SYNTHETIC",
+   "gate": "SYNTHETIC",
+   "timeline": "SYNTHETIC",
+   "dest_sched_arrival": "SYNTHETIC",
+   "origin_sched_departure": "SYNTHETIC",
+   "origin_actual_departure": "SYNTHETIC",
+   "aircraft_type": "SYNTHETIC",
+   "cabin_seats": "ASSUMED"
+  }
+ },
+ {
+  "key": "CX500@2026-12-15T18:40",
+  "kind": "dep",
+  "flight": "CX500",
+  "airport": "NRT",
+  "airports": [
+   "NRT"
+  ],
+  "city": "Tokyo",
+  "sched": "2026-12-15T18:40:00+08:00",
+  "actual": "2026-12-15T18:40:00+08:00",
+  "cancelled": false,
+  "stand": null,
+  "gate": "25",
+  "terminal": "T1",
+  "aircraft_type": "333",
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
+  },
+  "origin_sched_departure": null,
+  "dest_sched_arrival": "2026-12-15T23:50",
+  "dest_terminal": null,
+  "timeline": [
+   {
+    "at": "2026-12-14T18:40:00+08:00",
+    "state": "Scheduled",
+    "est": null,
+    "on_ground": null,
+    "gate": null
+   },
+   {
+    "at": "2026-12-15T10:40:00+08:00",
+    "state": "Scheduled",
+    "est": "2026-12-15T18:40:00+08:00",
+    "on_ground": null,
+    "gate": null
+   },
+   {
+    "at": "2026-12-15T07:40:00+08:00",
+    "state": "Scheduled",
+    "est": "2026-12-15T18:40:00+08:00",
+    "on_ground": null,
+    "gate": "25"
+   }
+  ],
+  "labels": {
+   "sched": "SYNTHETIC",
+   "actual": "SYNTHETIC",
+   "stand": "SYNTHETIC",
+   "gate": "SYNTHETIC",
+   "timeline": "SYNTHETIC",
+   "dest_sched_arrival": "SYNTHETIC",
+   "origin_sched_departure": "SYNTHETIC",
+   "origin_actual_departure": "SYNTHETIC",
+   "aircraft_type": "SYNTHETIC",
+   "cabin_seats": "ASSUMED"
+  }
+ },
+ {
+  "key": "CX884@2026-12-15T23:35",
+  "kind": "dep",
+  "flight": "CX884",
+  "airport": "LAX",
+  "airports": [
+   "LAX"
+  ],
+  "city": "Los Angeles",
+  "sched": "2026-12-15T23:35:00+08:00",
+  "actual": "2026-12-15T23:35:00+08:00",
+  "cancelled": false,
+  "stand": null,
+  "gate": "32",
+  "terminal": "T1",
+  "aircraft_type": "333",
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
+  },
+  "origin_sched_departure": null,
+  "dest_sched_arrival": "2026-12-15T20:00",
+  "dest_terminal": null,
+  "timeline": [
+   {
+    "at": "2026-12-14T23:35:00+08:00",
+    "state": "Scheduled",
+    "est": null,
+    "on_ground": null,
+    "gate": null
+   },
+   {
+    "at": "2026-12-15T15:35:00+08:00",
+    "state": "Scheduled",
+    "est": "2026-12-15T23:35:00+08:00",
+    "on_ground": null,
+    "gate": null
+   },
+   {
+    "at": "2026-12-15T12:35:00+08:00",
+    "state": "Scheduled",
+    "est": "2026-12-15T23:35:00+08:00",
+    "on_ground": null,
+    "gate": "32"
+   }
+  ],
+  "labels": {
+   "sched": "SYNTHETIC",
+   "actual": "SYNTHETIC",
+   "stand": "SYNTHETIC",
+   "gate": "SYNTHETIC",
+   "timeline": "SYNTHETIC",
+   "dest_sched_arrival": "SYNTHETIC",
+   "origin_sched_departure": "SYNTHETIC",
+   "origin_actual_departure": "SYNTHETIC",
+   "aircraft_type": "SYNTHETIC",
+   "cabin_seats": "ASSUMED"
+  }
+ },
+ {
+  "key": "CX139@2026-12-15T23:40",
+  "kind": "dep",
+  "flight": "CX139",
+  "airport": "SYD",
+  "airports": [
+   "SYD"
+  ],
+  "city": "Sydney",
+  "sched": "2026-12-15T23:40:00+08:00",
+  "actual": "2026-12-15T23:40:00+08:00",
+  "cancelled": false,
+  "stand": null,
+  "gate": "4",
+  "terminal": "T1",
+  "aircraft_type": "333",
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
+  },
+  "origin_sched_departure": null,
+  "dest_sched_arrival": "2026-12-16T12:10",
+  "dest_terminal": null,
+  "timeline": [
+   {
+    "at": "2026-12-14T23:40:00+08:00",
+    "state": "Scheduled",
+    "est": null,
+    "on_ground": null,
+    "gate": null
+   },
+   {
+    "at": "2026-12-15T15:40:00+08:00",
+    "state": "Scheduled",
+    "est": "2026-12-15T23:40:00+08:00",
+    "on_ground": null,
+    "gate": null
+   },
+   {
+    "at": "2026-12-15T12:40:00+08:00",
+    "state": "Scheduled",
+    "est": "2026-12-15T23:40:00+08:00",
+    "on_ground": null,
+    "gate": "4"
+   }
+  ],
+  "labels": {
+   "sched": "SYNTHETIC",
+   "actual": "SYNTHETIC",
+   "stand": "SYNTHETIC",
+   "gate": "SYNTHETIC",
+   "timeline": "SYNTHETIC",
+   "dest_sched_arrival": "SYNTHETIC",
+   "origin_sched_departure": "SYNTHETIC",
+   "origin_actual_departure": "SYNTHETIC",
+   "aircraft_type": "SYNTHETIC",
+   "cabin_seats": "ASSUMED"
+  }
+ },
+ {
+  "key": "CX255@2026-12-15T23:55",
+  "kind": "dep",
+  "flight": "CX255",
+  "airport": "LHR",
+  "airports": [
+   "LHR"
+  ],
+  "city": "London",
+  "sched": "2026-12-15T23:55:00+08:00",
+  "actual": "2026-12-15T23:55:00+08:00",
+  "cancelled": false,
+  "stand": null,
+  "gate": "23",
+  "terminal": "T1",
+  "aircraft_type": "333",
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
+  },
+  "origin_sched_departure": null,
+  "dest_sched_arrival": "2026-12-16T05:55",
+  "dest_terminal": "Terminal 3",
+  "timeline": [
+   {
+    "at": "2026-12-14T23:55:00+08:00",
+    "state": "Scheduled",
+    "est": null,
+    "on_ground": null,
+    "gate": null
+   },
+   {
+    "at": "2026-12-15T15:55:00+08:00",
+    "state": "Scheduled",
+    "est": "2026-12-15T23:55:00+08:00",
+    "on_ground": null,
+    "gate": null
+   },
+   {
+    "at": "2026-12-15T12:55:00+08:00",
+    "state": "Scheduled",
+    "est": "2026-12-15T23:55:00+08:00",
+    "on_ground": null,
+    "gate": "23"
+   }
+  ],
+  "labels": {
+   "sched": "SYNTHETIC",
+   "actual": "SYNTHETIC",
+   "stand": "SYNTHETIC",
+   "gate": "SYNTHETIC",
+   "timeline": "SYNTHETIC",
+   "dest_sched_arrival": "SYNTHETIC",
+   "origin_sched_departure": "SYNTHETIC",
+   "origin_actual_departure": "SYNTHETIC",
+   "aircraft_type": "SYNTHETIC",
+   "cabin_seats": "ASSUMED"
+  }
+ }
+]

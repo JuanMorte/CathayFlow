@@ -38,7 +38,7 @@ def list_scenarios() -> list[dict]:
     found = []
     for file in sorted(scenarios_dir().glob("*/scenario.json")):
         meta = json.loads(file.read_text(encoding="utf-8"))
-        found.append({"id": meta["id"], "title": meta["title"]})
+        found.append({"id": meta["id"], "title": meta["title"], "default": bool(meta.get("default"))})
     return found
 
 

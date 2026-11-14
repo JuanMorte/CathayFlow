@@ -4,6 +4,7 @@ import copy
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
+import numpy as np
 import pytest
 
 from flowcore.engine.gate_planner import PlanRequest, Road, airport_express, gate_at, plan
@@ -100,9 +101,11 @@ def test_a_published_delay_moves_the_plan(config, zones):
 def test_road_floor_and_bus_fallback_note(config, zones):
     from flowcore.engine.gate_planner import road_samples
     from flowcore.engine.time_to_gate import rng_for
-    wide = Road(30, 60, "google", "test", "REAL", floor=27)
-    assert road_samples(wide, config, rng_for(1, "x"), 500).min() == 27
-    assert road_samples(Road(30, 60, "google", "test", "REAL"), config, rng_for(1, "x"), 500).min() == 18
+    # Median = typical, 95th percentile = upper, and nothing at or below the floor.
+    trips = road_samples(Road(30, 60, "google", "test", "REAL", floor=27), config, rng_for(1, "x"), 20000)
+    assert trips.min() > 27 and abs(np.median(trips) - 30) < 0.3 and abs(np.percentile(trips, 95) - 60) < 2
+    assert road_samples(Road(30, 60, "google", "test", "REAL"), config, rng_for(1, "x"), 500).min() > 18
+    assert set(road_samples(Road(30, 30, "google", "test", "REAL"), config, rng_for(1, "x"), 50)) == {30.0}
     fallback = lambda when: airport_express(config)  # noqa: E731
     bus = plan(PlanRequest("central", "CX135@x", mode="bus"), flight(), at(15), config, zones, fallback, seed=1)
     assert any("Bus times are unavailable" in n for n in bus.nudges)

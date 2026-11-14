@@ -1,6 +1,96 @@
 {
   "components": {
     "schemas": {
+      "Alternative": {
+        "description": "The later flight held or booked for a party.",
+        "properties": {
+          "booked": {
+            "title": "Booked",
+            "type": "boolean"
+          },
+          "cabin": {
+            "title": "Cabin",
+            "type": "string"
+          },
+          "dep": {
+            "format": "date-time",
+            "title": "Dep",
+            "type": "string"
+          },
+          "dest": {
+            "title": "Dest",
+            "type": "string"
+          },
+          "dest_city": {
+            "title": "Dest City",
+            "type": "string"
+          },
+          "final_arrival": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Final Arrival"
+          },
+          "flight": {
+            "title": "Flight",
+            "type": "string"
+          },
+          "gate": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Gate"
+          },
+          "hours_later": {
+            "title": "Hours Later",
+            "type": "number"
+          },
+          "labels": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "title": "Labels",
+            "type": "object"
+          },
+          "seat": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Seat"
+          }
+        },
+        "required": [
+          "flight",
+          "dest",
+          "dest_city",
+          "dep",
+          "final_arrival",
+          "gate",
+          "cabin",
+          "seat",
+          "hours_later",
+          "booked",
+          "labels"
+        ],
+        "title": "Alternative",
+        "type": "object"
+      },
       "ApproveBatch": {
         "properties": {
           "ids": {
@@ -17,24 +107,32 @@
         "title": "ApproveBatch",
         "type": "object"
       },
-      "ChooseRequest": {
-        "properties": {
-          "option_id": {
-            "title": "Option Id",
-            "type": "string"
-          }
-        },
-        "required": [
-          "option_id"
-        ],
-        "title": "ChooseRequest",
-        "type": "object"
-      },
       "ConnectionStatus": {
         "properties": {
+          "alternative": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Alternative"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "assistance": {
             "title": "Assistance",
             "type": "boolean"
+          },
+          "assistance_note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Assistance Note"
           },
           "backup_hold": {
             "anyOf": [
@@ -46,13 +144,70 @@
               }
             ]
           },
+          "bags": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bags"
+          },
           "cabin": {
             "title": "Cabin",
             "type": "string"
           },
+          "companions": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Companions",
+            "type": "array"
+          },
           "connection_id": {
             "title": "Connection Id",
             "type": "string"
+          },
+          "decided_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Decided At"
+          },
+          "decision": {
+            "anyOf": [
+              {
+                "enum": [
+                  "REBOOK",
+                  "KEEP"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Decision"
+          },
+          "draft_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Draft Id"
           },
           "drivers": {
             "items": {
@@ -148,8 +303,7 @@
               "MONITORING",
               "BACKUP_HELD",
               "DRAFT_PENDING",
-              "OFFERED",
-              "PASSENGER_CHOSE",
+              "AGENT_REBOOKED",
               "MADE_ORIGINAL",
               "REBOOKED"
             ],
@@ -164,6 +318,17 @@
           "tier": {
             "title": "Tier",
             "type": "string"
+          },
+          "walk_to_gate_min": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Walk To Gate Min"
           },
           "zone": {
             "enum": [
@@ -206,6 +371,27 @@
       },
       "Draft": {
         "properties": {
+          "alt_arrival": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Alt Arrival"
+          },
+          "alt_dep": {
+            "format": "date-time",
+            "title": "Alt Dep",
+            "type": "string"
+          },
+          "alt_flight": {
+            "title": "Alt Flight",
+            "type": "string"
+          },
           "assistance": {
             "title": "Assistance",
             "type": "boolean"
@@ -247,9 +433,6 @@
               }
             ],
             "title": "Note"
-          },
-          "option": {
-            "$ref": "#/components/schemas/Option"
           },
           "outbound_flight": {
             "title": "Outbound Flight",
@@ -307,7 +490,9 @@
           "zone",
           "inbound_flight",
           "outbound_flight",
-          "option",
+          "alt_flight",
+          "alt_dep",
+          "alt_arrival",
           "rationale",
           "status",
           "labels"
@@ -400,6 +585,17 @@
             "title": "Dest City",
             "type": "string"
           },
+          "dest_terminal": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dest Terminal"
+          },
           "est": {
             "anyOf": [
               {
@@ -442,6 +638,18 @@
             "title": "Origin City",
             "type": "string"
           },
+          "origin_departed": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Origin Departed"
+          },
           "origin_departure": {
             "anyOf": [
               {
@@ -453,6 +661,17 @@
               }
             ],
             "title": "Origin Departure"
+          },
+          "origin_terminal": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Origin Terminal"
           },
           "sched": {
             "format": "date-time",
@@ -763,101 +982,6 @@
         "title": "InboundSummary",
         "type": "object"
       },
-      "Option": {
-        "properties": {
-          "approved": {
-            "title": "Approved",
-            "type": "boolean"
-          },
-          "cabin": {
-            "title": "Cabin",
-            "type": "string"
-          },
-          "dep": {
-            "format": "date-time",
-            "title": "Dep",
-            "type": "string"
-          },
-          "extras": {
-            "items": {
-              "type": "string"
-            },
-            "title": "Extras",
-            "type": "array"
-          },
-          "final_arrival": {
-            "anyOf": [
-              {
-                "format": "date-time",
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Final Arrival"
-          },
-          "flight": {
-            "title": "Flight",
-            "type": "string"
-          },
-          "guaranteed": {
-            "title": "Guaranteed",
-            "type": "boolean"
-          },
-          "kind": {
-            "enum": [
-              "ORIGINAL_EXPEDITE",
-              "ALT_FLIGHT",
-              "OVERNIGHT"
-            ],
-            "title": "Kind",
-            "type": "string"
-          },
-          "labels": {
-            "additionalProperties": {
-              "type": "string"
-            },
-            "title": "Labels",
-            "type": "object"
-          },
-          "option_id": {
-            "title": "Option Id",
-            "type": "string"
-          },
-          "seat": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Seat"
-          },
-          "title": {
-            "title": "Title",
-            "type": "string"
-          }
-        },
-        "required": [
-          "option_id",
-          "kind",
-          "title",
-          "flight",
-          "dep",
-          "final_arrival",
-          "cabin",
-          "seat",
-          "guaranteed",
-          "extras",
-          "approved",
-          "labels"
-        ],
-        "title": "Option",
-        "type": "object"
-      },
       "Passenger": {
         "properties": {
           "assistance": {
@@ -902,6 +1026,17 @@
           "tier": {
             "title": "Tier",
             "type": "string"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
           }
         },
         "required": [
@@ -1296,6 +1431,11 @@
             "title": "Hero Pid",
             "type": "string"
           },
+          "illustrative": {
+            "default": false,
+            "title": "Illustrative",
+            "type": "boolean"
+          },
           "playing": {
             "title": "Playing",
             "type": "boolean"
@@ -1333,6 +1473,11 @@
       },
       "ScenarioInfo": {
         "properties": {
+          "default": {
+            "default": false,
+            "title": "Default",
+            "type": "boolean"
+          },
           "id": {
             "title": "Id",
             "type": "string"
@@ -1599,98 +1744,6 @@
           }
         },
         "summary": "Impact"
-      }
-    },
-    "/api/passengers/{pid}/choose": {
-      "post": {
-        "operationId": "choose_api_passengers__pid__choose_post",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "pid",
-            "required": true,
-            "schema": {
-              "title": "Pid",
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ChooseRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ConnectionStatus"
-                }
-              }
-            },
-            "description": "Successful Response"
-          },
-          "422": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            },
-            "description": "Validation Error"
-          }
-        },
-        "summary": "Choose"
-      }
-    },
-    "/api/passengers/{pid}/options": {
-      "get": {
-        "operationId": "options_api_passengers__pid__options_get",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "pid",
-            "required": true,
-            "schema": {
-              "title": "Pid",
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/Option"
-                  },
-                  "title": "Response Options Api Passengers  Pid  Options Get",
-                  "type": "array"
-                }
-              }
-            },
-            "description": "Successful Response"
-          },
-          "422": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            },
-            "description": "Validation Error"
-          }
-        },
-        "summary": "Options"
       }
     },
     "/api/passengers/{pid}/protect": {

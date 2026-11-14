@@ -1,0 +1,122 @@
+[
+ {
+  "party_id": "WIJAYA",
+  "size": 2,
+  "cabin": "J",
+  "seat": "11A",
+  "alt_seat": "14A",
+  "assistance_note": null,
+  "row_frac": 0.27,
+  "tier": "Gold",
+  "assistance": false,
+  "bags": 2,
+  "preference": "earliest_arrival",
+  "members": [
+   {
+    "pid": "WIJAYA-1",
+    "name": "Eka Wijaya",
+    "title": "Ms"
+   },
+   {
+    "pid": "WIJAYA-2",
+    "name": "Kai Wijaya"
+   }
+  ],
+  "is_synthetic": true,
+  "inbound": "CX718@2026-12-15T13:55",
+  "outbound": "CX251@2026-12-15T16:05",
+  "sched_gap_min": 130
+ },
+ {
+  "party_id": "CHAN",
+  "size": 1,
+  "cabin": "Y",
+  "seat": "34C",
+  "alt_seat": "34C",
+  "assistance_note": "Wheelchair assistance",
+  "row_frac": 0.5,
+  "tier": "Green",
+  "assistance": true,
+  "bags": 1,
+  "preference": "earliest_arrival",
+  "members": [
+   {
+    "pid": "CHAN-1",
+    "name": "Ming Chan"
+   }
+  ],
+  "is_synthetic": true,
+  "inbound": "CX718@2026-12-15T13:55",
+  "outbound": "CX880@2026-12-15T16:15",
+  "sched_gap_min": 140
+ },
+ {
+  "party_id": "NGUYEN",
+  "size": 1,
+  "cabin": "Y",
+  "seat": "62C",
+  "alt_seat": "42C",
+  "assistance_note": null,
+  "row_frac": 1.0,
+  "tier": "Green",
+  "assistance": false,
+  "bags": 1,
+  "preference": "earliest_arrival",
+  "members": [
+   {
+    "pid": "NGUYEN-1",
+    "name": "Thao Nguyen"
+   }
+  ],
+  "is_synthetic": true,
+  "inbound": "CX718@2026-12-15T13:55",
+  "outbound": "CX101@2026-12-15T16:30",
+  "sched_gap_min": 155
+ },
+ {
+  "party_id": "KIM",
+  "size": 1,
+  "cabin": "J",
+  "seat": "12K",
+  "alt_seat": "1A",
+  "assistance_note": null,
+  "row_frac": 0.3,
+  "tier": "Diamond",
+  "assistance": false,
+  "bags": 1,
+  "preference": "earliest_arrival",
+  "members": [
+   {
+    "pid": "KIM-1",
+    "name": "Jisoo Kim"
+   }
+  ],
+  "is_synthetic": true,
+  "inbound": "CX718@2026-12-15T13:55",
+  "outbound": "CX504@2026-12-15T16:00",
+  "sched_gap_min": 125
+ },
+ {
+  "party_id": "OKAFOR",
+  "size": 1,
+  "cabin": "Y",
+  "seat": "30D",
+  "alt_seat": "30D",
+  "assistance_note": null,
+  "row_frac": 0.0,
+  "tier": "Green",
+  "assistance": false,
+  "bags": 1,
+  "preference": "earliest_arrival",
+  "members": [
+   {
+    "pid": "OKAFOR-1",
+    "name": "Tunde Okafor"
+   }
+  ],
+  "is_synthetic": true,
+  "inbound": "CX718@2026-12-15T13:55",
+  "outbound": "CX251@2026-12-15T16:05",
+  "sched_gap_min": 130
+ }
+]

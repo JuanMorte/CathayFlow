@@ -4,14 +4,19 @@
 Each `advance_to(t)` reveals what is known at t (flowcore.engine.asof), recomputes the affected
 connections, moves the policy state machine, and returns the events to push to open screens.
 
-    MONITORING -(at risk)-> BACKUP_HELD -(drafted)-> DRAFT_PENDING -(staff approve)-> OFFERED
-        ^                       |                         | (reject -> BACKUP_HELD, logged)
+    MONITORING -(at risk)-> BACKUP_HELD -(drafted)-> DRAFT_PENDING -(agent: Rebook)-> AGENT_REBOOKED
+        ^                       |                         | (agent: Keep -> BACKUP_HELD, logged)
         +--(safe for 2 ticks)---+ release hold            v
-                                                  PASSENGER_CHOSE -> MADE_ORIGINAL | REBOOKED
+                                             at the original gate close: MADE_ORIGINAL | REBOOKED
+
+A Cathay agent decides (amended 2026-11-15, AGENTS.md §2). "Rebook" books the party on the later
+flight and tells them at once; the original seat stays held as well, until its gate closes. A
+passenger who makes the original flight after all keeps it, and the later booking is released:
+nobody is taken off a flight they would have made.
 
 Non-negotiables enforced here: the original seat is released only through
-`seats.release_original_seat`; nothing is offered as confirmed before staff approve it; nothing is
-booked without the passenger's choice, except converting a held seat after a missed gate close.
+`seats.release_original_seat`, and only once its gate has closed; nothing is booked before an agent
+approves it, except converting a held seat after a missed gate close.
 """
 
 from __future__ import annotations
@@ -27,7 +32,8 @@ from app.policy import seats as seat_rules
 from app.policy.rationale import CABIN_NAMES, rationale
 from app.policy.seats import Seats
 from flowcore.config import find_repo_root
-from flowcore.engine.asof import FlightView, inbound_view, outbound_view, sample_quantiles
+from flowcore.engine.asof import FlightView, events_until, inbound_view, outbound_view, sample_quantiles
+from flowcore.engine.gate_planner import gate_at
 from flowcore.engine.time_to_gate import (Assessment, TransferInputs, assess, draw_transfer,
                                           drivers, load_config, next_zone, rng_for)
 from flowcore.engine.zones import load_zones
@@ -70,8 +76,9 @@ class PartyState:
     draft_id: str | None = None
     rejected: bool = False
     expedite_offered: bool = False
-    chosen_kind: str | None = None
-    booked: dict | None = None           # the flight they were moved to, once rebooked
+    decision: str | None = None          # REBOOK | KEEP, the agent's decision on the draft
+    decided_at: datetime | None = None
+    booked: dict | None = None           # the later flight they are booked on, once an agent rebooks
     original_seat_held: bool = True
     release_reason: str | None = None
     safe_ticks: int = 0
@@ -96,7 +103,8 @@ class PartyState:
 
     @property
     def uses_expedite(self) -> bool:
-        return self.chosen_kind == "ORIGINAL_EXPEDITE" and self.expedite_offered
+        # Fast-track is arranged as soon as it is offered; no one has to ask for it.
+        return self.expedite_offered
 
 
 class Sim:
@@ -108,6 +116,8 @@ class Sim:
         self.policy = policy or load_policy()
         self.zones = load_zones()
         self.seed = int(self.meta["seed"])
+        # A scripted story's flight times are written, not recorded: never label them REAL.
+        self._flight_label = "SYNTHETIC" if self.meta.get("illustrative") else "REAL"
         self.start: datetime = self.meta["replay_start"]
         self.end: datetime = self.meta["replay_end"]
         self._departures_by_airport: dict[str, list[dict]] = {}
@@ -120,6 +130,8 @@ class Sim:
 
     def reset(self) -> None:
         self.t: datetime = self.start
+        for item in self.meta.get("scripted_decisions") or []:
+            item.pop("_done", None)
         self.seats = Seats(self.policy, self.flights, self.meta.get("load_factor"))
         self.drafts: dict[str, dict] = {}
         self.log: list[dict] = []
@@ -224,6 +236,7 @@ class Sim:
             if (ps.zone, ps.state) != before:
                 changed.add(party_id)
 
+        events_from_script = self._scripted(t)
         for ps in self._hold_queue():
             if self._try_hold(ps, t):
                 changed.add(ps.party["party_id"])
@@ -242,7 +255,21 @@ class Sim:
         events = [{"type": "connection_update", "to": "staff+passenger", "pid": self.parties[p].pid,
                    "pids": [m["pid"] for m in self.parties[p].party["members"]],
                    "payload": self.status_view(self.parties[p])} for p in sorted(changed)]
-        return events + draft_events + notes
+        return events + draft_events + notes + events_from_script
+
+    def _scripted(self, t: datetime) -> list[dict]:
+        """Decisions a scripted story makes on behalf of other agents (scenario `scripted_decisions`)."""
+        events = []
+        for item in self.meta.get("scripted_decisions") or []:
+            ps = self.parties.get(item["party_id"])
+            when = datetime.fromisoformat(item["at"])
+            if not ps or t < when or item.get("_done") or not ps.draft_id:
+                continue
+            if self.drafts[ps.draft_id]["status"] == "PENDING":
+                events += self.decide(ps.draft_id, item["decision"], item.get("note"))
+                ps.decided_at = when
+            item["_done"] = True
+        return events
 
     # ------------------------------------------------------------------ outcome
 
@@ -258,12 +285,21 @@ class Sim:
             true_transfer = float(self._transfer_of(ps).total[ps.true_index])
             made = arrived + timedelta(minutes=true_transfer) <= gate_close
         if made:
+            was_rebooked = ps.state == "AGENT_REBOOKED"
             ps.outcome, ps.state = "MADE", "MADE_ORIGINAL"
             self._release_hold(ps, "made the original flight")
             self._close_draft(ps, "Made the original flight")
+            if was_rebooked:
+                # The original seat was never given up, so they simply fly as first booked.
+                notes.append(self._note(ps, f"You made {ps.outbound['flight']}",
+                                        f"Your original seat was kept for you. The later booking has been released."))
+            self._log(t, "outcome", ps, outcome=ps.outcome, state=ps.state)
             return True
         ps.outcome = "MISSED"
-        if ps.hold:
+        if ps.state == "AGENT_REBOOKED":
+            seat_rules.release_original_seat(ps, seat_rules.GATE_CLOSED, t, gate_close)
+            ps.state = "REBOOKED"
+        elif ps.hold:
             # The only automatic move, and only after the miss (AGENTS.md §11.2).
             seat_rules.release_original_seat(ps, seat_rules.GATE_CLOSED, t, gate_close)
             ps.booked, ps.hold, ps.state, ps.auto_converted = ps.hold, None, "REBOOKED", True
@@ -325,7 +361,7 @@ class Sim:
                             minutes=self.policy["hold_expiry_after_gate_close_minutes"])
                         ps.hold = {"hold_id": f"H{self._hold_counter:04d}", "flight_key": flight["key"],
                                    "flight_no": flight["flight"], "dep": flight["sched"], "cabin": cabin,
-                                   "seat": None, "expires_at": expires}
+                                   "seat": ps.party.get("alt_seat"), "expires_at": expires}
                         if ps.state == "MONITORING":
                             ps.state = "BACKUP_HELD"
                         self._log(t, "hold", ps, flight=flight["flight"], cabin=cabin)
@@ -333,10 +369,12 @@ class Sim:
         return False
 
     def _release_hold(self, ps: PartyState, why: str) -> None:
-        if ps.hold:
-            self.seats.give_back(ps.hold["flight_key"], ps.hold["cabin"], ps.size)
-            self._log(self.t, "hold_released", ps, why=why)
-            ps.hold = None
+        """Give back the later seat, whether it is still a hold or already an agent's booking."""
+        for kept in (ps.hold, ps.booked):
+            if kept:
+                self.seats.give_back(kept["flight_key"], kept["cabin"], ps.size)
+                self._log(self.t, "hold_released", ps, why=why)
+        ps.hold = ps.booked = None
 
     def _offer_expedite(self, t: datetime, changed: set[str]) -> None:
         """Fast-track or escort for at-risk passengers it helps most; limited capacity (§11.4)."""
@@ -377,6 +415,7 @@ class Sim:
                 driver_text=ps.driver_list[0]["text"] if ps.driver_list else None,
                 alt_flight=flight["flight"], alt_dep=flight["sched"],
                 alt_arrival=_local(flight.get("dest_sched_arrival")), preference=ps.party["preference"]),
+            "alt_flight_key": flight["key"],
         }
         ps.draft_id, ps.state = draft_id, "DRAFT_PENDING"
         self._log(t, "draft", ps, draft=draft_id)
@@ -388,7 +427,8 @@ class Sim:
             draft["status"], draft["note"] = "REJECTED", note
 
     def decide(self, draft_id: str, decision: str, note: str | None = None) -> list[dict]:
-        """Staff approve or reject one drafted rebooking (non-negotiable 2)."""
+        """An agent's decision on one drafted rebooking: "approve" rebooks, "reject" keeps
+        (non-negotiable 2). Rebooking never gives up the original seat (non-negotiable 1)."""
         draft = self.drafts.get(draft_id)
         if not draft:
             raise PolicyError(f"Unknown draft {draft_id}.")
@@ -397,15 +437,21 @@ class Sim:
         ps = self.parties[draft["party_id"]]
         events = []
         if decision == "approve":
-            draft["status"], draft["note"], ps.state = "APPROVED", note, "OFFERED"
-            events.append(self._note(ps, "Your options are ready",
-                                     "Choose before you land. Nothing changes unless you choose."))
-            events.append({"type": "options_update", "to": "passenger",
-                           "pids": [m["pid"] for m in ps.party["members"]],
-                           "payload": {"options": self.options(ps.pid)}})
+            draft["status"], draft["note"] = "APPROVED", note
+            ps.booked, ps.hold, ps.state = ps.hold, None, "AGENT_REBOOKED"
+            ps.decision, ps.decided_at = "REBOOK", self.t
+            others = [m["name"].split()[0] for m in ps.party["members"][1:]]
+            who = "you" + (" and " + " and ".join(others) if others else "")
+            tonight = " tonight" if ps.booked["dep"].date() == ps.outbound["sched"].date() and ps.booked["dep"].hour >= 18 else ""
+            sorted_ = "Seats together, bags moved." if others else "Bags moved."
+            events.append(self._note(
+                ps, "Your connection has changed",
+                f"{ps.inbound['flight']} lands after {ps.outbound['flight']} closes, so we've moved {who} to "
+                f"{ps.booked['flight_no']}{tonight}. {sorted_} Tap for details."))
         elif decision == "reject":
-            # The backup stays held; nothing changes for the passenger.
+            # Kept on the original flight. The backup stays held in case they miss it after all.
             draft["status"], draft["note"], ps.state, ps.rejected = "REJECTED", note, "BACKUP_HELD", True
+            ps.decision, ps.decided_at = "KEEP", self.t
         else:
             raise PolicyError(f"Unknown decision '{decision}'.")
         self._log(self.t, f"draft_{decision}", ps, draft=draft_id, note=note)
@@ -414,88 +460,35 @@ class Sim:
                        "pids": [m["pid"] for m in ps.party["members"]], "payload": self.status_view(ps)})
         return events
 
-    # ------------------------------------------------------------------ options and choice
+    def _walk_to_gate(self, ps: PartyState) -> int | None:
+        """Walking minutes from the arrival stand to the gate of the flight they are now on, at the
+        average pace (ASSUMED zones and distances); None until that gate is published."""
+        flight = self.flights[ps.booked["flight_key"]] if ps.booked else ps.outbound
+        gate = gate_at(flight, self.t)
+        if not gate:
+            return None
+        start, end = self.zones.stand(ps.inbound.get("stand")), self.zones.gate(gate)
+        minutes = self.zones.walk_m(start.zone, end.zone) / self.config["walk_speed"]["mean"] / 60.0
+        return int(round(minutes + self.zones.train_minutes(start.zone, end.zone)))
 
-    def _approved(self, ps: PartyState) -> bool:
-        draft = self.drafts.get(ps.draft_id or "")
-        return bool(draft and draft["status"] == "APPROVED")
+    # ------------------------------------------------------------------ the later flight
 
-    def _option(self, ps: PartyState, kind: str, flight: dict, cabin: str, approved: bool) -> dict:
-        if kind == "ORIGINAL_EXPEDITE":
-            title = f"Stay on {flight['flight']}"
-            extras = ["Fast-track transfer", "Escort to the gate"] if ps.expedite_offered else []
-        elif kind == "ALT_FLIGHT":
-            title = f"Switch to {flight['flight']}"
-            extras = ["Seat already held"]
-        else:
-            title = f"Rest, then fly on {flight['flight']}"
-            extras = ["Next-morning departure"]
+    def _alternative(self, ps: PartyState) -> dict | None:
+        """The later flight held or booked for this party, as shown to staff and the passenger."""
+        kept = ps.booked or ps.hold
+        if not kept:
+            return None
+        flight = self.flights[kept["flight_key"]]
         return {
-            "option_id": f"{ps.party['party_id']}:{kind}", "kind": kind, "title": title,
-            "flight": flight["flight"],
-            "dep": outbound_view(flight, self.t).time if kind == "ORIGINAL_EXPEDITE" else flight["sched"],
-            "final_arrival": _local(flight.get("dest_sched_arrival")),
-            "cabin": cabin, "seat": ps.party["seat"] if kind == "ORIGINAL_EXPEDITE" else None,
-            "guaranteed": kind != "ORIGINAL_EXPEDITE", "extras": extras, "approved": approved,
-            "flight_key": flight["key"],
-            "labels": {"flight": "REAL", "dep": "REAL", "final_arrival": "REAL", "cabin": "SYNTHETIC",
-                       "seat": "SYNTHETIC", "extras": "ASSUMED"},
+            "flight": flight["flight"], "dest": flight["airport"], "dest_city": flight.get("city", flight["airport"]),
+            "dep": flight["sched"], "final_arrival": _local(flight.get("dest_sched_arrival")),
+            "gate": gate_at(flight, self.t), "cabin": kept["cabin"], "seat": kept.get("seat"),
+            "hours_later": round((flight["sched"] - ps.outbound["sched"]).total_seconds() / 3600, 1),
+            "booked": ps.booked is not None,
+            "labels": {"flight": self._flight_label, "dep": self._flight_label,
+                       "final_arrival": self._flight_label, "gate": self._flight_label,
+                       "cabin": "SYNTHETIC", "seat": "SYNTHETIC", "hours_later": self._flight_label},
         }
-
-    def _options(self, ps: PartyState) -> list[dict]:
-        if ps.state in FINAL_STATES and ps.booked:
-            flight = self.flights[ps.booked["flight_key"]]
-            return [self._option(ps, "ALT_FLIGHT", flight, ps.booked["cabin"], True)]
-        found = [self._option(ps, "ORIGINAL_EXPEDITE", ps.outbound, ps.party["cabin"], True)]
-        approved = self._approved(ps)
-        if ps.hold:
-            held = self.flights[ps.hold["flight_key"]]
-            found.append(self._option(ps, "ALT_FLIGHT", held, ps.hold["cabin"], approved))
-            morning = self._next_morning(ps, self.alternatives(ps, self.t))
-            if morning and morning["key"] != held["key"]:
-                found.append(self._option(ps, "OVERNIGHT", morning, ps.hold["cabin"], approved))
-        order = {"earliest_arrival": ["ORIGINAL_EXPEDITE", "ALT_FLIGHT", "OVERNIGHT"],
-                 "rest_first": ["OVERNIGHT", "ALT_FLIGHT", "ORIGINAL_EXPEDITE"]}.get(
-                     ps.party["preference"], ["ALT_FLIGHT", "ORIGINAL_EXPEDITE", "OVERNIGHT"])
-        return sorted(found, key=lambda option: order.index(option["kind"]))
-
-    def options(self, pid: str) -> list[dict]:
-        return [{k: v for k, v in option.items() if k != "flight_key"}
-                for option in self._options(self._party(pid))]
-
-    def choose(self, pid: str, option_id: str) -> list[dict]:
-        """The passenger picks an option (non-negotiable 3). Only approved options can be booked."""
-        ps = self._party(pid)
-        if ps.final:
-            raise PolicyError("This connection is already settled.")
-        option = next((o for o in self._options(ps) if o["option_id"] == option_id), None)
-        if not option:
-            raise PolicyError(f"Unknown option {option_id}.")
-        if option["kind"] != "ORIGINAL_EXPEDITE" and not option["approved"]:
-            raise PolicyError("This option has not been approved by staff yet.")
-        ps.chosen_kind = option["kind"]
-        if option["kind"] == "ORIGINAL_EXPEDITE":
-            ps.state, ps.view_key = "PASSENGER_CHOSE", None   # reassess with fast-track if offered
-            self._assess(ps, self.t)
-        else:
-            cabin = option["cabin"]
-            if option["kind"] == "OVERNIGHT":
-                if not self.seats.take(option["flight_key"], cabin, ps.size, self.t):
-                    ps.chosen_kind = None
-                    raise PolicyError("That flight no longer has enough seats.")
-                self._release_hold(ps, "chose the next-morning flight")
-            flight = self.flights[option["flight_key"]]
-            seat_rules.release_original_seat(ps, seat_rules.PASSENGER_CHOSE, self.t, ps.assessment.gate_close)
-            ps.booked = {"flight_key": flight["key"], "flight_no": flight["flight"], "dep": flight["sched"],
-                         "cabin": cabin, "seat": None}
-            ps.hold, ps.state = None, "REBOOKED"
-        self._log(self.t, "choice", ps, option=option["kind"], flight=option["flight"])
-        events = [{"type": "connection_update", "to": "staff+passenger", "pid": ps.pid,
-                   "pids": [m["pid"] for m in ps.party["members"]], "payload": self.status_view(ps)}]
-        if ps.draft_id:
-            events.append({"type": "draft_update", "to": "staff",
-                           "payload": self.draft_view(self.drafts[ps.draft_id])})
-        return events
 
     # ------------------------------------------------------------------ views (API payloads)
 
@@ -506,6 +499,8 @@ class Sim:
 
     def flight_ref(self, flight: dict, view: FlightView) -> dict:
         arrival = flight["kind"] == "arr"
+        # The actual departure from the origin is shown only once the flight has been reported off its gate.
+        left = any(e["state"] in ("OutGate", "InAir", "Landed") for e in events_until(flight, self.t))
         return {
             "flight": flight["flight"],
             "origin": flight["airport"] if arrival else "HKG",
@@ -515,15 +510,17 @@ class Sim:
             "sched": flight["sched"], "est": view.est, "actual": view.actual,
             "stand": flight.get("stand"), "gate": flight.get("gate"), "status": view.status,
             "origin_departure": _local(flight.get("origin_sched_departure")),
+            "origin_departed": _local(flight.get("origin_actual_departure")) if left else None,
+            "origin_terminal": flight.get("origin_terminal"), "dest_terminal": flight.get("dest_terminal"),
             "dest_arrival": _local(flight.get("dest_sched_arrival")),
-            "labels": {"sched": "REAL", "est": "REAL", "actual": "REAL", "stand": "REAL", "gate": "REAL",
-                       "status": "REAL", "origin_departure": "REAL", "dest_arrival": "REAL"},
+            "labels": {name: self._flight_label for name in (
+                "sched", "est", "actual", "stand", "gate", "status", "origin_departure", "dest_arrival")},
         }
 
     def status_view(self, ps: PartyState) -> dict:
         a = ps.assessment
         hold = None
-        shown = ps.hold or (ps.booked if ps.state == "REBOOKED" else None)
+        shown = ps.hold or ps.booked
         if shown:
             hold = {"hold_id": shown.get("hold_id", "BOOKED"), "flight": shown["flight_no"], "dep": shown["dep"],
                     "cabin": shown["cabin"], "seat": shown.get("seat"),
@@ -531,7 +528,12 @@ class Sim:
         return {
             "connection_id": ps.party["party_id"], "pid": ps.pid, "passenger_name": ps.name,
             "cabin": ps.party["cabin"], "group_size": ps.size, "assistance": ps.party["assistance"],
-            "tier": ps.party["tier"], "t": self.t,
+            "tier": ps.party["tier"], "t": self.t, "bags": ps.party.get("bags"),
+            "assistance_note": ps.party.get("assistance_note"),
+            "walk_to_gate_min": self._walk_to_gate(ps),
+            "companions": [m["name"] for m in ps.party["members"][1:]],
+            "alternative": self._alternative(ps), "draft_id": ps.draft_id,
+            "decision": ps.decision, "decided_at": ps.decided_at,
             "inbound": self.flight_ref(ps.inbound, ps.in_view),
             "outbound": self.flight_ref(ps.outbound, ps.out_view),
             "gate_close": a.gate_close,
@@ -547,33 +549,35 @@ class Sim:
                        "gate_close": "REAL", "drivers": "SIMULATED", "backup_hold": "ASSUMED",
                        "expedite_offered": "ASSUMED", "passenger_name": "SYNTHETIC", "cabin": "SYNTHETIC",
                        "group_size": "SYNTHETIC", "tier": "SYNTHETIC", "assistance": "SYNTHETIC",
+                       "bags": "SYNTHETIC", "companions": "SYNTHETIC", "decision": "SIMULATED",
+                       "assistance_note": "SYNTHETIC", "walk_to_gate_min": "ASSUMED",
                        "outcome": "SIMULATED", "needs_manual_rebooking": "SIMULATED"},
         }
 
     def draft_view(self, draft: dict) -> dict:
         ps = self.parties[draft["party_id"]]
-        held = ps.hold or ps.booked
-        flight = self.flights[held["flight_key"]] if held else ps.outbound
-        option = self._option(ps, "ALT_FLIGHT", flight, held["cabin"] if held else ps.party["cabin"],
-                              draft["status"] == "APPROVED")
-        option.pop("flight_key")
+        flight = self.flights[draft["alt_flight_key"]]
         return {
             "draft_id": draft["draft_id"], "connection_id": ps.party["party_id"], "pid": ps.pid,
             "passenger_name": ps.name, "cabin": ps.party["cabin"], "group_size": ps.size,
             "assistance": ps.party["assistance"], "tier": ps.party["tier"],
             "p_miss": draft["p_miss"], "zone": draft["zone"],
             "inbound_flight": ps.inbound["flight"], "outbound_flight": ps.outbound["flight"],
-            "option": option, "rationale": draft["rationale"], "status": draft["status"],
+            "alt_flight": flight["flight"], "alt_dep": flight["sched"],
+            "alt_arrival": _local(flight.get("dest_sched_arrival")),
+            "rationale": draft["rationale"], "status": draft["status"],
             "note": draft["note"],
             "labels": {"p_miss": "SIMULATED", "rationale": "SIMULATED", "passenger_name": "SYNTHETIC",
-                       "cabin": "SYNTHETIC", "group_size": "SYNTHETIC", "tier": "SYNTHETIC"},
+                       "cabin": "SYNTHETIC", "group_size": "SYNTHETIC", "tier": "SYNTHETIC",
+                       "alt_flight": "REAL", "alt_dep": "REAL", "alt_arrival": "REAL"},
         }
 
     def trip(self, pid: str) -> dict:
         ps = self._party(pid)
         member = next(m for m in ps.party["members"] if m["pid"] == pid)
         return {
-            "passenger": {"pid": pid, "name": member["name"], "cabin": ps.party["cabin"],
+            "passenger": {"pid": pid, "name": member["name"], "title": member.get("title"),
+                          "cabin": ps.party["cabin"],
                           "seat": ps.party["seat"], "tier": ps.party["tier"], "group_size": ps.size,
                           "assistance": ps.party["assistance"], "preference": ps.party["preference"],
                           "is_synthetic": True,
@@ -597,7 +601,7 @@ class Sim:
             entry["connecting"] += ps.size
             if ps.zone != "SAFE":
                 entry[ps.zone] += ps.size
-            # Listed: anyone at risk, and anyone with a hold, draft, offer or rebooking in play.
+            # Listed: anyone at risk, and anyone with a hold, draft or rebooking in play.
             if ps.zone != "SAFE" or ps.state not in ("MONITORING", "MADE_ORIGINAL"):
                 rows.append(ps)
         rows.sort(key=lambda ps: (-ps.assessment.p_miss, ps.party["party_id"]))
@@ -622,7 +626,8 @@ class Sim:
             "holds": sum(1 for ps in self.parties.values() if ps.hold), "peak_holds": self.peak_holds,
             "drafts_pending": sum(1 for d in self.drafts.values() if d["status"] == "PENDING"),
             "drafts_approved": sum(1 for d in self.drafts.values() if d["status"] == "APPROVED"),
-            "rebooked": states.count("REBOOKED"), "made_original": states.count("MADE_ORIGINAL"),
+            "rebooked": states.count("REBOOKED") + states.count("AGENT_REBOOKED"),
+            "made_original": states.count("MADE_ORIGINAL"),
             "needs_manual_rebooking": sum(ps.size for ps in self.parties.values()
                                           if ps.outcome == "MISSED" and ps.state != "REBOOKED"),
             "inbounds": inbound_list,

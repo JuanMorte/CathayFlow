@@ -206,3 +206,32 @@ Per milestone: wall-clock time, who/which agent, what went wrong and the rule th
   floor is 60% of typical). It does not move the leave-by time, which uses the slow end, but it is visible in
   the chart. Proposed fix: carry Google's `staticDuration` into `Road` and use it as the floor.
 - **What went wrong:** pandas stores a missing stand or gate as NaN, not None, which broke the zone lookup once.
+
+### Gate Planner: MTR and bus (2026-11-15, about 1 h)
+- **Built:** the planner's ways to get there are now car or taxi, MTR and bus. MTR and bus come from Google Routes
+  transit timetables (rail only, or bus only), per starting point and hour, and the plan names the lines used.
+  "MTR" replaces the Airport Express option, which gave every starting point the same 44 minutes.
+- **Google calls:** 2 test calls and 110 for the grid; the ledger stands at 224 of 300.
+- **Upper end (ASSUMED):** a train can run 10 minutes over the timetable; a bus 15 minutes over, plus its ride
+  stretched by Google's bad-traffic ratio for a drive at that hour.
+- **Trip-time shape:** trips are now log-normal above a floor (90% of the no-traffic drive or of the timetable),
+  with the typical time as the median and the upper time as the 95th percentile. This fixes drives faster than
+  the no-traffic time. CX135 from Central by car still gives leave by 16:35.
+- **What went wrong:** the first fix (a hard floor on a normal curve) piled 15% of drives onto the floor; the
+  chart showed it at once. Proposed rule for §17: plot any sampled distribution once before trusting it.
+
+
+### December Figma redesign (2026-11-15)
+- **Built:** every frame of the new design (Home, Settings, Leave, CGK airport, inside CGK, lock screen, rebooked,
+  inside HKIA, bags ×2, London arrival ×2) and the Flow Ops table, with photos, logos and icons pulled from the
+  Figma file. The top bar and bottom navigation are fixed; only the middle scrolls.
+- **Policy:** the agent decides (Keep / Rebook); the original seat stays held until its gate closes. Golden tests
+  rewritten; a new test checks that rebooked passengers who make the original keep it.
+- **Story:** scripted scenario `2026-12-15-jakarta`, the app's default, with scripted decisions by other agents so
+  Flow Ops at 13:46 matches the design (two waiting, two rebooked, one kept).
+- **Evidence moved:** fast-track is now arranged as soon as it is offered (no passenger choice), so the real replay
+  shows 136 missed (was 145) and 87 rebooked before landing (was 94); wrong bumps still 0.
+- **What went wrong:** the full Python suite takes about 5 minutes and was rerun too often; my output filter hid
+  its summary twice. Proposed rule for §17: run the slow suite once, in the background, at the end of a change.
+- **Differs from the design:** miss risks are computed (Wijaya 71%, not 86%; Okafor cannot reach 22% on a
+  95-minute-late inbound, so he shows his real risk and "Kept on CX251"); Sofia Pro replaced by Jost.

@@ -91,23 +91,6 @@ def build_router(runtime: Runtime) -> APIRouter:
             raise HTTPException(404, f"Unknown passenger {pid}.")
         return {**s.status_view(s.by_pid[pid]), "pid": pid}
 
-    @router.get("/passengers/{pid}/options", response_model=list[schemas.Option])
-    async def options(pid: str):
-        try:
-            return sim().options(pid)
-        except PolicyError as err:
-            raise refuse(err) from err
-
-    @router.post("/passengers/{pid}/choose", response_model=schemas.ConnectionStatus)
-    async def choose(pid: str, body: schemas.ChooseRequest):
-        s = sim()
-        try:
-            events = s.choose(pid, body.option_id)
-        except PolicyError as err:
-            raise refuse(err) from err
-        await runtime.publish(events)
-        return {**s.status_view(s.by_pid[pid]), "pid": pid}
-
     # ---- staff
 
     @router.get("/staff/wave", response_model=schemas.Wave)

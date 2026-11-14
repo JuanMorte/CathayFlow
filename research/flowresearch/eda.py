@@ -13,6 +13,7 @@ from flowcore.config import get_settings
 from flowcore.engine.gate_planner import Road
 from flowcore.engine.zones import Zones
 from flowcore.parse.hkia import HKT, delay_minutes, parse_envelopes
+from flowcore.sources import google_routes
 
 
 def google_roads() -> pd.DataFrame:
@@ -43,15 +44,59 @@ def google_roads() -> pd.DataFrame:
     return table[table["when"].dt.date == grid_day].sort_values(["origin", "hour"]).reset_index(drop=True)
 
 
-def road_lookup(roads: pd.DataFrame, origin: str):
-    """A `road_for` function for the Gate Planner engine, answering from the table (same hour of day)."""
+def google_transit() -> pd.DataFrame:
+    """One row per starting point, hour and mode (train or bus): the cached Google transit answers.
+
+    `minutes` is the whole trip from the door (walks, waits and rides), `ride_minutes` the time on board,
+    `lines` the lines used in order.
+    """
+    settings = get_settings()
+    origins = yaml.safe_load((settings.repo_root / "data" / "reference" / "planner_origins.yaml").read_text())
+    names = {o["address"]: o["name"] for o in origins["origins"]}
+    rows = []
+    for file in sorted((settings.data_dir / "raw" / "google").glob("*.json")):
+        envelope = json.loads(file.read_text(encoding="utf-8"))
+        body = envelope["request"]["body"]
+        allowed = (body.get("transitPreferences") or {}).get("allowedTravelModes") or []
+        seconds = google_routes.duration_seconds(envelope)
+        if body.get("travelMode") != "TRANSIT" or body["origin"]["address"] not in names or not allowed or not seconds:
+            continue
+        when = datetime.fromisoformat(body["departureTime"].replace("Z", "+00:00")).astimezone(HKT)
+        rides = google_routes.transit_lines(envelope)
+        rows.append({"origin": names[body["origin"]["address"]], "mode": "train" if allowed == ["RAIL"] else "bus",
+                     "hour": when.hour, "minutes": seconds / 60,
+                     "ride_minutes": sum(ride["seconds"] for ride in rides) / 60,
+                     "lines": ", then ".join(dict.fromkeys(ride["name"] for ride in rides if ride["name"]))})
+    return pd.DataFrame(rows).sort_values(["mode", "origin", "hour"]).reset_index(drop=True)
+
+
+def road_lookup(roads: pd.DataFrame, origin: str, config: dict, mode: str = "car",
+                transit: pd.DataFrame | None = None):
+    """A `road_for` function for the Gate Planner engine, answering from the tables (same hour of day).
+
+    The same sums as the app's planner service (backend/app/planner.py), which research code may not import.
+    """
     by_hour = roads[roads["origin"] == origin].set_index("hour")
+    share = config["planner"]["fastest_share"]
+
+    def drive(hour: int) -> Road:
+        row = by_hour.loc[hour]
+        return Road(row["typical"], max(row["upper"], row["typical"]), "google",
+                    f"Google traffic model, Thursday {hour:02d}:00", "REAL",
+                    floor=min(row["typical"], row["free_flow"]) * share)
 
     def lookup(when: datetime) -> Road:
         hour = min(max(when.hour, by_hour.index.min()), by_hour.index.max())
-        row = by_hour.loc[hour]
-        return Road(row["typical"], max(row["upper"], row["typical"]), "google",
-                    f"Google traffic model, Thursday {hour:02d}:00", "REAL")
+        if mode == "car":
+            return drive(hour)
+        trip = transit[(transit["origin"] == origin) & (transit["mode"] == mode) & (transit["hour"] == hour)].iloc[0]
+        spec = config["planner"]["transit"][mode]
+        upper = trip["minutes"] + spec["extra_upper"]
+        if mode == "bus":
+            car = drive(hour)
+            upper += trip["ride_minutes"] * (car.upper / car.typical - 1)
+        return Road(trip["minutes"], upper, "google_transit",
+                    f"Google timetable, Thursday {hour:02d}:00: {trip['lines']}", "REAL", floor=trip["minutes"] * share)
     return lookup
 
 

@@ -65,15 +65,6 @@ def test_demo_story(client):
     assert status["state"] == "DRAFT_PENDING"
     assert status["drivers"][0]["key"] == "inbound_delay"
 
-    options = client.get(f"/api/passengers/{HERO}/options").json()
-    assert [o["kind"] for o in options] == ["ORIGINAL_EXPEDITE", "ALT_FLIGHT", "OVERNIGHT"]
-    assert [o["flight"] for o in options] == ["CX135", "CX105", "CX163"]
-    assert [o["approved"] for o in options] == [True, False, False]
-    assert options[0]["guaranteed"] is False and options[1]["guaranteed"] is True
-    alt = next(o for o in options if o["kind"] == "ALT_FLIGHT")
-    # Not approved yet, so she cannot take it.
-    assert client.post(f"/api/passengers/{HERO}/choose", json={"option_id": alt["option_id"]}).status_code == 409
-
     # 3. The staff console shows the wave and the drafted rebookings, each with a reason.
     wave = client.get("/api/staff/wave").json()
     assert wave["summary"]["drafts_pending"] > 5 and wave["summary"]["at_risk"] > 5
@@ -82,38 +73,33 @@ def test_demo_story(client):
     mine = next(d for d in drafts if d["pid"] == HERO)
     assert "CX135" in mine["rationale"] and "CX105" in mine["rationale"] and "Mei Chen" in mine["rationale"]
 
-    # 4. Staff approve the batch in one click; both screens hear about it.
+    # 4. The agent rebooks the batch in one click; both screens hear about it at once.
     with client.websocket_connect(f"/ws?role=passenger&pid={HERO}") as phone, \
             client.websocket_connect("/ws?role=staff") as console:
         approved = client.post("/api/staff/drafts/approve-batch", json={"ids": [d["draft_id"] for d in drafts]})
         assert approved.status_code == 200 and len(approved.json()) == len(drafts)
-        assert next_of(phone, "notification")["payload"]["title"] == "Your options are ready"
-        assert next_of(phone, "options_update")["payload"]["options"]
+        note = next_of(phone, "notification")["payload"]
+        assert note["title"] == "Your connection has changed"
+        assert note["body"] == "CX254 lands after CX135 closes, so we've moved you to CX105. Bags moved. Tap for details."
         assert next_of(console, "draft_update")["payload"]["status"] == "APPROVED"
 
-        status = client.get(f"/api/passengers/{HERO}/protect").json()
-        assert status["state"] == "OFFERED" and status["original_seat_held"] is True
-        options = client.get(f"/api/passengers/{HERO}/options").json()
-        assert all(o["approved"] for o in options)
+    # 5. Mei is booked on the later flight, and her original seat is still hers.
+    status = client.get(f"/api/passengers/{HERO}/protect").json()
+    assert status["state"] == "AGENT_REBOOKED" and status["decision"] == "REBOOK"
+    assert status["decided_at"] == T_MINUS_90
+    assert status["original_seat_held"] is True
+    alternative = status["alternative"]
+    assert alternative["flight"] == "CX105" and alternative["booked"] is True
+    assert alternative["dep"] == "2026-10-23T00:20:00+08:00" and alternative["hours_later"] == 5.3
 
-        # 5. Mei chooses the held seat before she lands; the console updates.
-        chosen = client.post(f"/api/passengers/{HERO}/choose", json={"option_id": alt["option_id"]})
-        assert chosen.status_code == 200
-        body = chosen.json()
-        assert body["state"] == "REBOOKED" and body["original_seat_held"] is False
-        assert body["backup_hold"]["flight"] == "CX105"
-        update = next_of(console, "connection_update")
-        while update["payload"]["pid"] != HERO or update["payload"]["state"] == "OFFERED":
-            update = next_of(console, "connection_update")   # skip the approval's own update
-        assert update["payload"]["state"] == "REBOOKED"
-        update = next_of(phone, "connection_update")
-        if update["payload"]["state"] == "OFFERED":
-            update = next_of(phone, "connection_update")
-        assert update["payload"]["state"] == "REBOOKED"
-
-    # Settled: she cannot choose again.
-    again = client.post(f"/api/passengers/{HERO}/choose", json={"option_id": alt["option_id"]})
-    assert again.status_code == 409
+    # 6. Past her gate close the replay's ground truth decides which flight she is on.
+    seek(client, "2026-10-22T18:50:00+08:00")
+    status = client.get(f"/api/passengers/{HERO}/protect").json()
+    assert status["outcome"] in ("MADE", "MISSED")
+    if status["outcome"] == "MISSED":
+        assert status["state"] == "REBOOKED" and status["alternative"]["flight"] == "CX105"
+    else:
+        assert status["state"] == "MADE_ORIGINAL" and status["original_seat_held"] and status["alternative"] is None
 
 
 def test_single_approve_and_reject(client):
@@ -148,8 +134,9 @@ def test_play_pushes_the_clock_and_updates(client):
 def test_unknown_passenger_and_scenarios(client):
     assert client.get("/api/passengers/NOBODY/protect").status_code == 404
     assert client.get("/api/passengers/NOBODY/trip").status_code == 404
-    assert client.get("/api/scenarios").json() == [
-        {"id": "2026-10-22-evening", "title": "Thursday 22 October 2026, evening wave at Hong Kong"}]
+    found = {item["id"]: item for item in client.get("/api/scenarios").json()}
+    assert set(found) == {"2026-10-22-evening", "2026-12-15-jakarta"}
+    assert found["2026-12-15-jakarta"]["default"] and not found["2026-10-22-evening"]["default"]
     assert client.post("/api/replay/load", json={"scenario_id": "nope"}).status_code == 404
 
 
@@ -166,3 +153,32 @@ def test_mei_turns_at_risk_when_cx254_leaves_london_late(client):
     assert status["zone"] == "AT_RISK" and status["inbound"]["status"] == "Airborne"
     assert status["inbound"]["est"] == "2026-10-22T18:23:00+08:00"
     assert status["backup_hold"]["flight"] == "CX105" and status["original_seat_held"] is True
+
+
+def test_story_scenario_is_the_default_and_runs_the_design(monkeypatch):
+    """The design's story (scripted, labelled SYNTHETIC) runs through the same engine and policy."""
+    monkeypatch.delenv("FLOW_SCENARIO", raising=False)
+    monkeypatch.setenv("FLOW_TICK_SECONDS", "0.02")
+    with TestClient(create_app()) as client:
+        state = client.get("/api/replay/state").json()
+        assert state["scenario_id"] == "2026-12-15-jakarta" and state["illustrative"] is True
+        hero = state["hero_pid"]
+        trip = client.get(f"/api/passengers/{hero}/trip").json()
+        assert trip["passenger"]["title"] == "Ms" and trip["inbound"]["flight"] == "CX718"
+        assert trip["inbound"]["labels"]["sched"] == "SYNTHETIC"
+        seek(client, "2026-12-15T13:46:00+08:00")
+        status = client.get(f"/api/passengers/{hero}/protect").json()
+        assert status["state"] == "DRAFT_PENDING" and status["zone"] in ("AT_RISK", "WONT_MAKE")
+        assert status["inbound"]["est"] == "2026-12-15T15:30:00+08:00"
+        assert status["inbound"]["origin_departed"] == "2026-12-15T09:45:00"
+        assert status["alternative"]["flight"] == "CX255" and status["alternative"]["seat"] == "14A"
+        assert status["companions"] == ["Kai Wijaya"] and status["bags"] == 2
+        drafts = client.get("/api/staff/drafts", params={"status": "PENDING"}).json()
+        # As in the design at 13:46: two wait for this agent; other agents rebooked two and kept one.
+        assert sorted(d["passenger_name"] for d in drafts) == ["Eka Wijaya", "Ming Chan"]
+        decided = {row["connection_id"]: row["decision"] for row in client.get("/api/staff/wave").json()["connections"]}
+        assert decided == {"WIJAYA": None, "CHAN": None, "NGUYEN": "REBOOK", "KIM": "REBOOK", "OKAFOR": "KEEP"}
+        mine = next(d for d in drafts if d["pid"] == hero)
+        assert client.post(f"/api/staff/drafts/{mine['draft_id']}", json={"decision": "approve"}).status_code == 200
+        status = client.get(f"/api/passengers/{hero}/protect").json()
+        assert status["state"] == "AGENT_REBOOKED" and status["original_seat_held"] is True
