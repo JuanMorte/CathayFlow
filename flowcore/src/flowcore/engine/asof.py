@@ -54,7 +54,8 @@ def inbound_view(flight: dict, t: datetime, config: dict, z: np.ndarray,
         view = FlightView(base, z * taxi["sd"], "Landed", base, None, "estimate")
     elif last and last.get("state") in AIRBORNE_STATES and est:
         sd = config["inbound_estimate_sd"]["airborne"]
-        view = FlightView(est, z * sd, "Airborne", est, None, "estimate")
+        bias = config.get("inbound_estimate_bias", 0)
+        view = FlightView(est, bias + z * sd, "Airborne", est, None, "estimate")
     else:
         view = FlightView(sched, delay_samples, "Scheduled", est, None, "schedule")
 

@@ -1,0 +1,17 @@
+# Seats per cabin on Cathay Pacific aircraft, by OAG/IATA aircraft type code. Label: ASSUMED.
+#
+# The aircraft type of each flight is REAL (OAG). The seat counts are Cathay's published cabin
+# layouts as reported by seat-map sites (seatmaps.com, seatmap.app, seatcompare.ai; checked
+# 2026-11-14). Where Cathay flies several layouts of one type, `note` says which one we use.
+# F First, J Business, W Premium Economy, Y Economy.
+types:
+  "359":  {name: Airbus A350-900,  F: 0, J: 38, W: 28, Y: 214, note: "single fleet layout, 280 seats"}
+  "351":  {name: Airbus A350-1000, F: 0, J: 46, W: 32, Y: 256, note: "single fleet layout, 334 seats"}
+  "32Q":  {name: Airbus A321neo,   F: 0, J: 12, W: 0,  Y: 190, note: "single fleet layout, 202 seats"}
+  "333":  {name: Airbus A330-300,  F: 0, J: 39, W: 21, Y: 202, note: "five layouts of 262-317 seats; we use the smallest, 262"}
+  "77W":  {name: Boeing 777-300ER, F: 6, J: 53, W: 34, Y: 201, note: "three layouts; we use the four-class one, 294 seats"}
+  "773":  {name: Boeing 777-300,   F: 0, J: 42, W: 0,  Y: 356, note: "regional layout, 398 seats; least certain figure here"}
+
+# Used when a flight's aircraft type is unknown or not in the table: the A330-300, Cathay's
+# most common type on the flights we pulled.
+default_type: "333"

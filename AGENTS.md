@@ -230,7 +230,7 @@ The app, the shared core, research and infrastructure live in **one repo**. Reas
 ### 7.5 Synthetic layer (always labelled SYNTHETIC) — `research/flowresearch/synth.py`
 
 - **Connections:** CX inbound → CX outbound at HKG, scheduled gap 50–240 min, plausible routing (e.g. Europe/N. America ↔ SE Asia/Oceania/N. Asia), weighted towards realistic gaps.
-- **Passengers per connection:** Poisson, mean **2.21** (ASSUMED, from an earlier analysis). Cabin mix, seat row, family/group share, assistance share, loyalty tier from `config/engine.yaml` (ASSUMED, commented).
+- **Passengers per arrival** (amended 2026-11-14): seats on that aircraft (type REAL from OAG, layout ASSUMED in `data/reference/aircraft_seats.yaml`) × Cathay's published passenger load factor (REAL) × HKG transfer share (REAL, derived from AAHK figures). Each party's cabin follows the aircraft's cabin split; its onward flight is drawn among plausible Cathay departures 50–240 min later, tighter gaps less often. Seat row, group share, assistance share and loyalty tier are ASSUMED mixes in `research/flowresearch/synth.py`. The scenario README states the sources and the known limits.
 - **Preferences:** `earliest_arrival` | `keep_cabin` | `rest_first` | unset. Seeded; `is_synthetic=true` on every row.
 
 ### 7.6 Evidence (`data/evidence.json`, built by `research/flowresearch/build_evidence.py`)
@@ -494,7 +494,8 @@ MONITORING ──(AT_RISK)──► BACKUP_HELD ──(WONT_MAKE)──► DRAFT
 ### 11.3 Seats and allocation
 
 - Alternatives: later CX flights to the same destination that day/next morning (OAG/HKIA schedules); oneworld via OAG Connections optional.
-- Free seats: OAG `SEATS` capacity × (1 − load factor ASSUMED), else `policy.yaml` defaults (medium: F1/J3/W2/Y6 per flight, ASSUMED). **Seats deplete** as other synthetic passengers book over time (configurable rate). Track peak concurrent holds.
+- Free seats (amended 2026-11-14): seats per cabin for the flight's aircraft × (1 − Cathay's published load factor), i.e. the seats left unsold at departure on average; `policy.yaml` defaults (F1/J3/W2/Y6, ASSUMED) only when the type is unknown. No separate depletion over time: the load factor already describes departure. Track peak concurrent holds.
+- Missed with no seat held (every later flight full): flagged `needs_manual_rebooking` for staff; never rebooked automatically.
 - Competing passengers: **CP-SAT**, binary `x[i,a]`, maximise preference-weighted value; constraints: capacity per (flight, cabin), groups together or not at all, assistance first, ≤ 1 hold per passenger. Also compute greedy first-come and log both.
 
 ### 11.4 Expedite (fast-track / escort)
@@ -524,7 +525,7 @@ Output: leave-by, per-step breakdown with labels, typical vs upper, nudges. Re-p
 
 ## 13. Milestones (no timebox; in order; next only when the current DoD passes)
 
-> **CURRENT MILESTONE: M4** (research). M0–M3 passed on 2026-11-14 (M3: WebSocket held 11 min from a laptop, 0 drops; the phone check is still to do). Engine, scenario, replay and golden tests (backend side of M5–M7) were built ahead of M4. Update when a DoD passes, and log the time taken in `docs/build_log.md`.
+> **CURRENT MILESTONE: M10** (offline + rehearsal). Passed on 2026-11-14: M0–M3; M4 in reduced form (no trained model, `docs/decisions.md`); M5–M9 (screens, live replay, closed loop with golden tests and `make e2e`, Gate Planner, impact panel). Open: the phone + laptop check on the deployed URL, three rehearsals, the backup recording, `make destroy-app` when idle. Update when a DoD passes, and log the time taken in `docs/build_log.md`.
 
 **Deploy early:** from M3 onwards, run `make deploy` at the end of every milestone and check the `AppUrl` on a phone.
 

@@ -4,8 +4,14 @@ Connection Protect for Cathay transfer passengers at Hong Kong: Flow watches a t
 inbound flight is in the air, holds a backup seat before it is needed, lets staff approve rebookings in one click, and
 lets the passenger choose before they land. Built for the Cathay Hackathon 2026.
 
-- **Passenger app** (`/app`): Cathay app home with the Flow entry, the journey strip (Home → origin → HKG →
-  destination → Exit), in-flight Plan A / Plan B, navigation to the gate, bags, arrival.
+- **Passenger app** (`/app`):
+  - **Home:** the Cathay app home with the Flow entry.
+  - **Journey strip:** Home → origin → HKG → destination → Exit.
+  - **Prepare:** the leave-home timeline.
+  - **In flight:** the original flight (still held) and the flight if it is missed.
+  - **At Hong Kong:** the route to the gate.
+  - **Also:** the new flight, bags, arrival, set-up and a lock-screen alert.
+  - **Travel tools → Gate Planner:** when to leave for the airport when departing Hong Kong.
 - **Staff console** (`/staff`, "Flow Ops"): at-risk passengers per inbound flight, recommended backups, approve all.
 - **Impact panel** (`/impact`): how often tight connections break on real Hong Kong days, and what Flow changes.
 
@@ -30,8 +36,16 @@ data source in this demo**, so it is **made up** (generated deterministically pe
 `web/src/app/flow/sample.ts`): Asia Miles and Status Points; terminals, lounge, walking pace, seat numbers when the API
 has none; the departure time at the origin airport and the arrival time at the destination, and the leave-home
 timeline; bags (count, tags, weights, scans, belt); arrival details (immigration wait, exit-by, taxi and transit times,
-hotel area). Everything else is real or simulated and comes from the API. The staff console and impact panel keep their
+hotel area). The passengers themselves are synthetic. How many connect off each arrival is built from published figures
+(seats × Cathay's load factor × HKIA's transfer share; `data/scenarios/2026-10-22-evening/README.md`). Everything
+else is real or simulated and comes from the API. The staff console and impact panel keep their
 source badges, and every API payload keeps its labels.
+
+## Run it
+
+- **Local:** `make setup`, then `make demo` → http://localhost:8000 (with Wi-Fi off: `OFFLINE=1 make demo`).
+- **Tests:** `make test` runs the unit and golden tests; `make e2e` runs the browser test of the demo loop.
+- **Evidence:** `research/README.md` lists the commands that rebuild the scenario, backtest and evidence.
 
 Sources: [HKIA flight information](https://www.hongkongairport.com/) · [OAG Developer Portal](https://developers.oag.com/) ·
 [Hong Kong Observatory](https://www.hko.gov.hk/) · [Google Routes API](https://developers.google.com/maps/documentation/routes).

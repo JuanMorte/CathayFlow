@@ -33,7 +33,8 @@ SCENARIO = {
     "id": "2026-10-22-evening",
     "title": "Thursday 22 October 2026, evening wave at Hong Kong",
     "day": "2026-10-22",
-    "replay_start": "16:00",
+    # 05:30 so CX254's late pushback in London (published 05:37) happens on screen.
+    "replay_start": "05:30",
     "replay_end": "20:30",
     "inbound_window": ("16:45", "19:30"),     # scheduled arrivals whose passengers we follow
     "outbound_until": "23:30",                # latest scheduled connecting departure
@@ -41,6 +42,12 @@ SCENARIO = {
     "alternatives_until_hours": 20,           # later flights kept as rebooking alternatives
     "history_from": "2026-08-15",             # pinned window for history statistics (§17.4.6)
     "seed": 20261022,
+    # REAL: Cathay Pacific passenger load factor, August 2026 (latest monthly release before the
+    # scenario day; Cathay Group traffic figures).
+    "load_factor": 0.872,
+    # REAL, derived: transfer and transit passengers 1.50 M of 5.37 M at HKIA, October 2025 (AAHK).
+    # Airport-wide, all airlines; used as Cathay's share connecting onward within four hours.
+    "transfer_share": 0.28,
     "hero": {"inbound": "CX254", "outbound": "CX135", "name": "Mei Chen", "cabin": "J",
              "seat": "15A", "row_frac": 0.27, "tier": "Gold", "preference": "earliest_arrival"},
 }
@@ -74,12 +81,36 @@ def local_time(node: dict | None, *path: str) -> datetime | None:
     return datetime.fromisoformat(value).astimezone(HKT) if value else None
 
 
-def oag_timeline(row: dict) -> tuple[list[dict], str | None]:
-    """Published estimates for one flight, oldest first, each with the time it became known,
-    and (for departures) the scheduled arrival at the destination in local time there."""
+def schedule_types(day: date, until: datetime) -> dict[tuple[str, str], str]:
+    """Aircraft type of every Cathay departure from HKG on `day` up to `until` (OAG schedules,
+    10 per page, pages stop once past `until`). Key: (flight, scheduled local time)."""
+    found: dict[tuple[str, str], str] = {}
+    envelope = oag.flight_instances({"DepartureAirport": "HKG", "CarrierCode": "CX",
+                                     "DepartureDateTime": day.isoformat()})
+    while envelope:
+        records = envelope["body"].get("data") or []
+        for record in records:
+            if (record.get("carrier") or {}).get("iata") != "CX":
+                continue
+            when = f"{record['departure']['date']['local']}T{record['departure']['time']['local']}"
+            kind = (record.get("aircraftType") or {}).get("iata")
+            if kind:
+                found[(f"CX{record['flightNumber']}", when)] = kind
+        last = records[-1]["departure"] if records else None
+        if not last or datetime.fromisoformat(f"{last['date']['local']}T{last['time']['local']}").replace(
+                tzinfo=HKT) > until:
+            break
+        envelope = oag.next_page(envelope)
+    return found
+
+
+def oag_timeline(row: dict) -> tuple[list[dict], str | None, str | None]:
+    """Published estimates for one flight, oldest first, each with the time it became known;
+    for departures the scheduled arrival at the destination (local time there); and the
+    aircraft type."""
     number = re.fullmatch(r"CX(\d+)", row["flight"])
     if not number or row["cancelled"]:
-        return [], None
+        return [], None, None
     arrival = row["kind"] == "arr"
     params = {"CarrierCode": "CX", "FlightNumber": number[1], "Content": "STATUSDETAILED",
               ("ArrivalDateTime" if arrival else "DepartureDateTime"): row["sched"].date().isoformat()}
@@ -87,17 +118,18 @@ def oag_timeline(row: dict) -> tuple[list[dict], str | None]:
         body = oag.flight_instances(params)["body"]
     except SourceError as err:
         print(f"  OAG {row['flight']}: {err}", file=sys.stderr)
-        return [], None
+        return [], None, None
     side = "arrival" if arrival else "departure"
     records = [record for record in body.get("data") or []
                if record.get("statusDetails") and (record.get(side, {}).get("airport") or {}).get("iata") == "HKG"]
     if not records:
-        return [], None
-    dest_arrival = None
-    if not arrival:
-        far = records[0].get("arrival") or {}
-        day_local, clock_local = (far.get("date") or {}).get("local"), (far.get("time") or {}).get("local")
-        dest_arrival = f"{day_local}T{clock_local}" if day_local and clock_local else None
+        return [], None, None
+    aircraft = (records[0].get("aircraftType") or {}).get("iata")
+    # The far end's scheduled time, local there: the destination arrival for a departure, the
+    # origin departure for an arrival.
+    far = records[0].get("departure" if arrival else "arrival") or {}
+    day_local, clock_local = (far.get("date") or {}).get("local"), (far.get("time") or {}).get("local")
+    dest_arrival = f"{day_local}T{clock_local}" if day_local and clock_local else None
     events = []
     for update in sorted(records[0]["statusDetails"], key=lambda u: u.get("updatedAt") or ""):
         if not update.get("updatedAt"):
@@ -111,10 +143,12 @@ def oag_timeline(row: dict) -> tuple[list[dict], str | None]:
             actual_out = local_time(update, "departure", "actualTime", "outGate")
             event = {"at": utc_to_hkt(update["updatedAt"]), "state": update.get("state"),
                      "est": actual_out or local_time(update, "departure", "estimatedTime", "outGate"),
-                     "on_ground": None}
-        if not events or any(events[-1][name] != event[name] for name in ("state", "est", "on_ground")):
+                     "on_ground": None,
+                     # The departure gate as published at this moment (REAL); gate changes show up here.
+                     "gate": (update.get("departure") or {}).get("gate")}
+        if not events or any(events[-1].get(name) != event.get(name) for name in ("state", "est", "on_ground", "gate")):
             events.append(event)
-    return events, dest_arrival
+    return events, dest_arrival, aircraft
 
 
 def wave_counts(rows: list[dict]) -> dict:
@@ -146,6 +180,10 @@ def build() -> int:
     arrival_delays = sorted(delay_minutes(row) for row in history
                             if row["kind"] == "arr" and row["actual"] and not row["cancelled"])
     inbound_delay_quantiles = [round(float(q), 1) for q in np.quantile(arrival_delays, np.linspace(0, 1, 41))]
+    # A late departure moves gate close later; an early one does not move it earlier.
+    departure_delays = [max(delay_minutes(row), 0.0) for row in history
+                        if row["kind"] == "dep" and row["actual"] and not row["cancelled"]]
+    outbound_delay_quantiles = [round(float(q), 1) for q in np.quantile(departure_delays, np.linspace(0, 1, 41))]
     waves = wave_counts(rows)
     history_counts = [arrivals_within(waves[d], minute) for d in waves if history_from <= d < day
                       for minute in waves[d]]
@@ -167,7 +205,7 @@ def build() -> int:
         # Status histories for every inbound, the early departures, and the hero's alternatives.
         wants_oag = (row["kind"] == "arr" or row["sched"] <= oag_until
                      or (row["airport"] == hero_destination and row["sched"] <= hero_alternatives_until))
-        timeline, dest_arrival = oag_timeline(row) if wants_oag else ([], None)
+        timeline, dest_arrival, aircraft = oag_timeline(row) if wants_oag else ([], None, None)
         flight = {
             "key": flight_key(row), "kind": row["kind"], "flight": row["flight"],
             "airport": row["airport"], "airports": row["airports"],
@@ -175,10 +213,13 @@ def build() -> int:
             "sched": row["sched"], "actual": row["actual"], "cancelled": row["cancelled"],
             "stand": row["stand"], "gate": row["gate"], "terminal": row["terminal"],
             "timeline": timeline,
+            "aircraft_type": aircraft,
             # Scheduled arrival at the destination, local time there (departures with an OAG record).
-            "dest_sched_arrival": dest_arrival,
+            "dest_sched_arrival": dest_arrival if row["kind"] == "dep" else None,
+            # Scheduled departure from the origin, local time there (arrivals with an OAG record).
+            "origin_sched_departure": dest_arrival if row["kind"] == "arr" else None,
             "labels": {"sched": "REAL", "actual": "REAL", "stand": "REAL", "gate": "REAL",
-                       "timeline": "REAL", "dest_sched_arrival": "REAL"},
+                       "timeline": "REAL", "dest_sched_arrival": "REAL", "origin_sched_departure": "REAL"},
         }
         if row["kind"] == "arr":
             count = arrivals_within(waves[row["sched_date"]], row["sched"].hour * 60 + row["sched"].minute)
@@ -187,11 +228,24 @@ def build() -> int:
         flights.append(flight)
     with_timeline = sum(1 for flight in flights if flight["timeline"])
 
+    # Aircraft type for departures without a status history: one schedule query per day.
+    types = {}
+    for offset in range(2):
+        types.update(schedule_types(day + timedelta(days=offset), keep_until))
+    seat_table = yaml.safe_load((settings.repo_root / "data" / "reference" / "aircraft_seats.yaml").read_text())
+    for flight in flights:
+        if not flight["aircraft_type"]:
+            flight["aircraft_type"] = types.get((flight["flight"], f"{flight['sched']:%Y-%m-%dT%H:%M}"))
+        flight["cabin_seats"] = synth.cabin_layout(flight, seat_table)
+        flight["labels"].update(aircraft_type="REAL", cabin_seats="ASSUMED")
+    typed = sum(1 for flight in flights if flight["aircraft_type"])
+
     by_key = {flight["key"]: flight for flight in flights}
     connecting_out = [flight for flight in flights if flight["kind"] == "dep" and flight["sched"] <= connect_until]
-    parties = synth.make_connections(
+    parties, per_arrival = synth.make_connections(
         [flight for flight in flights if flight["kind"] == "arr" and not flight["cancelled"]],
-        connecting_out, airports, implausible, spec["seed"])
+        connecting_out, airports, implausible, seat_table, spec["load_factor"],
+        spec["transfer_share"], spec["seed"])
 
     hero = spec["hero"]
     hero_in = next(f for f in flights if f["kind"] == "arr" and f["flight"] == hero["inbound"])
@@ -211,10 +265,20 @@ def build() -> int:
         "hero_pid": "MEI-1", "seed": spec["seed"],
         "history_window": [spec["history_from"], (day - timedelta(days=1)).isoformat()],
         "inbound_delay_quantiles": inbound_delay_quantiles,
+        "outbound_delay_quantiles": outbound_delay_quantiles,
         "busy_wave_arrivals": busy,
+        "load_factor": spec["load_factor"],
+        "transfer_share": spec["transfer_share"],
+        "connections_per_arrival": per_arrival,
         "labels": {"flights": "REAL", "timelines": "REAL", "passengers": "SYNTHETIC",
-                   "inbound_delay_quantiles": "REAL", "busy_wave_arrivals": "REAL"},
-        "sources": {"flights": "HKIA past flights", "timelines": "OAG Flight Info, STATUSDETAILED"},
+                   "inbound_delay_quantiles": "REAL", "outbound_delay_quantiles": "REAL",
+                   "busy_wave_arrivals": "REAL",
+                   "aircraft_type": "REAL", "cabin_seats": "ASSUMED", "load_factor": "REAL",
+                   "transfer_share": "REAL", "connections_per_arrival": "SYNTHETIC"},
+        "sources": {"flights": "HKIA past flights", "timelines": "OAG Flight Info, STATUSDETAILED",
+                    "aircraft_type": "OAG Flight Info", "cabin_seats": "data/reference/aircraft_seats.yaml",
+                    "load_factor": "Cathay Group traffic figures, August 2026",
+                    "transfer_share": "AAHK air traffic figures, October 2025 (1.50 M of 5.37 M)"},
     }
     folder = save_scenario(meta, flights, parties)
     passengers = sum(party["size"] for party in parties)
@@ -222,6 +286,10 @@ def build() -> int:
     print(f"Wrote {folder.relative_to(settings.repo_root)}: {len(inbound_rows)} inbound and "
           f"{len(outbound_rows)} outbound flights ({with_timeline} with OAG timelines), "
           f"{len(parties)} parties, {passengers} passengers ({tight} on a 50 to 89 minute connection).")
+    print(f"Aircraft type known for {typed} of {len(flights)} flights.")
+    for row in per_arrival:
+        print(f"  {row['flight']:7} {row['from']} {row['aircraft_type'] or '?':4} {row['seats']:4} seats -> "
+              f"{row['connecting']:3} connecting over {row['onward_flights']} onward flights")
     print(f"History: {len(arrival_delays)} Cathay arrivals; busy half-hour = {busy:.0f} arrivals within 30 minutes.")
     print(f"OAG live calls in the last 30 days: {oag.calls_used(settings)} of {settings.oag_max_calls}.")
     return 0

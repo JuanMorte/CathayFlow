@@ -63,6 +63,8 @@ class FlightRef(BaseModel):
     stand: str | None
     gate: str | None
     status: str               # Scheduled | Airborne | Landed | At gate | Departed | Cancelled
+    origin_departure: datetime | None = None  # scheduled, local time at the origin (no offset)
+    dest_arrival: datetime | None = None      # scheduled, local time at the destination (no offset)
     labels: dict[str, str]
 
 
@@ -110,6 +112,7 @@ class ConnectionStatus(BaseModel):
     expedite_offered: bool
     original_seat_held: bool            # non-negotiable 1
     outcome: Literal["MADE", "MISSED"] | None
+    needs_manual_rebooking: bool        # missed with no seat held: staff rebook by hand
     labels: dict[str, str]
 
 
@@ -210,6 +213,7 @@ class WaveSummary(BaseModel):
     drafts_approved: int
     rebooked: int
     made_original: int
+    needs_manual_rebooking: int         # passengers
     inbounds: list[InboundSummary]
     labels: dict[str, str]
 
@@ -217,6 +221,65 @@ class WaveSummary(BaseModel):
 class Wave(BaseModel):
     summary: WaveSummary
     connections: list[ConnectionStatus]
+
+
+class PlannerOrigin(BaseModel):
+    id: str
+    name: str
+
+
+class PlannerFlight(BaseModel):
+    key: str
+    flight: str
+    dest: str
+    dest_city: str
+    sched: datetime
+    gate: str | None
+
+
+class PlannerOptions(BaseModel):
+    t: datetime
+    origins: list[PlannerOrigin]
+    flights: list[PlannerFlight]
+
+
+class PlannerRequest(BaseModel):
+    origin_id: str
+    flight_key: str
+    bags: int = 1
+    checked_in_online: bool = False
+    hk_resident: bool = True
+    mode: Literal["car", "airport_express"] = "car"
+    buffer: Literal["relaxed", "balanced", "tight"] = "balanced"
+
+
+class PlannerStep(BaseModel):
+    key: str
+    title: str
+    typical: int          # minutes, median
+    upper: int            # minutes, 95th percentile
+    label: Label
+    note: str
+
+
+class PlannerResult(BaseModel):
+    t: datetime
+    flight: str
+    dest_city: str
+    sched_departure: datetime
+    departure: datetime   # as published at t
+    gate: str | None      # as published at t
+    deadline: datetime
+    deadline_kind: str
+    leave_by: datetime
+    percentile: int
+    typical_total: int
+    upper_total: int
+    steps: list[PlannerStep]
+    road_source: Literal["google", "airport_express"]
+    road_note: str
+    nudges: list[str]
+    labels: dict[str, str]
 
 
 class ImpactMetric(BaseModel):

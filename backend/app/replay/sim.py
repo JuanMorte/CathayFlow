@@ -58,6 +58,7 @@ class PartyState:
     z: np.ndarray
     delay: np.ndarray
     true_index: int                      # which sample is this party's "real" transfer time
+    out_delay: np.ndarray | float = 0.0  # possible outbound delays (minutes) while none is published
     zone: str | None = None
     state: str = "MONITORING"
     assessment: Assessment | None = None
@@ -119,7 +120,7 @@ class Sim:
 
     def reset(self) -> None:
         self.t: datetime = self.start
-        self.seats = Seats(self.policy, self.start)
+        self.seats = Seats(self.policy, self.flights, self.meta.get("load_factor"))
         self.drafts: dict[str, dict] = {}
         self.log: list[dict] = []
         self.peak_holds = 0
@@ -146,6 +147,8 @@ class Sim:
                 delay=sample_quantiles(self.meta["inbound_delay_quantiles"], rng, samples),
                 true_index=int(rng.integers(samples)),
             )
+            # History of departure delays: a late outbound gives more time until it is known.
+            state.out_delay = sample_quantiles(self.meta.get("outbound_delay_quantiles") or [0.0, 0.0], rng, samples)
             self.parties[party["party_id"]] = state
             for member in party["members"]:
                 self.by_pid[member["pid"]] = state
@@ -183,7 +186,8 @@ class Sim:
         if key == ps.view_key:
             return False
         transfer = self._transfer_of(ps)
-        assessment = assess(in_view.time, in_view.noise, transfer, out_view.time, 0.0, self.config)
+        out_noise = ps.out_delay if out_view.source == "schedule" else 0.0
+        assessment = assess(in_view.time, in_view.noise, transfer, out_view.time, out_noise, self.config)
         if "Cancelled" in (in_view.status, out_view.status):
             assessment = Assessment(1.0, assessment.ready_p10, assessment.ready_p50, assessment.ready_p90,
                                     assessment.gate_close, assessment.minutes_available,
@@ -223,8 +227,10 @@ class Sim:
         for ps in self._hold_queue():
             if self._try_hold(ps, t):
                 changed.add(ps.party["party_id"])
-                notes.append(self._note(ps, "Backup seat held",
-                                        f"A seat on {ps.hold['flight_no']} is held for you. Your original seat stays yours."))
+                landing = ps.in_view.est or ps.in_view.time
+                notes.append(self._note(ps, "Tight connection in Hong Kong",
+                                        f"{ps.inbound['flight']} now lands {landing:%H:%M}. We've already held "
+                                        "a backup seat for you, just in case."))
         self._offer_expedite(t, changed)
         draft_events = []
         for ps in self.parties.values():
@@ -508,8 +514,10 @@ class Sim:
             "dest_city": "Hong Kong" if arrival else flight["city"],
             "sched": flight["sched"], "est": view.est, "actual": view.actual,
             "stand": flight.get("stand"), "gate": flight.get("gate"), "status": view.status,
+            "origin_departure": _local(flight.get("origin_sched_departure")),
+            "dest_arrival": _local(flight.get("dest_sched_arrival")),
             "labels": {"sched": "REAL", "est": "REAL", "actual": "REAL", "stand": "REAL", "gate": "REAL",
-                       "status": "REAL"},
+                       "status": "REAL", "origin_departure": "REAL", "dest_arrival": "REAL"},
         }
 
     def status_view(self, ps: PartyState) -> dict:
@@ -532,12 +540,14 @@ class Sim:
             "p_miss": round(a.p_miss, 3), "zone": ps.zone, "state": ps.state,
             "drivers": ps.driver_list, "backup_hold": hold, "expedite_offered": ps.expedite_offered,
             "original_seat_held": ps.original_seat_held, "outcome": ps.outcome,
+            # Missed with no seat held (every later flight full): staff must rebook by hand.
+            "needs_manual_rebooking": ps.outcome == "MISSED" and ps.state != "REBOOKED",
             "labels": {"p_miss": "SIMULATED", "zone": "SIMULATED", "ready_at_gate": "SIMULATED",
                        "minutes_available": "SIMULATED", "minutes_needed": "ASSUMED",
                        "gate_close": "REAL", "drivers": "SIMULATED", "backup_hold": "ASSUMED",
                        "expedite_offered": "ASSUMED", "passenger_name": "SYNTHETIC", "cabin": "SYNTHETIC",
                        "group_size": "SYNTHETIC", "tier": "SYNTHETIC", "assistance": "SYNTHETIC",
-                       "outcome": "SIMULATED"},
+                       "outcome": "SIMULATED", "needs_manual_rebooking": "SIMULATED"},
         }
 
     def draft_view(self, draft: dict) -> dict:
@@ -613,11 +623,14 @@ class Sim:
             "drafts_pending": sum(1 for d in self.drafts.values() if d["status"] == "PENDING"),
             "drafts_approved": sum(1 for d in self.drafts.values() if d["status"] == "APPROVED"),
             "rebooked": states.count("REBOOKED"), "made_original": states.count("MADE_ORIGINAL"),
+            "needs_manual_rebooking": sum(ps.size for ps in self.parties.values()
+                                          if ps.outcome == "MISSED" and ps.state != "REBOOKED"),
             "inbounds": inbound_list,
             "labels": {"connecting": "SYNTHETIC", "safe": "SIMULATED", "at_risk": "SIMULATED",
                        "wont_make": "SIMULATED", "holds": "SIMULATED", "peak_holds": "SIMULATED",
                        "drafts_pending": "SIMULATED", "drafts_approved": "SIMULATED",
-                       "rebooked": "SIMULATED", "made_original": "SIMULATED"},
+                       "rebooked": "SIMULATED", "made_original": "SIMULATED",
+                       "needs_manual_rebooking": "SIMULATED"},
         }
         return {"summary": summary, "connections": [self.status_view(ps) for ps in rows]}
 

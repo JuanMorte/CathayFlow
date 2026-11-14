@@ -124,11 +124,13 @@ def test_choosing_the_original_keeps_everything(sim):
 # 4. Hard fairness rules beat scores. -----------------------------------------------------
 
 def test_a_party_is_never_split():
-    seats = Seats(load_policy(), at(16))
-    assert seats.free("X", "J", at(16)) == 3
-    assert seats.take("X", "J", 4, at(16)) is False       # family of four, three seats: nobody moves
-    assert seats.free("X", "J", at(16)) == 3
-    assert seats.take("X", "J", 3, at(16)) is True and seats.free("X", "J", at(16)) == 0
+    # A350-900 Business: 38 seats x (1 - 0.872) = 4.9 -> 4 free.
+    seats = Seats(load_policy(), {"X": {"cabin_seats": {"F": 0, "J": 38, "W": 28, "Y": 214}}}, 0.872)
+    assert seats.free("X", "J") == 4 and seats.free("X", "Y") == 27 and seats.free("X", "F") == 0
+    assert seats.take("X", "J", 5, at(16)) is False       # family of five, four seats: nobody moves
+    assert seats.free("X", "J") == 4
+    assert seats.take("X", "J", 4, at(16)) is True and seats.free("X", "J") == 0
+    assert Seats(load_policy()).free("unknown", "J") == 3  # fallback for an unknown aircraft
 
 
 def test_assistance_first_and_tier_is_only_a_weight(sim):

@@ -1,0 +1,8 @@
+# Starting points offered by the Gate Planner. Addresses are sent to Google Routes as written.
+# `station`: the Airport Express station a traveller would use from here (ASSUMED).
+origins:
+  - {id: central, name: Central, address: "Central, Hong Kong", station: Hong Kong}
+  - {id: tst, name: Tsim Sha Tsui, address: "Tsim Sha Tsui, Kowloon, Hong Kong", station: Kowloon}
+  - {id: causeway, name: Causeway Bay, address: "Causeway Bay, Hong Kong", station: Hong Kong}
+  - {id: shatin, name: Sha Tin, address: "Sha Tin, New Territories, Hong Kong", station: Kowloon}
+  - {id: tko, name: Tseung Kwan O, address: "Tseung Kwan O, New Territories, Hong Kong", station: Kowloon}

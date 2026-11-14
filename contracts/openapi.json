@@ -102,6 +102,10 @@
             "title": "Minutes Needed",
             "type": "array"
           },
+          "needs_manual_rebooking": {
+            "title": "Needs Manual Rebooking",
+            "type": "boolean"
+          },
           "original_seat_held": {
             "title": "Original Seat Held",
             "type": "boolean"
@@ -194,6 +198,7 @@
           "expedite_offered",
           "original_seat_held",
           "outcome",
+          "needs_manual_rebooking",
           "labels"
         ],
         "title": "ConnectionStatus",
@@ -379,6 +384,18 @@
             "title": "Dest",
             "type": "string"
           },
+          "dest_arrival": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dest Arrival"
+          },
           "dest_city": {
             "title": "Dest City",
             "type": "string"
@@ -424,6 +441,18 @@
           "origin_city": {
             "title": "Origin City",
             "type": "string"
+          },
+          "origin_departure": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Origin Departure"
           },
           "sched": {
             "format": "date-time",
@@ -890,6 +919,314 @@
         "title": "Passenger",
         "type": "object"
       },
+      "PlannerFlight": {
+        "properties": {
+          "dest": {
+            "title": "Dest",
+            "type": "string"
+          },
+          "dest_city": {
+            "title": "Dest City",
+            "type": "string"
+          },
+          "flight": {
+            "title": "Flight",
+            "type": "string"
+          },
+          "gate": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Gate"
+          },
+          "key": {
+            "title": "Key",
+            "type": "string"
+          },
+          "sched": {
+            "format": "date-time",
+            "title": "Sched",
+            "type": "string"
+          }
+        },
+        "required": [
+          "key",
+          "flight",
+          "dest",
+          "dest_city",
+          "sched",
+          "gate"
+        ],
+        "title": "PlannerFlight",
+        "type": "object"
+      },
+      "PlannerOptions": {
+        "properties": {
+          "flights": {
+            "items": {
+              "$ref": "#/components/schemas/PlannerFlight"
+            },
+            "title": "Flights",
+            "type": "array"
+          },
+          "origins": {
+            "items": {
+              "$ref": "#/components/schemas/PlannerOrigin"
+            },
+            "title": "Origins",
+            "type": "array"
+          },
+          "t": {
+            "format": "date-time",
+            "title": "T",
+            "type": "string"
+          }
+        },
+        "required": [
+          "t",
+          "origins",
+          "flights"
+        ],
+        "title": "PlannerOptions",
+        "type": "object"
+      },
+      "PlannerOrigin": {
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ],
+        "title": "PlannerOrigin",
+        "type": "object"
+      },
+      "PlannerRequest": {
+        "properties": {
+          "bags": {
+            "default": 1,
+            "title": "Bags",
+            "type": "integer"
+          },
+          "buffer": {
+            "default": "balanced",
+            "enum": [
+              "relaxed",
+              "balanced",
+              "tight"
+            ],
+            "title": "Buffer",
+            "type": "string"
+          },
+          "checked_in_online": {
+            "default": false,
+            "title": "Checked In Online",
+            "type": "boolean"
+          },
+          "flight_key": {
+            "title": "Flight Key",
+            "type": "string"
+          },
+          "hk_resident": {
+            "default": true,
+            "title": "Hk Resident",
+            "type": "boolean"
+          },
+          "mode": {
+            "default": "car",
+            "enum": [
+              "car",
+              "airport_express"
+            ],
+            "title": "Mode",
+            "type": "string"
+          },
+          "origin_id": {
+            "title": "Origin Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "origin_id",
+          "flight_key"
+        ],
+        "title": "PlannerRequest",
+        "type": "object"
+      },
+      "PlannerResult": {
+        "properties": {
+          "deadline": {
+            "format": "date-time",
+            "title": "Deadline",
+            "type": "string"
+          },
+          "deadline_kind": {
+            "title": "Deadline Kind",
+            "type": "string"
+          },
+          "departure": {
+            "format": "date-time",
+            "title": "Departure",
+            "type": "string"
+          },
+          "dest_city": {
+            "title": "Dest City",
+            "type": "string"
+          },
+          "flight": {
+            "title": "Flight",
+            "type": "string"
+          },
+          "gate": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Gate"
+          },
+          "labels": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "title": "Labels",
+            "type": "object"
+          },
+          "leave_by": {
+            "format": "date-time",
+            "title": "Leave By",
+            "type": "string"
+          },
+          "nudges": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Nudges",
+            "type": "array"
+          },
+          "percentile": {
+            "title": "Percentile",
+            "type": "integer"
+          },
+          "road_note": {
+            "title": "Road Note",
+            "type": "string"
+          },
+          "road_source": {
+            "enum": [
+              "google",
+              "airport_express"
+            ],
+            "title": "Road Source",
+            "type": "string"
+          },
+          "sched_departure": {
+            "format": "date-time",
+            "title": "Sched Departure",
+            "type": "string"
+          },
+          "steps": {
+            "items": {
+              "$ref": "#/components/schemas/PlannerStep"
+            },
+            "title": "Steps",
+            "type": "array"
+          },
+          "t": {
+            "format": "date-time",
+            "title": "T",
+            "type": "string"
+          },
+          "typical_total": {
+            "title": "Typical Total",
+            "type": "integer"
+          },
+          "upper_total": {
+            "title": "Upper Total",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "t",
+          "flight",
+          "dest_city",
+          "sched_departure",
+          "departure",
+          "gate",
+          "deadline",
+          "deadline_kind",
+          "leave_by",
+          "percentile",
+          "typical_total",
+          "upper_total",
+          "steps",
+          "road_source",
+          "road_note",
+          "nudges",
+          "labels"
+        ],
+        "title": "PlannerResult",
+        "type": "object"
+      },
+      "PlannerStep": {
+        "properties": {
+          "key": {
+            "title": "Key",
+            "type": "string"
+          },
+          "label": {
+            "enum": [
+              "REAL",
+              "ASSUMED",
+              "SYNTHETIC",
+              "SIMULATED"
+            ],
+            "title": "Label",
+            "type": "string"
+          },
+          "note": {
+            "title": "Note",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "typical": {
+            "title": "Typical",
+            "type": "integer"
+          },
+          "upper": {
+            "title": "Upper",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "key",
+          "title",
+          "typical",
+          "upper",
+          "label",
+          "note"
+        ],
+        "title": "PlannerStep",
+        "type": "object"
+      },
       "ReplayControl": {
         "properties": {
           "action": {
@@ -1169,6 +1506,10 @@
             "title": "Made Original",
             "type": "integer"
           },
+          "needs_manual_rebooking": {
+            "title": "Needs Manual Rebooking",
+            "type": "integer"
+          },
           "peak_holds": {
             "title": "Peak Holds",
             "type": "integer"
@@ -1203,6 +1544,7 @@
           "drafts_approved",
           "rebooked",
           "made_original",
+          "needs_manual_rebooking",
           "inbounds",
           "labels"
         ],
@@ -1425,6 +1767,62 @@
           }
         },
         "summary": "Trip"
+      }
+    },
+    "/api/planner/options": {
+      "get": {
+        "operationId": "planner_options_api_planner_options_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlannerOptions"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Planner Options"
+      }
+    },
+    "/api/planner/plan": {
+      "post": {
+        "operationId": "planner_plan_api_planner_plan_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PlannerRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlannerResult"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Planner Plan"
       }
     },
     "/api/replay/control": {

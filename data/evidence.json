@@ -1,0 +1,122 @@
+[
+ {
+  "id": "break_rate_normal",
+  "value": 11.5,
+  "unit": "%",
+  "label": "SIMULATED",
+  "source": "HKIA past flights, 2026-08-15 to 2026-11-13; transfer time ASSUMED (config/engine.yaml)",
+  "note": "of tight Cathay connections (50 to 89 min) break on a normal day (60535 pairs)"
+ },
+ {
+  "id": "break_rate_disrupted",
+  "value": 19.5,
+  "unit": "%",
+  "label": "SIMULATED",
+  "source": "HKIA past flights, 2026-08-15 to 2026-11-13; transfer time ASSUMED (config/engine.yaml)",
+  "note": "break on a disrupted day (11 days: top tenth for late arrivals, or 10+ cancellations)"
+ },
+ {
+  "id": "next_flight_hours",
+  "value": 8.6,
+  "unit": "h",
+  "label": "REAL",
+  "source": "HKIA past flights, 2026-08-15 to 2026-11-13; transfer time ASSUMED (config/engine.yaml)",
+  "note": "median wait for the next Cathay flight to the same city after a miss"
+ },
+ {
+  "id": "next_flight_6h",
+  "value": 58,
+  "unit": "%",
+  "label": "REAL",
+  "source": "HKIA past flights, 2026-08-15 to 2026-11-13; transfer time ASSUMED (config/engine.yaml)",
+  "note": "of misses leave the passenger 6 hours or more until the next flight"
+ },
+ {
+  "id": "fixed_rule_caught",
+  "value": 0,
+  "unit": "%",
+  "label": "SIMULATED",
+  "source": "HKIA past flights, 2026-08-15 to 2026-11-13; transfer time ASSUMED (config/engine.yaml)",
+  "note": "of breaks the fixed 38-minute rule flags (it never flags a 50 to 89 minute connection)"
+ },
+ {
+  "id": "flow_caught_t90",
+  "value": 93,
+  "unit": "%",
+  "label": "SIMULATED",
+  "source": "HKIA past flights, 2026-08-15 to 2026-11-13; transfer time ASSUMED (config/engine.yaml)",
+  "note": "of breaks Flow flags 90 min before landing, flagging 22% of tight connections (in-flight estimates as accurate as OAG's measured ones; 45826 test pairs)"
+ },
+ {
+  "id": "flow_auc_t90",
+  "value": 0.966,
+  "unit": "",
+  "label": "SIMULATED",
+  "source": "HKIA past flights, 2026-08-15 to 2026-11-13; transfer time ASSUMED (config/engine.yaml)",
+  "note": "how well Flow ranks breaks above connections that hold, 90 min out (0.5 is a coin flip, 1 is perfect)"
+ },
+ {
+  "id": "day_before_auc",
+  "value": 0.676,
+  "unit": "",
+  "label": "SIMULATED",
+  "source": "HKIA past flights, 2026-08-15 to 2026-11-13; transfer time ASSUMED (config/engine.yaml)",
+  "note": "the same score a day ahead, from the schedule alone: little can be known before take-off"
+ },
+ {
+  "id": "missed_passengers",
+  "value": 145,
+  "unit": "passengers",
+  "label": "SIMULATED",
+  "source": "Replay of 2026-10-22-evening: real flights, synthetic passengers",
+  "note": "miss their connection on the scenario evening (of 1192 whose flight left)"
+ },
+ {
+  "id": "today_plan_before_landing",
+  "value": 0,
+  "unit": "passengers",
+  "label": "ASSUMED",
+  "source": "Replay of 2026-10-22-evening: real flights, synthetic passengers",
+  "note": "have a plan before landing today: rebooking starts at the transfer desk after the miss"
+ },
+ {
+  "id": "flow_plan_before_landing",
+  "value": 94,
+  "unit": "passengers",
+  "label": "SIMULATED",
+  "source": "Replay of 2026-10-22-evening: real flights, synthetic passengers",
+  "note": "have a staff-approved plan before landing with Flow"
+ },
+ {
+  "id": "auto_plan_before_landing",
+  "value": 75,
+  "unit": "passengers",
+  "label": "SIMULATED",
+  "source": "Replay of 2026-10-22-evening: real flights, synthetic passengers",
+  "note": "would be auto-rebooked before landing by an AURA-style rule (70%+ an hour out)"
+ },
+ {
+  "id": "auto_wrong_bumps",
+  "value": 23,
+  "unit": "passengers",
+  "label": "SIMULATED",
+  "source": "Replay of 2026-10-22-evening: real flights, synthetic passengers",
+  "note": "would be moved off a flight they would have made by that auto-rebook rule"
+ },
+ {
+  "id": "flow_wrong_bumps",
+  "value": 0,
+  "unit": "passengers",
+  "label": "SIMULATED",
+  "source": "Replay of 2026-10-22-evening: real flights, synthetic passengers",
+  "note": "wrong bumps with Flow: nobody moves without choosing, and a held seat is confirmed only after a miss"
+ },
+ {
+  "id": "oag_estimate_error",
+  "value": 11.1,
+  "unit": "min",
+  "label": "REAL",
+  "source": "OAG Flight Info, 30 Cathay arrivals on 22 Oct 2026",
+  "note": "typical error of the in-flight gate estimate 90 min out; the engine uses this spread"
+ }
+]

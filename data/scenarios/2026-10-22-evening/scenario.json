@@ -2,7 +2,7 @@
  "id": "2026-10-22-evening",
  "title": "Thursday 22 October 2026, evening wave at Hong Kong",
  "day": "2026-10-22",
- "replay_start": "2026-10-22T16:00:00+08:00",
+ "replay_start": "2026-10-22T05:30:00+08:00",
  "replay_end": "2026-10-22T20:30:00+08:00",
  "hero_pid": "MEI-1",
  "seed": 20261022,
@@ -53,16 +53,313 @@
   73.0,
   1896.0
  ],
+ "outbound_delay_quantiles": [
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  1.0,
+  1.0,
+  2.0,
+  2.0,
+  3.0,
+  3.0,
+  4.0,
+  4.0,
+  5.0,
+  6.0,
+  6.0,
+  7.0,
+  8.0,
+  9.0,
+  10.0,
+  11.0,
+  12.0,
+  13.0,
+  14.0,
+  15.0,
+  18.0,
+  21.0,
+  23.0,
+  27.0,
+  32.0,
+  40.0,
+  53.0,
+  78.0,
+  1014.0
+ ],
  "busy_wave_arrivals": 32.0,
+ "load_factor": 0.872,
+ "transfer_share": 0.28,
+ "connections_per_arrival": [
+  {
+   "flight": "CX513",
+   "from": "FUK",
+   "aircraft_type": "77W",
+   "seats": 294,
+   "connecting": 72,
+   "onward_flights": 25
+  },
+  {
+   "flight": "CX853",
+   "from": "SEA",
+   "aircraft_type": "359",
+   "seats": 280,
+   "connecting": 68,
+   "onward_flights": 24
+  },
+  {
+   "flight": "CX770",
+   "from": "HKT",
+   "aircraft_type": "32Q",
+   "seats": 202,
+   "connecting": 49,
+   "onward_flights": 22
+  },
+  {
+   "flight": "CX987",
+   "from": "CTU",
+   "aircraft_type": "333",
+   "seats": 262,
+   "connecting": 64,
+   "onward_flights": 17
+  },
+  {
+   "flight": "CX955",
+   "from": "NGB",
+   "aircraft_type": "32Q",
+   "seats": 202,
+   "connecting": 49,
+   "onward_flights": 18
+  },
+  {
+   "flight": "CX652",
+   "from": "SIN",
+   "aircraft_type": "333",
+   "seats": 262,
+   "connecting": 64,
+   "onward_flights": 20
+  },
+  {
+   "flight": "CX357",
+   "from": "NKG",
+   "aircraft_type": "333",
+   "seats": 262,
+   "connecting": 64,
+   "onward_flights": 18
+  },
+  {
+   "flight": "CX634",
+   "from": "PEN",
+   "aircraft_type": "32Q",
+   "seats": 202,
+   "connecting": 49,
+   "onward_flights": 21
+  },
+  {
+   "flight": "CX377",
+   "from": "PVG",
+   "aircraft_type": "333",
+   "seats": 262,
+   "connecting": 64,
+   "onward_flights": 18
+  },
+  {
+   "flight": "CX391",
+   "from": "PEK",
+   "aircraft_type": "77W",
+   "seats": 294,
+   "connecting": 72,
+   "onward_flights": 18
+  },
+  {
+   "flight": "CX722",
+   "from": "KUL",
+   "aircraft_type": "333",
+   "seats": 262,
+   "connecting": 64,
+   "onward_flights": 20
+  },
+  {
+   "flight": "CX758",
+   "from": "SIN",
+   "aircraft_type": "333",
+   "seats": 262,
+   "connecting": 64,
+   "onward_flights": 19
+  },
+  {
+   "flight": "CX529",
+   "from": "FUK",
+   "aircraft_type": "32Q",
+   "seats": 202,
+   "connecting": 49,
+   "onward_flights": 25
+  },
+  {
+   "flight": "CX162",
+   "from": "SYD",
+   "aircraft_type": "77W",
+   "seats": 294,
+   "connecting": 72,
+   "onward_flights": 18
+  },
+  {
+   "flight": "CX254",
+   "from": "LHR",
+   "aircraft_type": "77W",
+   "seats": 294,
+   "connecting": 72,
+   "onward_flights": 20
+  },
+  {
+   "flight": "CX411",
+   "from": "ICN",
+   "aircraft_type": "773",
+   "seats": 398,
+   "connecting": 97,
+   "onward_flights": 27
+  },
+  {
+   "flight": "CX443",
+   "from": "TPE",
+   "aircraft_type": "333",
+   "seats": 262,
+   "connecting": 64,
+   "onward_flights": 25
+  },
+  {
+   "flight": "CX313",
+   "from": "HAK",
+   "aircraft_type": "32Q",
+   "seats": 202,
+   "connecting": 49,
+   "onward_flights": 17
+  },
+  {
+   "flight": "CX421",
+   "from": "TPE",
+   "aircraft_type": "333",
+   "seats": 262,
+   "connecting": 64,
+   "onward_flights": 20
+  },
+  {
+   "flight": "CX961",
+   "from": "HGH",
+   "aircraft_type": "333",
+   "seats": 262,
+   "connecting": 64,
+   "onward_flights": 15
+  },
+  {
+   "flight": "CX527",
+   "from": "NRT",
+   "aircraft_type": "359",
+   "seats": 280,
+   "connecting": 68,
+   "onward_flights": 21
+  },
+  {
+   "flight": "CX879",
+   "from": "SFO",
+   "aircraft_type": "77W",
+   "seats": 294,
+   "connecting": 72,
+   "onward_flights": 22
+  },
+  {
+   "flight": "CX654",
+   "from": "BKK",
+   "aircraft_type": "333",
+   "seats": 262,
+   "connecting": 64,
+   "onward_flights": 14
+  },
+  {
+   "flight": "CX831",
+   "from": "JFK",
+   "aircraft_type": "77W",
+   "seats": 294,
+   "connecting": 72,
+   "onward_flights": 21
+  },
+  {
+   "flight": "CX947",
+   "from": "XIY",
+   "aircraft_type": "32Q",
+   "seats": 202,
+   "connecting": 49,
+   "onward_flights": 18
+  },
+  {
+   "flight": "CX805",
+   "from": "YYZ",
+   "aircraft_type": "351",
+   "seats": 334,
+   "connecting": 82,
+   "onward_flights": 21
+  },
+  {
+   "flight": "CX150",
+   "from": "BNE",
+   "aircraft_type": "359",
+   "seats": 280,
+   "connecting": 68,
+   "onward_flights": 15
+  },
+  {
+   "flight": "CX867",
+   "from": "YVR",
+   "aircraft_type": "77W",
+   "seats": 294,
+   "connecting": 72,
+   "onward_flights": 21
+  },
+  {
+   "flight": "CX589",
+   "from": "FUK",
+   "aircraft_type": "333",
+   "seats": 262,
+   "connecting": 64,
+   "onward_flights": 23
+  },
+  {
+   "flight": "CX539",
+   "from": "NGO",
+   "aircraft_type": "333",
+   "seats": 262,
+   "connecting": 64,
+   "onward_flights": 23
+  }
+ ],
  "labels": {
   "flights": "REAL",
   "timelines": "REAL",
   "passengers": "SYNTHETIC",
   "inbound_delay_quantiles": "REAL",
-  "busy_wave_arrivals": "REAL"
+  "outbound_delay_quantiles": "REAL",
+  "busy_wave_arrivals": "REAL",
+  "aircraft_type": "REAL",
+  "cabin_seats": "ASSUMED",
+  "load_factor": "REAL",
+  "transfer_share": "REAL",
+  "connections_per_arrival": "SYNTHETIC"
  },
  "sources": {
   "flights": "HKIA past flights",
-  "timelines": "OAG Flight Info, STATUSDETAILED"
+  "timelines": "OAG Flight Info, STATUSDETAILED",
+  "aircraft_type": "OAG Flight Info",
+  "cabin_seats": "data/reference/aircraft_seats.yaml",
+  "load_factor": "Cathay Group traffic figures, August 2026",
+  "transfer_share": "AAHK air traffic figures, October 2025 (1.50 M of 5.37 M)"
  }
 }

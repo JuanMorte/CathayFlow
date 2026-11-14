@@ -32,7 +32,7 @@ MASK := sed -E 's/[0-9]{12}/************/g'
 
 .PHONY: help setup check-profile aws-whoami cdk-bootstrap synth diff-data diff-recorder diff-app \
         deploy-data deploy-recorder secrets backfill-hkia data-down data-up check-apis dev test \
-        contract lock-backend build-web deploy app-url logs demo destroy-app
+        contract lock-backend build-web deploy app-url logs demo destroy-app e2e
 
 help:
 	@grep -E '^[a-z-]+:.*## ' $(MAKEFILE_LIST) | awk -F ':.*## ' '{printf "  %-16s %s\n", $$1, $$2}'
@@ -103,6 +103,9 @@ test: ## pytest, then vitest when the web app exists
 	uv run pytest
 	@if [ -f web/package.json ]; then cd web && npm test; fi
 
+e2e: build-web ## Browser test of the demo loop (uses the installed Chrome)
+	cd web && npm run e2e
+
 contract: ## Export OpenAPI to contracts/ and regenerate the web types
 	uv run python scripts/export_contract.py
 	@if [ -f web/package.json ]; then cd web && npx --no-install openapi-typescript ../contracts/openapi.json -o src/api/types.ts; fi
@@ -127,8 +130,9 @@ app-url: check-profile ## Print the deployed app's URL
 logs: check-profile ## Tail the app's logs
 	aws logs tail /$(FLOW_PREFIX)/app --follow
 
-demo: ## Run the full demo locally; OFFLINE=1 make demo for no network (M5+)
-	@echo "demo arrives in M5." && exit 1
+demo: build-web ## Run the full demo on http://localhost:8000; OFFLINE=1 make demo with Wi-Fi off
+	@echo "Phone: http://localhost:8000/app   Staff: http://localhost:8000/staff   Impact: http://localhost:8000/impact"
+	uv run uvicorn app.main:app --app-dir backend --host 0.0.0.0 --port 8000
 
 destroy-app: check-profile ## Destroy the app stack only; data, recorder and roles stay
 	cd infra && $(CDK) destroy $(FLOW_PREFIX)-app --exclusively $(CDK_CONTEXT) $(CDK_DESTROY_FLAGS)

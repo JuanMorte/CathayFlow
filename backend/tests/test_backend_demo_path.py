@@ -40,7 +40,7 @@ def test_demo_story(client):
     # 1. The replay knows its hero and starts paused.
     state = client.get("/api/replay/state").json()
     assert state["hero_pid"] == HERO and state["playing"] is False
-    assert state["start"] == "2026-10-22T16:00:00+08:00"
+    assert state["start"] == "2026-10-22T05:30:00+08:00"   # before CX254 pushes back late in London
 
     trip = client.get(f"/api/passengers/{HERO}/trip").json()
     assert trip["passenger"]["cabin"] == "J" and trip["passenger"]["is_synthetic"] is True
@@ -57,7 +57,7 @@ def test_demo_story(client):
     assert status["inbound"]["est"] == "2026-10-22T18:21:00+08:00"     # OAG estimate, as published
     assert status["inbound"]["actual"] is None                        # not known yet
     assert status["gate_close"] == "2026-10-22T18:45:00+08:00"         # 19:00 departure - 15 min
-    assert status["minutes_available"] == 24
+    assert status["minutes_available"] == 20       # 18:45 close - (18:21 estimate + 4 min measured bias)
     low, high = status["minutes_needed"]
     assert 15 <= low < high <= 40
     assert status["backup_hold"]["flight"] == "CX105"
@@ -151,3 +151,18 @@ def test_unknown_passenger_and_scenarios(client):
     assert client.get("/api/scenarios").json() == [
         {"id": "2026-10-22-evening", "title": "Thursday 22 October 2026, evening wave at Hong Kong"}]
     assert client.post("/api/replay/load", json={"scenario_id": "nope"}).status_code == 404
+
+
+def test_mei_turns_at_risk_when_cx254_leaves_london_late(client):
+    """The slip happens on screen: OAG published the late pushback at 05:37 HKT."""
+    before = seek(client, "2026-10-22T05:36:00+08:00")
+    status = client.get(f"/api/passengers/{HERO}/protect").json()
+    assert before["t"] == "2026-10-22T05:36:00+08:00"
+    assert status["zone"] == "SAFE" and status["backup_hold"] is None
+    assert status["inbound"]["status"] == "Scheduled"
+
+    seek(client, "2026-10-22T05:40:00+08:00")
+    status = client.get(f"/api/passengers/{HERO}/protect").json()
+    assert status["zone"] == "AT_RISK" and status["inbound"]["status"] == "Airborne"
+    assert status["inbound"]["est"] == "2026-10-22T18:23:00+08:00"
+    assert status["backup_hold"]["flight"] == "CX105" and status["original_seat_held"] is True

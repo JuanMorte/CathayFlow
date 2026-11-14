@@ -134,6 +134,18 @@ def test_oag_connections_counts_against_the_same_account(monkeypatch):
     assert oag.calls_used() == 1
 
 
+def test_oag_waits_and_retries_on_rate_limit(monkeypatch):
+    monkeypatch.setenv("OAG_KEY_DEV", "oag-secret")
+    slept = []
+    monkeypatch.setattr(oag.time, "sleep", slept.append)
+    replies = iter([httpx.Response(429, json={"statusCode": 429, "message": "Rate limit is exceeded. Try again in 42 seconds."}),
+                    httpx.Response(200, json={"data": [1]})])
+    fake = Fake(lambda r: next(replies))
+    assert oag.flight_instances(OAG_PARAMS, http=fake.http)["body"]["data"] == [1]
+    assert slept == [44] and len(fake.requests) == 2
+    assert oag.calls_used() == 2      # the refused call still counts against the budget
+
+
 def test_oag_offline_miss(monkeypatch):
     monkeypatch.setenv("OFFLINE", "1")
     fake = Fake(json_ok({}))

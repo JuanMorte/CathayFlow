@@ -14,12 +14,13 @@ gate_close_minutes: 15
 # could not be fitted from it (docs/build_log.md, M1).
 taxi_in: {mean: 8, sd: 3, floor: 3}
 
-# ASSUMED: uncertainty of an inbound gate-time estimate, by what is known.
-# - airborne: a published in-flight estimate still moves a little.
-# - landed: only taxi-in remains (see taxi_in).
+# REAL, measured: how far OAG's published in-gate estimate was from the real gate time, 90 minutes
+# before it, on the 30 Cathay arrivals of the 22 Oct scenario (research/flowresearch/backtest.py):
+# typically 11 minutes either way, and on average 4 minutes too early. A small sample from one evening.
 inbound_estimate_sd:
-  airborne: 6
+  airborne: 11
   at_gate: 0
+inbound_estimate_bias: 4   # minutes added to an in-flight estimate (it ran early on average)
 
 # ASSUMED: time from door open until this passenger is off the aircraft.
 # First and Business leave first; Economy depends on the row (front 8 min, back 18 min).
@@ -54,3 +55,31 @@ typical:
 # Baselines kept for comparison (AGENTS.md §11.1).
 # R0: fixed rule, deplane 8 + transfer 15 + gate close 15.
 baseline_r0_minutes: 38
+
+# Gate Planner (AGENTS.md §12): door to gate for passengers departing from Hong Kong.
+planner:
+  # Safety margin: the leave-by time covers this percentile of door-to-gate times.
+  percentiles: {relaxed: 95, balanced: 85, tight: 70}
+  # ASSUMED: bags must be dropped this long before departure (common Cathay practice at HKG).
+  bag_drop_close_minutes: 60
+  # ASSUMED: check-in and bag-drop queue; longer in the morning and evening banks.
+  checkin_queue:
+    peak: {mean: 20, sd: 8, floor: 5}
+    offpeak: {mean: 10, sd: 4, floor: 3}
+    peak_hours: [[6, 10], [17, 23]]
+  # ASSUMED: departure immigration and security. Residents use e-Channel. Visitors: the
+  # Immigration Department's performance pledge is clearance within 15 minutes for 95% of
+  # visitors, so we use mean 8, sd 4 (95th percentile about 15).
+  security_resident: {mean: 5, sd: 2, floor: 2}
+  security_visitor: {mean: 8, sd: 4, floor: 3}
+  # ASSUMED (AGENTS.md §7.4): Airport Express from Hong Kong Station, 24 min, every 10 min;
+  # plus the trip from the door to the station.
+  airport_express: {ride: 24, headway: 10, to_station: {mean: 15, sd: 5, floor: 5}}
+  # Google's PESSIMISTIC traffic model is read as the 95th percentile of the road time.
+  road_upper_quantile: 0.95
+  # Walking starts at the check-in hall, Terminal 1 (data/reference/hkg_zones.yaml zone).
+  start_zone: central
+  # Until the gate is published, plan for a far one: gates 60+ (north-west) are the most common
+  # Cathay departure gates in the HKIA data (2,783 of 15,572 departures). A published gate can
+  # only move the plan later, never surprise the traveller with a longer walk.
+  unknown_gate_zone: northwest

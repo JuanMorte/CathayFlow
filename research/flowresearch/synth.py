@@ -2,25 +2,33 @@
 
 No real passenger data is used anywhere. Everything here is generated from a seed, so the same
 seed and the same flights give the same people.
+
+How many people connect off each arrival is not random noise: it is built from published figures
+(see `transfer_count`), so the proportions on every flight can be argued for:
+
+    connecting passengers = seats on that aircraft (REAL type, ASSUMED layout)
+                          × Cathay passenger load factor (REAL, published monthly)
+                          × Hong Kong transfer share (REAL, derived from AAHK figures)
+
+Who those people are (names, tiers, groups, preferences) is SYNTHETIC.
 """
 
 from __future__ import annotations
 
 import numpy as np
 
-# ASSUMED (AGENTS.md §7.5): mean passengers per connecting flight pair.
-MEAN_PAX_PER_PAIR = 2.21
-# ASSUMED: how common each scheduled gap is among people who book a connection.
+# ASSUMED: how a connecting passenger's onward flight is spread over the gap after landing.
+# Tight connections are booked less often than comfortable ones.
 GAP_WEIGHTS = [(50, 89, 0.45), (90, 180, 1.0), (181, 240, 0.6)]
 # ASSUMED mixes.
-CABIN_MIX = {"J": 0.14, "W": 0.08, "Y": 0.78}
 PARTY_SIZE_MIX = {1: 0.70, 2: 0.22, 3: 0.05, 4: 0.03}
 TIER_MIX = {"Diamond": 0.04, "Gold": 0.10, "Silver": 0.16, "Green": 0.30, "None": 0.40}
 ASSISTANCE_SHARE = 0.03
 PREFERENCE_MIX = {"earliest_arrival": 0.45, "keep_cabin": 0.25, "rest_first": 0.10, "unset": 0.20}
 # ASSUMED seat rows per cabin, for a plausible seat number and the deplaning position.
-CABIN_ROWS = {"J": (11, 26), "W": (30, 36), "Y": (39, 72)}
-SEAT_LETTERS = {"J": "ADGK", "W": "ACDEGHK", "Y": "ABCDEGHJK"}
+CABIN_ROWS = {"F": (1, 2), "J": (11, 26), "W": (30, 36), "Y": (39, 72)}
+SEAT_LETTERS = {"F": "AK", "J": "ADGK", "W": "ACDEGHK", "Y": "ABCDEGHJK"}
+CABINS = ("F", "J", "W", "Y")
 
 GIVEN = ["Mei", "Aarav", "Hannah", "Kenji", "Sofia", "Wei", "Priya", "Lucas", "Yuna", "Daniel",
          "Amelia", "Hiro", "Ines", "Tariq", "Chloe", "Minh", "Olivia", "Rahul", "Sana", "Noah",
@@ -60,10 +68,8 @@ def seat_for(rng: np.random.Generator, cabin: str) -> tuple[str, float]:
     return f"{row}{letter}", (row - first) / max(last - first, 1)
 
 
-def make_party(rng: np.random.Generator, party_id: str, size: int | None = None,
-               cabin: str | None = None) -> dict:
+def make_party(rng: np.random.Generator, party_id: str, cabin: str, size: int | None = None) -> dict:
     size = size or int(_pick(rng, PARTY_SIZE_MIX))
-    cabin = cabin or _pick(rng, CABIN_MIX)
     family = FAMILY[int(rng.integers(len(FAMILY)))]
     seat, row_frac = seat_for(rng, cabin)
     members = []
@@ -84,24 +90,53 @@ def make_party(rng: np.random.Generator, party_id: str, size: int | None = None,
     }
 
 
-def make_connections(inbounds: list[dict], outbounds: list[dict], airports: dict,
-                     implausible: list, seed: int) -> list[dict]:
-    """Parties per plausible inbound → outbound pair with a 50 to 240 minute scheduled gap."""
+def cabin_layout(flight: dict, seat_table: dict) -> dict:
+    """Seats per cabin for this flight's aircraft (type REAL from OAG, layout ASSUMED)."""
+    types = seat_table["types"]
+    kind = flight.get("aircraft_type")
+    layout = types.get(kind) or types[seat_table["default_type"]]
+    return {cabin: int(layout.get(cabin, 0)) for cabin in CABINS}
+
+
+def transfer_count(flight: dict, seat_table: dict, load_factor: float, transfer_share: float) -> int:
+    """Connecting passengers off one arrival: seats x load factor x transfer share."""
+    return int(round(sum(cabin_layout(flight, seat_table).values()) * load_factor * transfer_share))
+
+
+def make_connections(inbounds: list[dict], outbounds: list[dict], airports: dict, implausible: list,
+                     seat_table: dict, load_factor: float, transfer_share: float,
+                     seed: int) -> tuple[list[dict], list[dict]]:
+    """Parties connecting off each arrival onto later Cathay departures (50 to 240 min later).
+
+    Returns the parties and one summary row per arrival (for the scenario README and tests).
+    A party's cabin follows the arrival's real cabin split; its onward flight is drawn among the
+    plausible departures, weighted by the gap.
+    """
     rng = np.random.default_rng(seed)
-    parties = []
+    parties, summary = [], []
     for inbound in sorted(inbounds, key=lambda f: (f["sched"], f["flight"])):
+        layout = cabin_layout(inbound, seat_table)
+        target = transfer_count(inbound, seat_table, load_factor, transfer_share)
+        choices, weights = [], []
         for outbound in sorted(outbounds, key=lambda f: (f["sched"], f["flight"])):
             gap = (outbound["sched"] - inbound["sched"]).total_seconds() / 60
             weight = gap_weight(gap)
-            if not weight or not plausible(inbound["airport"], outbound["airport"], airports, implausible):
-                continue
-            passengers = int(rng.poisson(MEAN_PAX_PER_PAIR * weight))
-            while passengers > 0:
-                party = make_party(rng, f"P{len(parties) + 1:04d}")
-                party["size"] = min(party["size"], passengers)
+            if weight and plausible(inbound["airport"], outbound["airport"], airports, implausible):
+                choices.append((outbound, int(gap)))
+                weights.append(weight)
+        placed = 0
+        if choices:
+            probabilities = np.array(weights) / sum(weights)
+            cabin_mix = {cabin: count for cabin, count in layout.items() if count}
+            while placed < target:
+                party = make_party(rng, f"P{len(parties) + 1:04d}", _pick(rng, cabin_mix))
+                party["size"] = min(party["size"], target - placed)
                 party["members"] = party["members"][:party["size"]]
-                party.update(inbound=inbound["key"], outbound=outbound["key"],
-                             sched_gap_min=int(gap))
+                outbound, gap = choices[int(rng.choice(len(choices), p=probabilities))]
+                party.update(inbound=inbound["key"], outbound=outbound["key"], sched_gap_min=gap)
                 parties.append(party)
-                passengers -= party["size"]
-    return parties
+                placed += party["size"]
+        summary.append({"flight": inbound["flight"], "from": inbound["airport"],
+                        "aircraft_type": inbound.get("aircraft_type"), "seats": sum(layout.values()),
+                        "connecting": placed, "onward_flights": len(choices)})
+    return parties, summary

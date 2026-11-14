@@ -14,11 +14,10 @@ safe_ticks_to_release: 2
 # ASSUMED: a backup hold expires this long after the original gate close.
 hold_expiry_after_gate_close_minutes: 30
 
-# ASSUMED: free seats per later flight and cabin ("medium" day). OAG gives aircraft capacity,
-# not availability, so this stays an assumption until an airline inventory is connected.
+# Free seats on a later flight are its seats per cabin x (1 - Cathay's published load factor),
+# from the scenario (backend/app/policy/seats.py). These ASSUMED numbers are only the fallback
+# for a flight whose aircraft type is unknown.
 free_seats: {F: 1, J: 3, W: 2, Y: 6}
-# ASSUMED: how many of those seats other passengers take per hour of replay time.
-seat_depletion_per_hour: 0.5
 
 # ASSUMED: escorts available per 30 minutes.
 expedite_capacity_per_30min: 4

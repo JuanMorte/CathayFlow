@@ -328,17 +328,28 @@
     "on_ground": "2026-10-22T18:02:00+08:00"
    }
   ],
+  "aircraft_type": "77W",
   "dest_sched_arrival": null,
+  "origin_sched_departure": "2026-10-22T14:00",
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
   },
   "wave_arrivals": 29,
-  "wave_load": 0.906
+  "wave_load": 0.906,
+  "cabin_seats": {
+   "F": 6,
+   "J": 53,
+   "W": 34,
+   "Y": 201
+  }
  },
  {
   "key": "CX853@2026-10-22T16:45",
@@ -435,17 +446,28 @@
     "on_ground": "2026-10-22T17:03:00+08:00"
    }
   ],
+  "aircraft_type": "359",
   "dest_sched_arrival": null,
+  "origin_sched_departure": "2026-10-21T11:45",
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
   },
   "wave_arrivals": 29,
-  "wave_load": 0.906
+  "wave_load": 0.906,
+  "cabin_seats": {
+   "F": 0,
+   "J": 38,
+   "W": 28,
+   "Y": 214
+  }
  },
  {
   "key": "CX770@2026-10-22T16:50",
@@ -524,17 +546,28 @@
     "on_ground": "2026-10-22T16:16:00+08:00"
    }
   ],
+  "aircraft_type": "32Q",
   "dest_sched_arrival": null,
+  "origin_sched_departure": "2026-10-22T11:50",
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
   },
   "wave_arrivals": 28,
-  "wave_load": 0.875
+  "wave_load": 0.875,
+  "cabin_seats": {
+   "F": 0,
+   "J": 12,
+   "W": 0,
+   "Y": 190
+  }
  },
  {
   "key": "CX987@2026-10-22T16:50",
@@ -625,17 +658,28 @@
     "on_ground": "2026-10-22T16:27:00+08:00"
    }
   ],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": "2026-10-22T13:55",
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
   },
   "wave_arrivals": 28,
-  "wave_load": 0.875
+  "wave_load": 0.875,
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
+  }
  },
  {
   "key": "CX955@2026-10-22T16:55",
@@ -708,17 +752,28 @@
     "on_ground": "2026-10-22T16:29:00+08:00"
    }
   ],
+  "aircraft_type": "32Q",
   "dest_sched_arrival": null,
+  "origin_sched_departure": "2026-10-22T14:30",
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
   },
   "wave_arrivals": 29,
-  "wave_load": 0.906
+  "wave_load": 0.906,
+  "cabin_seats": {
+   "F": 0,
+   "J": 12,
+   "W": 0,
+   "Y": 190
+  }
  },
  {
   "key": "CX652@2026-10-22T17:00",
@@ -803,17 +858,28 @@
     "on_ground": "2026-10-22T17:08:00+08:00"
    }
   ],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": "2026-10-22T12:45",
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
   },
   "wave_arrivals": 28,
-  "wave_load": 0.875
+  "wave_load": 0.875,
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
+  }
  },
  {
   "key": "CX357@2026-10-22T17:05",
@@ -892,17 +958,28 @@
     "on_ground": "2026-10-22T16:18:00+08:00"
    }
   ],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": "2026-10-22T14:15",
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
   },
   "wave_arrivals": 28,
-  "wave_load": 0.875
+  "wave_load": 0.875,
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
+  }
  },
  {
   "key": "CX634@2026-10-22T17:10",
@@ -987,17 +1064,28 @@
     "on_ground": "2026-10-22T16:47:00+08:00"
    }
   ],
+  "aircraft_type": "32Q",
   "dest_sched_arrival": null,
+  "origin_sched_departure": "2026-10-22T13:00",
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
   },
   "wave_arrivals": 29,
-  "wave_load": 0.906
+  "wave_load": 0.906,
+  "cabin_seats": {
+   "F": 0,
+   "J": 12,
+   "W": 0,
+   "Y": 190
+  }
  },
  {
   "key": "CX377@2026-10-22T17:25",
@@ -1106,17 +1194,28 @@
     "on_ground": "2026-10-22T17:05:00+08:00"
    }
   ],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": "2026-10-22T14:30",
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
   },
   "wave_arrivals": 29,
-  "wave_load": 0.906
+  "wave_load": 0.906,
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
+  }
  },
  {
   "key": "CX391@2026-10-22T17:25",
@@ -1255,17 +1354,28 @@
     "on_ground": "2026-10-22T17:13:00+08:00"
    }
   ],
+  "aircraft_type": "77W",
   "dest_sched_arrival": null,
+  "origin_sched_departure": "2026-10-22T13:40",
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
   },
   "wave_arrivals": 29,
-  "wave_load": 0.906
+  "wave_load": 0.906,
+  "cabin_seats": {
+   "F": 6,
+   "J": 53,
+   "W": 34,
+   "Y": 201
+  }
  },
  {
   "key": "CX722@2026-10-22T17:25",
@@ -1374,17 +1484,28 @@
     "on_ground": "2026-10-22T18:43:00+08:00"
    }
   ],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": "2026-10-22T13:10",
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
   },
   "wave_arrivals": 29,
-  "wave_load": 0.906
+  "wave_load": 0.906,
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
+  }
  },
  {
   "key": "CX758@2026-10-22T17:35",
@@ -1463,17 +1584,28 @@
     "on_ground": "2026-10-22T17:27:00+08:00"
    }
   ],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": "2026-10-22T13:25",
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
   },
   "wave_arrivals": 27,
-  "wave_load": 0.844
+  "wave_load": 0.844,
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
+  }
  },
  {
   "key": "CX529@2026-10-22T17:40",
@@ -1570,17 +1702,28 @@
     "on_ground": "2026-10-22T17:38:00+08:00"
    }
   ],
+  "aircraft_type": "32Q",
   "dest_sched_arrival": null,
+  "origin_sched_departure": "2026-10-22T14:55",
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
   },
   "wave_arrivals": 27,
-  "wave_load": 0.844
+  "wave_load": 0.844,
+  "cabin_seats": {
+   "F": 0,
+   "J": 12,
+   "W": 0,
+   "Y": 190
+  }
  },
  {
   "key": "CX162@2026-10-22T17:45",
@@ -1665,17 +1808,28 @@
     "on_ground": "2026-10-22T17:46:00+08:00"
    }
   ],
+  "aircraft_type": "77W",
   "dest_sched_arrival": null,
+  "origin_sched_departure": "2026-10-22T11:10",
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
   },
   "wave_arrivals": 27,
-  "wave_load": 0.844
+  "wave_load": 0.844,
+  "cabin_seats": {
+   "F": 6,
+   "J": 53,
+   "W": 34,
+   "Y": 201
+  }
  },
  {
   "key": "CX254@2026-10-22T18:00",
@@ -1754,17 +1908,28 @@
     "on_ground": "2026-10-22T18:09:00+08:00"
    }
   ],
+  "aircraft_type": "77W",
   "dest_sched_arrival": null,
+  "origin_sched_departure": "2026-10-21T22:15",
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
   },
   "wave_arrivals": 25,
-  "wave_load": 0.781
+  "wave_load": 0.781,
+  "cabin_seats": {
+   "F": 6,
+   "J": 53,
+   "W": 34,
+   "Y": 201
+  }
  },
  {
   "key": "CX411@2026-10-22T18:00",
@@ -1951,17 +2116,28 @@
     "on_ground": "2026-10-22T17:30:00+08:00"
    }
   ],
+  "aircraft_type": "773",
   "dest_sched_arrival": null,
+  "origin_sched_departure": "2026-10-22T15:10",
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
   },
   "wave_arrivals": 25,
-  "wave_load": 0.781
+  "wave_load": 0.781,
+  "cabin_seats": {
+   "F": 0,
+   "J": 42,
+   "W": 0,
+   "Y": 356
+  }
  },
  {
   "key": "CX443@2026-10-22T18:10",
@@ -2088,17 +2264,28 @@
     "on_ground": "2026-10-22T18:35:00+08:00"
    }
   ],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": "2026-10-22T16:10",
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
   },
   "wave_arrivals": 25,
-  "wave_load": 0.781
+  "wave_load": 0.781,
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
+  }
  },
  {
   "key": "CX313@2026-10-22T18:20",
@@ -2177,17 +2364,28 @@
     "on_ground": "2026-10-22T18:07:00+08:00"
    }
   ],
+  "aircraft_type": "32Q",
   "dest_sched_arrival": null,
+  "origin_sched_departure": "2026-10-22T16:50",
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
   },
   "wave_arrivals": 20,
-  "wave_load": 0.625
+  "wave_load": 0.625,
+  "cabin_seats": {
+   "F": 0,
+   "J": 12,
+   "W": 0,
+   "Y": 190
+  }
  },
  {
   "key": "CX421@2026-10-22T18:30",
@@ -2314,17 +2512,28 @@
     "on_ground": "2026-10-22T18:37:00+08:00"
    }
   ],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": "2026-10-22T16:30",
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
   },
   "wave_arrivals": 22,
-  "wave_load": 0.688
+  "wave_load": 0.688,
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
+  }
  },
  {
   "key": "CX961@2026-10-22T18:35",
@@ -2421,17 +2630,28 @@
     "on_ground": "2026-10-22T18:31:00+08:00"
    }
   ],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": "2026-10-22T15:55",
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
   },
   "wave_arrivals": 25,
-  "wave_load": 0.781
+  "wave_load": 0.781,
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
+  }
  },
  {
   "key": "CX527@2026-10-22T18:50",
@@ -2516,17 +2736,28 @@
     "on_ground": "2026-10-22T18:57:00+08:00"
    }
   ],
+  "aircraft_type": "359",
   "dest_sched_arrival": null,
+  "origin_sched_departure": "2026-10-22T14:50",
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
   },
   "wave_arrivals": 26,
-  "wave_load": 0.812
+  "wave_load": 0.812,
+  "cabin_seats": {
+   "F": 0,
+   "J": 38,
+   "W": 28,
+   "Y": 214
+  }
  },
  {
   "key": "CX879@2026-10-22T18:55",
@@ -2611,17 +2842,28 @@
     "on_ground": "2026-10-22T18:52:00+08:00"
    }
   ],
+  "aircraft_type": "77W",
   "dest_sched_arrival": null,
+  "origin_sched_departure": "2026-10-21T13:00",
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
   },
   "wave_arrivals": 26,
-  "wave_load": 0.812
+  "wave_load": 0.812,
+  "cabin_seats": {
+   "F": 6,
+   "J": 53,
+   "W": 34,
+   "Y": 201
+  }
  },
  {
   "key": "CX654@2026-10-22T19:05",
@@ -2712,17 +2954,28 @@
     "on_ground": "2026-10-22T18:45:00+08:00"
    }
   ],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": "2026-10-22T15:00",
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
   },
   "wave_arrivals": 23,
-  "wave_load": 0.719
+  "wave_load": 0.719,
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
+  }
  },
  {
   "key": "CX831@2026-10-22T19:05",
@@ -2795,17 +3048,28 @@
     "on_ground": "2026-10-22T18:24:00+08:00"
    }
   ],
+  "aircraft_type": "77W",
   "dest_sched_arrival": null,
+  "origin_sched_departure": "2026-10-21T14:55",
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
   },
   "wave_arrivals": 23,
-  "wave_load": 0.719
+  "wave_load": 0.719,
+  "cabin_seats": {
+   "F": 6,
+   "J": 53,
+   "W": 34,
+   "Y": 201
+  }
  },
  {
   "key": "CX947@2026-10-22T19:05",
@@ -2914,17 +3178,28 @@
     "on_ground": "2026-10-22T18:33:00+08:00"
    }
   ],
+  "aircraft_type": "32Q",
   "dest_sched_arrival": null,
+  "origin_sched_departure": "2026-10-22T15:50",
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
   },
   "wave_arrivals": 23,
-  "wave_load": 0.719
+  "wave_load": 0.719,
+  "cabin_seats": {
+   "F": 0,
+   "J": 12,
+   "W": 0,
+   "Y": 190
+  }
  },
  {
   "key": "CX805@2026-10-22T19:10",
@@ -3003,17 +3278,28 @@
     "on_ground": "2026-10-22T19:22:00+08:00"
    }
   ],
+  "aircraft_type": "351",
   "dest_sched_arrival": null,
+  "origin_sched_departure": "2026-10-21T15:45",
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
   },
   "wave_arrivals": 25,
-  "wave_load": 0.781
+  "wave_load": 0.781,
+  "cabin_seats": {
+   "F": 0,
+   "J": 46,
+   "W": 32,
+   "Y": 256
+  }
  },
  {
   "key": "CX150@2026-10-22T19:20",
@@ -3206,17 +3492,28 @@
     "on_ground": "2026-10-22T19:34:00+08:00"
    }
   ],
+  "aircraft_type": "359",
   "dest_sched_arrival": null,
+  "origin_sched_departure": "2026-10-22T12:20",
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
   },
   "wave_arrivals": 26,
-  "wave_load": 0.812
+  "wave_load": 0.812,
+  "cabin_seats": {
+   "F": 0,
+   "J": 38,
+   "W": 28,
+   "Y": 214
+  }
  },
  {
   "key": "CX867@2026-10-22T19:20",
@@ -3331,17 +3628,28 @@
     "on_ground": "2026-10-22T18:54:00+08:00"
    }
   ],
+  "aircraft_type": "77W",
   "dest_sched_arrival": null,
+  "origin_sched_departure": "2026-10-21T14:10",
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
   },
   "wave_arrivals": 26,
-  "wave_load": 0.812
+  "wave_load": 0.812,
+  "cabin_seats": {
+   "F": 6,
+   "J": 53,
+   "W": 34,
+   "Y": 201
+  }
  },
  {
   "key": "CX589@2026-10-22T19:25",
@@ -3420,17 +3728,28 @@
     "on_ground": "2026-10-22T21:22:00+08:00"
    }
   ],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": "2026-10-22T16:40",
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
   },
   "wave_arrivals": 28,
-  "wave_load": 0.875
+  "wave_load": 0.875,
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
+  }
  },
  {
   "key": "CX539@2026-10-22T19:30",
@@ -3545,17 +3864,28 @@
     "on_ground": "2026-10-22T22:01:00+08:00"
    }
   ],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": "2026-10-22T16:10",
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
   },
   "wave_arrivals": 28,
-  "wave_load": 0.875
+  "wave_load": 0.875,
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
+  }
  },
  {
   "key": "CX938@2026-10-22T17:35",
@@ -3577,47 +3907,71 @@
     "at": "2026-10-20T13:36:42.729000+08:00",
     "state": "Scheduled",
     "est": null,
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
    },
    {
     "at": "2026-10-22T05:37:33.967000+08:00",
     "state": "Scheduled",
     "est": "2026-10-22T17:35:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
+   },
+   {
+    "at": "2026-10-22T13:15:18.580000+08:00",
+    "state": "Scheduled",
+    "est": "2026-10-22T17:35:00+08:00",
+    "on_ground": null,
+    "gate": "14"
    },
    {
     "at": "2026-10-22T17:36:27.587000+08:00",
     "state": "OutGate",
     "est": "2026-10-22T17:29:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "14"
    },
    {
     "at": "2026-10-22T17:57:29.427000+08:00",
     "state": "InAir",
     "est": "2026-10-22T17:29:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "14"
    },
    {
     "at": "2026-10-22T19:23:54.688000+08:00",
     "state": "Landed",
     "est": "2026-10-22T17:29:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "14"
    },
    {
     "at": "2026-10-22T19:34:30.207000+08:00",
     "state": "InGate",
     "est": "2026-10-22T17:29:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "14"
    }
   ],
+  "aircraft_type": "32Q",
   "dest_sched_arrival": "2026-10-22T19:40",
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 12,
+   "W": 0,
+   "Y": 190
   }
  },
  {
@@ -3640,53 +3994,78 @@
     "at": "2026-10-20T13:41:46.896000+08:00",
     "state": "Scheduled",
     "est": null,
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
    },
    {
     "at": "2026-10-22T05:44:34.823000+08:00",
     "state": "Scheduled",
     "est": "2026-10-22T17:40:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
    },
    {
     "at": "2026-10-22T14:18:47.331000+08:00",
     "state": "Scheduled",
     "est": "2026-10-22T18:00:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
+   },
+   {
+    "at": "2026-10-22T15:14:19.927000+08:00",
+    "state": "Scheduled",
+    "est": "2026-10-22T18:00:00+08:00",
+    "on_ground": null,
+    "gate": "15"
    },
    {
     "at": "2026-10-22T18:07:08.491000+08:00",
     "state": "OutGate",
     "est": "2026-10-22T17:58:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "15"
    },
    {
     "at": "2026-10-22T18:21:51.360000+08:00",
     "state": "InAir",
     "est": "2026-10-22T17:58:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "15"
    },
    {
     "at": "2026-10-22T21:22:11.269000+08:00",
     "state": "Landed",
     "est": "2026-10-22T17:58:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "15"
    },
    {
     "at": "2026-10-22T21:40:54.013000+08:00",
     "state": "InGate",
     "est": "2026-10-22T17:58:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "15"
    }
   ],
+  "aircraft_type": "32Q",
   "dest_sched_arrival": "2026-10-22T22:25",
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 12,
+   "W": 0,
+   "Y": 190
   }
  },
  {
@@ -3709,71 +4088,99 @@
     "at": "2026-10-20T13:41:47.646000+08:00",
     "state": "Scheduled",
     "est": null,
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
    },
    {
     "at": "2026-10-22T05:44:19.367000+08:00",
     "state": "Scheduled",
     "est": "2026-10-22T17:40:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
    },
    {
     "at": "2026-10-22T14:14:48.138000+08:00",
     "state": "Scheduled",
     "est": "2026-10-22T18:25:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
+   },
+   {
+    "at": "2026-10-22T16:43:11.669000+08:00",
+    "state": "Scheduled",
+    "est": "2026-10-22T18:25:00+08:00",
+    "on_ground": null,
+    "gate": "2"
    },
    {
     "at": "2026-10-22T17:36:28.643000+08:00",
     "state": "Scheduled",
     "est": null,
-    "on_ground": null
+    "on_ground": null,
+    "gate": "2"
    },
    {
     "at": "2026-10-22T17:37:18.903000+08:00",
     "state": "Scheduled",
     "est": "2026-10-22T18:25:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "2"
    },
    {
     "at": "2026-10-22T17:57:19.333000+08:00",
     "state": "Scheduled",
     "est": "2026-10-22T17:40:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "2"
    },
    {
     "at": "2026-10-22T18:54:29.859000+08:00",
     "state": "OutGate",
     "est": "2026-10-22T18:42:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "2"
    },
    {
     "at": "2026-10-22T18:55:52.765000+08:00",
     "state": "InAir",
     "est": "2026-10-22T18:42:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "2"
    },
    {
     "at": "2026-10-22T20:12:51.516000+08:00",
     "state": "Landed",
     "est": "2026-10-22T18:42:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "2"
    },
    {
     "at": "2026-10-22T20:33:45.807000+08:00",
     "state": "InGate",
     "est": "2026-10-22T18:42:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "2"
    }
   ],
+  "aircraft_type": "333",
   "dest_sched_arrival": "2026-10-22T19:25",
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -3796,53 +4203,78 @@
     "at": "2026-10-20T13:46:41.852000+08:00",
     "state": "Scheduled",
     "est": null,
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
    },
    {
     "at": "2026-10-22T05:48:48.988000+08:00",
     "state": "Scheduled",
     "est": "2026-10-22T17:45:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
    },
    {
     "at": "2026-10-22T15:48:12.344000+08:00",
     "state": "Scheduled",
     "est": "2026-10-22T19:00:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
+   },
+   {
+    "at": "2026-10-22T17:07:25.032000+08:00",
+    "state": "Scheduled",
+    "est": "2026-10-22T19:00:00+08:00",
+    "on_ground": null,
+    "gate": "36"
    },
    {
     "at": "2026-10-22T19:08:47.981000+08:00",
     "state": "OutGate",
     "est": "2026-10-22T19:00:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "36"
    },
    {
     "at": "2026-10-22T19:23:26.012000+08:00",
     "state": "InAir",
     "est": "2026-10-22T19:00:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "36"
    },
    {
     "at": "2026-10-22T20:33:03.785000+08:00",
     "state": "Landed",
     "est": "2026-10-22T19:00:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "36"
    },
    {
     "at": "2026-10-22T20:41:46.183000+08:00",
     "state": "InGate",
     "est": "2026-10-22T19:00:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "36"
    }
   ],
+  "aircraft_type": "773",
   "dest_sched_arrival": "2026-10-22T19:25",
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 42,
+   "W": 0,
+   "Y": 356
   }
  },
  {
@@ -3865,47 +4297,71 @@
     "at": "2026-10-20T14:01:45.595000+08:00",
     "state": "Scheduled",
     "est": null,
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
    },
    {
     "at": "2026-10-22T06:06:16.013000+08:00",
     "state": "Scheduled",
     "est": "2026-10-22T18:00:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
+   },
+   {
+    "at": "2026-10-22T14:03:15.750000+08:00",
+    "state": "Scheduled",
+    "est": "2026-10-22T18:00:00+08:00",
+    "on_ground": null,
+    "gate": "29"
    },
    {
     "at": "2026-10-22T18:22:31.133000+08:00",
     "state": "OutGate",
     "est": "2026-10-22T18:03:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "29"
    },
    {
     "at": "2026-10-22T18:24:00.766000+08:00",
     "state": "InAir",
     "est": "2026-10-22T18:03:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "29"
    },
    {
     "at": "2026-10-22T23:33:53.196000+08:00",
     "state": "Landed",
     "est": "2026-10-22T18:03:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "29"
    },
    {
     "at": "2026-10-22T23:54:10.688000+08:00",
     "state": "InGate",
     "est": "2026-10-22T18:03:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "29"
    }
   ],
+  "aircraft_type": "77W",
   "dest_sched_arrival": "2026-10-22T21:10",
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 6,
+   "J": 53,
+   "W": 34,
+   "Y": 201
   }
  },
  {
@@ -3928,47 +4384,71 @@
     "at": "2026-10-20T14:16:46.033000+08:00",
     "state": "Scheduled",
     "est": null,
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
    },
    {
     "at": "2026-10-22T06:18:42.222000+08:00",
     "state": "Scheduled",
     "est": "2026-10-22T18:15:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
+   },
+   {
+    "at": "2026-10-22T15:51:14.035000+08:00",
+    "state": "Scheduled",
+    "est": "2026-10-22T18:15:00+08:00",
+    "on_ground": null,
+    "gate": "69"
    },
    {
     "at": "2026-10-22T19:28:22.545000+08:00",
     "state": "OutGate",
     "est": "2026-10-22T19:20:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "69"
    },
    {
     "at": "2026-10-22T19:43:42.074000+08:00",
     "state": "InAir",
     "est": "2026-10-22T19:20:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "69"
    },
    {
     "at": "2026-10-22T21:04:44.013000+08:00",
     "state": "Landed",
     "est": "2026-10-22T19:20:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "69"
    },
    {
     "at": "2026-10-22T21:18:49.430000+08:00",
     "state": "InGate",
     "est": "2026-10-22T19:20:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "69"
    }
   ],
+  "aircraft_type": "333",
   "dest_sched_arrival": "2026-10-22T20:05",
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -3991,59 +4471,85 @@
     "at": "2026-10-20T14:26:47.402000+08:00",
     "state": "Scheduled",
     "est": null,
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
    },
    {
     "at": "2026-10-22T06:28:35.212000+08:00",
     "state": "Scheduled",
     "est": "2026-10-22T18:25:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
+   },
+   {
+    "at": "2026-10-22T15:07:39.328000+08:00",
+    "state": "Scheduled",
+    "est": "2026-10-22T18:25:00+08:00",
+    "on_ground": null,
+    "gate": "33"
    },
    {
     "at": "2026-10-22T18:30:10.428000+08:00",
     "state": "OutGate",
     "est": "2026-10-22T18:25:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "33"
    },
    {
     "at": "2026-10-22T18:47:20.278000+08:00",
     "state": "InAir",
     "est": "2026-10-22T18:25:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "33"
    },
    {
     "at": "2026-10-22T20:41:47.805000+08:00",
     "state": "Landed",
     "est": "2026-10-22T18:25:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "33"
    },
    {
     "at": "2026-10-22T20:44:55.988000+08:00",
     "state": "Landed",
     "est": "2026-10-22T18:35:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "33"
    },
    {
     "at": "2026-10-22T20:54:01.030000+08:00",
     "state": "InGate",
     "est": "2026-10-22T18:35:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "33"
    },
    {
     "at": "2026-10-22T21:03:55.885000+08:00",
     "state": "InGate",
     "est": "2026-10-22T18:25:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "33"
    }
   ],
+  "aircraft_type": "333",
   "dest_sched_arrival": "2026-10-22T20:55",
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -4066,47 +4572,71 @@
     "at": "2026-10-20T14:26:46.692000+08:00",
     "state": "Scheduled",
     "est": null,
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
    },
    {
     "at": "2026-10-22T06:28:46.367000+08:00",
     "state": "Scheduled",
     "est": "2026-10-22T18:25:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
+   },
+   {
+    "at": "2026-10-22T12:51:13.511000+08:00",
+    "state": "Scheduled",
+    "est": "2026-10-22T18:25:00+08:00",
+    "on_ground": null,
+    "gate": "9"
    },
    {
     "at": "2026-10-22T18:34:03.559000+08:00",
     "state": "OutGate",
     "est": "2026-10-22T18:28:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "9"
    },
    {
     "at": "2026-10-22T18:49:22.671000+08:00",
     "state": "InAir",
     "est": "2026-10-22T18:28:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "9"
    },
    {
     "at": "2026-10-23T06:46:02.206000+08:00",
     "state": "Landed",
     "est": "2026-10-22T18:28:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "9"
    },
    {
     "at": "2026-10-23T07:08:10.093000+08:00",
     "state": "InGate",
     "est": "2026-10-22T18:28:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "9"
    }
   ],
+  "aircraft_type": "77W",
   "dest_sched_arrival": "2026-10-22T16:30",
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 6,
+   "J": 53,
+   "W": 34,
+   "Y": 201
   }
  },
  {
@@ -4129,47 +4659,71 @@
     "at": "2026-10-20T14:56:53.343000+08:00",
     "state": "Scheduled",
     "est": null,
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
    },
    {
     "at": "2026-10-22T06:58:08.334000+08:00",
     "state": "Scheduled",
     "est": "2026-10-22T18:55:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
+   },
+   {
+    "at": "2026-10-22T15:37:18.136000+08:00",
+    "state": "Scheduled",
+    "est": "2026-10-22T18:55:00+08:00",
+    "on_ground": null,
+    "gate": "11"
    },
    {
     "at": "2026-10-22T19:06:28.277000+08:00",
     "state": "OutGate",
     "est": "2026-10-22T19:01:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "11"
    },
    {
     "at": "2026-10-22T19:25:29.361000+08:00",
     "state": "InAir",
     "est": "2026-10-22T19:01:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "11"
    },
    {
     "at": "2026-10-22T23:47:10.477000+08:00",
     "state": "Landed",
     "est": "2026-10-22T19:01:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "11"
    },
    {
     "at": "2026-10-22T23:59:51.973000+08:00",
     "state": "InGate",
     "est": "2026-10-22T19:01:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "11"
    }
   ],
+  "aircraft_type": "333",
   "dest_sched_arrival": "2026-10-22T21:45",
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -4192,47 +4746,71 @@
     "at": "2026-10-20T15:01:51.986000+08:00",
     "state": "Scheduled",
     "est": null,
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
    },
    {
     "at": "2026-10-22T07:03:03.740000+08:00",
     "state": "Scheduled",
     "est": "2026-10-22T19:00:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
+   },
+   {
+    "at": "2026-10-22T15:15:19.185000+08:00",
+    "state": "Scheduled",
+    "est": "2026-10-22T19:00:00+08:00",
+    "on_ground": null,
+    "gate": "49"
    },
    {
     "at": "2026-10-22T19:14:01.098000+08:00",
     "state": "OutGate",
     "est": "2026-10-22T18:58:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "49"
    },
    {
     "at": "2026-10-22T19:19:39.444000+08:00",
     "state": "InAir",
     "est": "2026-10-22T18:58:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "49"
    },
    {
     "at": "2026-10-23T03:49:11.077000+08:00",
     "state": "Landed",
     "est": "2026-10-22T18:58:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "49"
    },
    {
     "at": "2026-10-23T03:57:50.394000+08:00",
     "state": "InGate",
     "est": "2026-10-22T18:58:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "49"
    }
   ],
+  "aircraft_type": "359",
   "dest_sched_arrival": "2026-10-23T06:55",
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 38,
+   "W": 28,
+   "Y": 214
   }
  },
  {
@@ -4255,47 +4833,71 @@
     "at": "2026-10-20T15:01:52.386000+08:00",
     "state": "Scheduled",
     "est": null,
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
    },
    {
     "at": "2026-10-22T07:00:22.506000+08:00",
     "state": "Scheduled",
     "est": "2026-10-22T19:00:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
+   },
+   {
+    "at": "2026-10-22T16:43:12.437000+08:00",
+    "state": "Scheduled",
+    "est": "2026-10-22T19:00:00+08:00",
+    "on_ground": null,
+    "gate": "4"
    },
    {
     "at": "2026-10-22T19:16:11.144000+08:00",
     "state": "OutGate",
     "est": "2026-10-22T19:01:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "4"
    },
    {
     "at": "2026-10-22T19:21:18.234000+08:00",
     "state": "InAir",
     "est": "2026-10-22T19:01:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "4"
    },
    {
     "at": "2026-10-22T22:02:46.183000+08:00",
     "state": "Landed",
     "est": "2026-10-22T19:01:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "4"
    },
    {
     "at": "2026-10-22T22:28:46.389000+08:00",
     "state": "InGate",
     "est": "2026-10-22T19:01:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "4"
    }
   ],
+  "aircraft_type": "333",
   "dest_sched_arrival": "2026-10-22T22:25",
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -4318,53 +4920,78 @@
     "at": "2026-10-20T15:06:58.929000+08:00",
     "state": "Scheduled",
     "est": null,
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
    },
    {
     "at": "2026-10-22T07:10:05.750000+08:00",
     "state": "Scheduled",
     "est": "2026-10-22T19:05:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
+   },
+   {
+    "at": "2026-10-22T16:45:08.135000+08:00",
+    "state": "Scheduled",
+    "est": "2026-10-22T19:05:00+08:00",
+    "on_ground": null,
+    "gate": "63"
    },
    {
     "at": "2026-10-22T19:18:12.863000+08:00",
     "state": "OutGate",
     "est": "2026-10-22T19:04:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "63"
    },
    {
     "at": "2026-10-22T19:26:49.361000+08:00",
     "state": "InAir",
     "est": "2026-10-22T19:04:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "63"
    },
    {
     "at": "2026-10-23T03:59:42.211000+08:00",
     "state": "Landed",
     "est": "2026-10-22T19:04:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "63"
    },
    {
     "at": "2026-10-23T04:01:44.024000+08:00",
     "state": "Landed",
     "est": "2026-10-22T19:06:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "63"
    },
    {
     "at": "2026-10-23T04:16:12.122000+08:00",
     "state": "InGate",
     "est": "2026-10-22T19:04:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "63"
    }
   ],
+  "aircraft_type": "359",
   "dest_sched_arrival": "2026-10-23T07:10",
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 38,
+   "W": 28,
+   "Y": 214
   }
  },
  {
@@ -4387,47 +5014,71 @@
     "at": "2026-10-20T15:06:58.190000+08:00",
     "state": "Scheduled",
     "est": null,
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
    },
    {
     "at": "2026-10-22T07:09:34.664000+08:00",
     "state": "Scheduled",
     "est": "2026-10-22T19:05:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
+   },
+   {
+    "at": "2026-10-22T17:07:24.320000+08:00",
+    "state": "Scheduled",
+    "est": "2026-10-22T19:05:00+08:00",
+    "on_ground": null,
+    "gate": "66"
    },
    {
     "at": "2026-10-22T19:27:52.836000+08:00",
     "state": "OutGate",
     "est": "2026-10-22T19:17:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "66"
    },
    {
     "at": "2026-10-22T19:38:03.992000+08:00",
     "state": "InAir",
     "est": "2026-10-22T19:17:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "66"
    },
    {
     "at": "2026-10-22T23:36:52.943000+08:00",
     "state": "Landed",
     "est": "2026-10-22T19:20:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "66"
    },
    {
     "at": "2026-10-22T23:54:09.986000+08:00",
     "state": "InGate",
     "est": "2026-10-22T19:20:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "66"
    }
   ],
+  "aircraft_type": "773",
   "dest_sched_arrival": "2026-10-22T22:55",
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 42,
+   "W": 0,
+   "Y": 356
   }
  },
  {
@@ -4450,59 +5101,85 @@
     "at": "2026-10-20T15:11:55.790000+08:00",
     "state": "Scheduled",
     "est": null,
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
    },
    {
     "at": "2026-10-22T07:12:32.845000+08:00",
     "state": "Scheduled",
     "est": "2026-10-22T19:10:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
+   },
+   {
+    "at": "2026-10-22T16:57:08.014000+08:00",
+    "state": "Scheduled",
+    "est": "2026-10-22T19:10:00+08:00",
+    "on_ground": null,
+    "gate": "41"
    },
    {
     "at": "2026-10-22T19:30:13.559000+08:00",
     "state": "OutGate",
     "est": "2026-10-22T19:23:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "41"
    },
    {
     "at": "2026-10-22T19:48:42.985000+08:00",
     "state": "InAir",
     "est": "2026-10-22T19:23:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "41"
    },
    {
     "at": "2026-10-23T10:15:10.161000+08:00",
     "state": "Landed",
     "est": "2026-10-22T19:23:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "41"
    },
    {
     "at": "2026-10-23T10:18:04.594000+08:00",
     "state": "Landed",
     "est": "2026-10-22T19:25:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "41"
    },
    {
     "at": "2026-10-23T10:36:05.168000+08:00",
     "state": "Landed",
     "est": "2026-10-22T19:23:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "41"
    },
    {
     "at": "2026-10-23T10:53:52.146000+08:00",
     "state": "InGate",
     "est": "2026-10-22T19:23:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "41"
    }
   ],
+  "aircraft_type": "351",
   "dest_sched_arrival": "2026-10-22T23:05",
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 46,
+   "W": 32,
+   "Y": 256
   }
  },
  {
@@ -4525,47 +5202,71 @@
     "at": "2026-10-20T15:11:55.832000+08:00",
     "state": "Scheduled",
     "est": null,
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
    },
    {
     "at": "2026-10-22T07:13:15.265000+08:00",
     "state": "Scheduled",
     "est": "2026-10-22T19:10:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
+   },
+   {
+    "at": "2026-10-22T17:25:57.281000+08:00",
+    "state": "Scheduled",
+    "est": "2026-10-22T19:10:00+08:00",
+    "on_ground": null,
+    "gate": "67"
    },
    {
     "at": "2026-10-22T19:18:11.927000+08:00",
     "state": "OutGate",
     "est": "2026-10-22T19:12:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "67"
    },
    {
     "at": "2026-10-22T19:36:28.588000+08:00",
     "state": "InAir",
     "est": "2026-10-22T19:12:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "67"
    },
    {
     "at": "2026-10-23T09:20:07.316000+08:00",
     "state": "Landed",
     "est": "2026-10-22T19:12:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "67"
    },
    {
     "at": "2026-10-23T09:37:04.821000+08:00",
     "state": "InGate",
     "est": "2026-10-22T19:12:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "67"
    }
   ],
+  "aircraft_type": "351",
   "dest_sched_arrival": "2026-10-22T22:10",
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 46,
+   "W": 32,
+   "Y": 256
   }
  },
  {
@@ -4588,47 +5289,71 @@
     "at": "2026-10-20T15:16:59.870000+08:00",
     "state": "Scheduled",
     "est": null,
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
    },
    {
     "at": "2026-10-22T07:19:04.682000+08:00",
     "state": "Scheduled",
     "est": "2026-10-22T19:15:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
+   },
+   {
+    "at": "2026-10-22T16:43:11.644000+08:00",
+    "state": "Scheduled",
+    "est": "2026-10-22T19:15:00+08:00",
+    "on_ground": null,
+    "gate": "20"
    },
    {
     "at": "2026-10-22T19:16:25.008000+08:00",
     "state": "OutGate",
     "est": "2026-10-22T19:08:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "20"
    },
    {
     "at": "2026-10-22T19:34:55.373000+08:00",
     "state": "InAir",
     "est": "2026-10-22T19:08:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "20"
    },
    {
     "at": "2026-10-22T21:40:12.477000+08:00",
     "state": "Landed",
     "est": "2026-10-22T19:08:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "20"
    },
    {
     "at": "2026-10-22T21:49:54.216000+08:00",
     "state": "InGate",
     "est": "2026-10-22T19:08:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "20"
    }
   ],
+  "aircraft_type": "32Q",
   "dest_sched_arrival": "2026-10-22T21:55",
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 12,
+   "W": 0,
+   "Y": 190
   }
  },
  {
@@ -4651,53 +5376,78 @@
     "at": "2026-10-20T15:21:57.532000+08:00",
     "state": "Scheduled",
     "est": null,
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
    },
    {
     "at": "2026-10-22T07:25:48.179000+08:00",
     "state": "Scheduled",
     "est": "2026-10-22T19:20:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
    },
    {
     "at": "2026-10-22T17:36:09.074000+08:00",
     "state": "Scheduled",
     "est": "2026-10-22T21:00:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
+   },
+   {
+    "at": "2026-10-22T19:11:41.659000+08:00",
+    "state": "Scheduled",
+    "est": "2026-10-22T21:00:00+08:00",
+    "on_ground": null,
+    "gate": "49"
    },
    {
     "at": "2026-10-22T21:16:07.468000+08:00",
     "state": "OutGate",
     "est": "2026-10-22T21:09:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "49"
    },
    {
     "at": "2026-10-22T21:35:07.573000+08:00",
     "state": "InAir",
     "est": "2026-10-22T21:09:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "49"
    },
    {
     "at": "2026-10-22T23:30:43.588000+08:00",
     "state": "Landed",
     "est": "2026-10-22T21:09:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "49"
    },
    {
     "at": "2026-10-22T23:39:14.137000+08:00",
     "state": "InGate",
     "est": "2026-10-22T21:09:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "49"
    }
   ],
+  "aircraft_type": "773",
   "dest_sched_arrival": "2026-10-22T22:10",
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 42,
+   "W": 0,
+   "Y": 356
   }
  },
  {
@@ -4720,47 +5470,71 @@
     "at": "2026-10-20T15:21:58.237000+08:00",
     "state": "Scheduled",
     "est": null,
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
    },
    {
     "at": "2026-10-22T07:26:08.683000+08:00",
     "state": "Scheduled",
     "est": "2026-10-22T19:20:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
+   },
+   {
+    "at": "2026-10-22T15:27:31.878000+08:00",
+    "state": "Scheduled",
+    "est": "2026-10-22T19:20:00+08:00",
+    "on_ground": null,
+    "gate": "21"
    },
    {
     "at": "2026-10-22T20:26:34.043000+08:00",
     "state": "OutGate",
     "est": "2026-10-22T20:23:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "21"
    },
    {
     "at": "2026-10-22T20:51:58.298000+08:00",
     "state": "InAir",
     "est": "2026-10-22T20:23:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "21"
    },
    {
     "at": "2026-10-22T22:22:54.801000+08:00",
     "state": "Landed",
     "est": "2026-10-22T20:23:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "21"
    },
    {
     "at": "2026-10-22T22:32:47.281000+08:00",
     "state": "InGate",
     "est": "2026-10-22T20:23:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "21"
    }
   ],
+  "aircraft_type": "32Q",
   "dest_sched_arrival": "2026-10-22T21:20",
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 12,
+   "W": 0,
+   "Y": 190
   }
  },
  {
@@ -4783,53 +5557,78 @@
     "at": "2026-10-20T15:26:56.454000+08:00",
     "state": "Scheduled",
     "est": null,
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
    },
    {
     "at": "2026-10-22T07:27:08.728000+08:00",
     "state": "Scheduled",
     "est": "2026-10-22T19:25:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
+   },
+   {
+    "at": "2026-10-22T15:15:29.444000+08:00",
+    "state": "Scheduled",
+    "est": "2026-10-22T19:25:00+08:00",
+    "on_ground": null,
+    "gate": "26"
    },
    {
     "at": "2026-10-22T18:50:03.914000+08:00",
     "state": "Scheduled",
     "est": "2026-10-22T19:55:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "26"
    },
    {
     "at": "2026-10-22T21:10:08.837000+08:00",
     "state": "OutGate",
     "est": "2026-10-22T21:01:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "26"
    },
    {
     "at": "2026-10-22T21:26:59.015000+08:00",
     "state": "InAir",
     "est": "2026-10-22T21:01:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "26"
    },
    {
     "at": "2026-10-22T23:21:18.639000+08:00",
     "state": "Landed",
     "est": "2026-10-22T21:01:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "26"
    },
    {
     "at": "2026-10-22T23:34:49.686000+08:00",
     "state": "InGate",
     "est": "2026-10-22T21:01:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "26"
    }
   ],
+  "aircraft_type": "333",
   "dest_sched_arrival": "2026-10-22T22:05",
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -4852,59 +5651,85 @@
     "at": "2026-10-20T15:47:00.294000+08:00",
     "state": "Scheduled",
     "est": null,
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
    },
    {
     "at": "2026-10-22T07:49:33.227000+08:00",
     "state": "Scheduled",
     "est": "2026-10-22T19:45:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
+   },
+   {
+    "at": "2026-10-22T15:15:19.838000+08:00",
+    "state": "Scheduled",
+    "est": "2026-10-22T19:45:00+08:00",
+    "on_ground": null,
+    "gate": "17"
    },
    {
     "at": "2026-10-22T19:59:59.183000+08:00",
     "state": "OutGate",
     "est": "2026-10-22T19:45:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "17"
    },
    {
     "at": "2026-10-22T20:04:03.620000+08:00",
     "state": "InAir",
     "est": "2026-10-22T19:45:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "17"
    },
    {
     "at": "2026-10-22T23:01:31.685000+08:00",
     "state": "Landed",
     "est": "2026-10-22T19:45:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "17"
    },
    {
     "at": "2026-10-22T23:03:45.741000+08:00",
     "state": "Landed",
     "est": "2026-10-22T19:46:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "17"
    },
    {
     "at": "2026-10-22T23:15:54.499000+08:00",
     "state": "InGate",
     "est": "2026-10-22T19:46:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "17"
    },
    {
     "at": "2026-10-22T23:20:01.486000+08:00",
     "state": "InGate",
     "est": "2026-10-22T19:45:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "17"
    }
   ],
+  "aircraft_type": "32Q",
   "dest_sched_arrival": "2026-10-23T00:25",
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 12,
+   "W": 0,
+   "Y": 190
   }
  },
  {
@@ -4927,47 +5752,71 @@
     "at": "2026-10-20T16:02:02.855000+08:00",
     "state": "Scheduled",
     "est": null,
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
    },
    {
     "at": "2026-10-22T08:04:52.134000+08:00",
     "state": "Scheduled",
     "est": "2026-10-22T20:00:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
+   },
+   {
+    "at": "2026-10-22T18:01:48.683000+08:00",
+    "state": "Scheduled",
+    "est": "2026-10-22T20:00:00+08:00",
+    "on_ground": null,
+    "gate": "27"
    },
    {
     "at": "2026-10-22T20:48:09.632000+08:00",
     "state": "OutGate",
     "est": "2026-10-22T20:27:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "27"
    },
    {
     "at": "2026-10-22T20:59:00.187000+08:00",
     "state": "InAir",
     "est": "2026-10-22T20:27:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "27"
    },
    {
     "at": "2026-10-22T21:37:49.766000+08:00",
     "state": "Landed",
     "est": "2026-10-22T20:27:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "27"
    },
    {
     "at": "2026-10-22T22:09:18.380000+08:00",
     "state": "InGate",
     "est": "2026-10-22T20:27:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "27"
    }
   ],
+  "aircraft_type": "333",
   "dest_sched_arrival": "2026-10-22T21:05",
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -4990,53 +5839,78 @@
     "at": "2026-10-20T16:12:06.189000+08:00",
     "state": "Scheduled",
     "est": null,
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
    },
    {
     "at": "2026-10-22T08:12:55.612000+08:00",
     "state": "Scheduled",
     "est": "2026-10-22T20:10:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
+   },
+   {
+    "at": "2026-10-22T16:43:13.048000+08:00",
+    "state": "Scheduled",
+    "est": "2026-10-22T20:10:00+08:00",
+    "on_ground": null,
+    "gate": "71"
    },
    {
     "at": "2026-10-22T20:31:59.069000+08:00",
     "state": "OutGate",
     "est": "2026-10-22T20:26:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "71"
    },
    {
     "at": "2026-10-22T20:45:56.262000+08:00",
     "state": "InAir",
     "est": "2026-10-22T20:26:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "71"
    },
    {
     "at": "2026-10-22T22:35:12.974000+08:00",
     "state": "Landed",
     "est": "2026-10-22T20:26:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "71"
    },
    {
     "at": "2026-10-22T22:45:07.737000+08:00",
     "state": "InGate",
     "est": "2026-10-22T20:26:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "71"
    },
    {
     "at": "2026-10-22T23:32:17.136000+08:00",
     "state": "InGate",
     "est": "2026-10-22T20:25:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "71"
    }
   ],
+  "aircraft_type": "333",
   "dest_sched_arrival": "2026-10-22T22:35",
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -5055,14 +5929,25 @@
   "gate": "65",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -5081,14 +5966,25 @@
   "gate": "11",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -5107,14 +6003,25 @@
   "gate": "1",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -5133,14 +6040,25 @@
   "gate": "44",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "77W",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 6,
+   "J": 53,
+   "W": 34,
+   "Y": 201
   }
  },
  {
@@ -5159,14 +6077,25 @@
   "gate": "48",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "77W",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 6,
+   "J": 53,
+   "W": 34,
+   "Y": 201
   }
  },
  {
@@ -5185,14 +6114,25 @@
   "gate": "3",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "359",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 38,
+   "W": 28,
+   "Y": 214
   }
  },
  {
@@ -5211,14 +6151,25 @@
   "gate": "68",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -5237,14 +6188,25 @@
   "gate": "47",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "773",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 42,
+   "W": 0,
+   "Y": 356
   }
  },
  {
@@ -5263,14 +6225,25 @@
   "gate": "5",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "359",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 38,
+   "W": 28,
+   "Y": 214
   }
  },
  {
@@ -5289,14 +6262,25 @@
   "gate": "13",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "32Q",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 12,
+   "W": 0,
+   "Y": 190
   }
  },
  {
@@ -5315,14 +6299,25 @@
   "gate": "43",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "77W",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 6,
+   "J": 53,
+   "W": 34,
+   "Y": 201
   }
  },
  {
@@ -5341,14 +6336,25 @@
   "gate": "31",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -5367,14 +6373,25 @@
   "gate": "12",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "32Q",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 12,
+   "W": 0,
+   "Y": 190
   }
  },
  {
@@ -5393,14 +6410,25 @@
   "gate": "70",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -5419,14 +6447,25 @@
   "gate": "67",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -5445,14 +6484,25 @@
   "gate": "4",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -5471,14 +6521,25 @@
   "gate": "14",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "32Q",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 12,
+   "W": 0,
+   "Y": 190
   }
  },
  {
@@ -5497,14 +6558,25 @@
   "gate": "35",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "77W",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 6,
+   "J": 53,
+   "W": 34,
+   "Y": 201
   }
  },
  {
@@ -5523,14 +6595,25 @@
   "gate": "29",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -5549,14 +6632,25 @@
   "gate": "27",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -5575,14 +6669,25 @@
   "gate": "65",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "359",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 38,
+   "W": 28,
+   "Y": 214
   }
  },
  {
@@ -5601,14 +6706,25 @@
   "gate": "44",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "77W",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 6,
+   "J": 53,
+   "W": 34,
+   "Y": 201
   }
  },
  {
@@ -5627,14 +6743,25 @@
   "gate": "69",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "351",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 46,
+   "W": 32,
+   "Y": 256
   }
  },
  {
@@ -5653,14 +6780,25 @@
   "gate": "34",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "77W",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 6,
+   "J": 53,
+   "W": 34,
+   "Y": 201
   }
  },
  {
@@ -5679,14 +6817,25 @@
   "gate": "67",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "351",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 46,
+   "W": 32,
+   "Y": 256
   }
  },
  {
@@ -5705,14 +6854,25 @@
   "gate": "26",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "77W",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 6,
+   "J": 53,
+   "W": 34,
+   "Y": 201
   }
  },
  {
@@ -5731,14 +6891,25 @@
   "gate": "71",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "359",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 38,
+   "W": 28,
+   "Y": 214
   }
  },
  {
@@ -5761,47 +6932,71 @@
     "at": "2026-10-20T20:21:35.063000+08:00",
     "state": "Scheduled",
     "est": null,
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
    },
    {
     "at": "2026-10-22T12:21:52.587000+08:00",
     "state": "Scheduled",
     "est": "2026-10-23T00:20:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
+   },
+   {
+    "at": "2026-10-22T20:29:04.520000+08:00",
+    "state": "Scheduled",
+    "est": "2026-10-23T00:20:00+08:00",
+    "on_ground": null,
+    "gate": "2"
    },
    {
     "at": "2026-10-23T00:34:07.701000+08:00",
     "state": "OutGate",
     "est": "2026-10-23T00:24:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "2"
    },
    {
     "at": "2026-10-23T00:42:56.126000+08:00",
     "state": "InAir",
     "est": "2026-10-23T00:24:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "2"
    },
    {
     "at": "2026-10-23T09:03:59.448000+08:00",
     "state": "Landed",
     "est": "2026-10-23T00:24:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "2"
    },
    {
     "at": "2026-10-23T09:12:50.971000+08:00",
     "state": "InGate",
     "est": "2026-10-23T00:24:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "2"
    }
   ],
+  "aircraft_type": "359",
   "dest_sched_arrival": "2026-10-23T12:15",
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 38,
+   "W": 28,
+   "Y": 214
   }
  },
  {
@@ -5820,14 +7015,25 @@
   "gate": "46",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "359",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 38,
+   "W": 28,
+   "Y": 214
   }
  },
  {
@@ -5846,14 +7052,25 @@
   "gate": "5",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "77W",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 6,
+   "J": 53,
+   "W": 34,
+   "Y": 201
   }
  },
  {
@@ -5872,14 +7089,25 @@
   "gate": "43",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "359",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 38,
+   "W": 28,
+   "Y": 214
   }
  },
  {
@@ -5898,14 +7126,25 @@
   "gate": "24",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "77W",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 6,
+   "J": 53,
+   "W": 34,
+   "Y": 201
   }
  },
  {
@@ -5924,14 +7163,25 @@
   "gate": "31",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "77W",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 6,
+   "J": 53,
+   "W": 34,
+   "Y": 201
   }
  },
  {
@@ -5950,14 +7200,25 @@
   "gate": "30",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "77W",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 6,
+   "J": 53,
+   "W": 34,
+   "Y": 201
   }
  },
  {
@@ -5976,14 +7237,25 @@
   "gate": "1",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "359",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 38,
+   "W": 28,
+   "Y": 214
   }
  },
  {
@@ -6002,14 +7274,25 @@
   "gate": "63",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "77W",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 6,
+   "J": 53,
+   "W": 34,
+   "Y": 201
   }
  },
  {
@@ -6028,14 +7311,25 @@
   "gate": "11",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -6054,14 +7348,25 @@
   "gate": "49",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -6080,14 +7385,25 @@
   "gate": "23",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -6106,14 +7422,25 @@
   "gate": "8",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -6132,14 +7459,25 @@
   "gate": null,
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "359",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 38,
+   "W": 28,
+   "Y": 214
   }
  },
  {
@@ -6158,14 +7496,25 @@
   "gate": "28",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -6184,14 +7533,25 @@
   "gate": "2",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -6210,14 +7570,25 @@
   "gate": "15",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "32Q",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 12,
+   "W": 0,
+   "Y": 190
   }
  },
  {
@@ -6236,14 +7607,25 @@
   "gate": "65",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -6262,14 +7644,25 @@
   "gate": "17",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "32Q",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 12,
+   "W": 0,
+   "Y": 190
   }
  },
  {
@@ -6288,14 +7681,25 @@
   "gate": "14",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "32Q",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 12,
+   "W": 0,
+   "Y": 190
   }
  },
  {
@@ -6314,14 +7718,25 @@
   "gate": null,
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": null,
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -6340,14 +7755,25 @@
   "gate": "5",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "359",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 38,
+   "W": 28,
+   "Y": 214
   }
  },
  {
@@ -6366,14 +7792,25 @@
   "gate": "27",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "773",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 42,
+   "W": 0,
+   "Y": 356
   }
  },
  {
@@ -6392,14 +7829,25 @@
   "gate": "63",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "351",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 46,
+   "W": 32,
+   "Y": 256
   }
  },
  {
@@ -6418,14 +7866,25 @@
   "gate": "10",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "32Q",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 12,
+   "W": 0,
+   "Y": 190
   }
  },
  {
@@ -6444,14 +7903,25 @@
   "gate": "24",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "77W",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 6,
+   "J": 53,
+   "W": 34,
+   "Y": 201
   }
  },
  {
@@ -6471,14 +7941,25 @@
   "gate": null,
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": null,
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -6497,14 +7978,25 @@
   "gate": "64",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "351",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 46,
+   "W": 32,
+   "Y": 256
   }
  },
  {
@@ -6523,14 +8015,25 @@
   "gate": "69",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -6549,14 +8052,25 @@
   "gate": "35",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "77W",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 6,
+   "J": 53,
+   "W": 34,
+   "Y": 201
   }
  },
  {
@@ -6575,14 +8089,25 @@
   "gate": "46",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "359",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 38,
+   "W": 28,
+   "Y": 214
   }
  },
  {
@@ -6601,14 +8126,25 @@
   "gate": "67",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -6627,14 +8163,25 @@
   "gate": "21",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "32Q",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 12,
+   "W": 0,
+   "Y": 190
   }
  },
  {
@@ -6653,14 +8200,25 @@
   "gate": null,
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": null,
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -6680,14 +8238,25 @@
   "gate": null,
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": null,
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -6706,14 +8275,25 @@
   "gate": "36",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -6732,14 +8312,25 @@
   "gate": "34",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "77W",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 6,
+   "J": 53,
+   "W": 34,
+   "Y": 201
   }
  },
  {
@@ -6758,14 +8349,25 @@
   "gate": "68",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -6784,14 +8386,25 @@
   "gate": "3",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "359",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 38,
+   "W": 28,
+   "Y": 214
   }
  },
  {
@@ -6810,14 +8423,25 @@
   "gate": "60",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "77W",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 6,
+   "J": 53,
+   "W": 34,
+   "Y": 201
   }
  },
  {
@@ -6836,14 +8460,25 @@
   "gate": "31",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "77W",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 6,
+   "J": 53,
+   "W": 34,
+   "Y": 201
   }
  },
  {
@@ -6862,14 +8497,25 @@
   "gate": null,
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": null,
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -6888,14 +8534,25 @@
   "gate": "46",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -6914,14 +8571,25 @@
   "gate": "23",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "77W",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 6,
+   "J": 53,
+   "W": 34,
+   "Y": 201
   }
  },
  {
@@ -6940,14 +8608,25 @@
   "gate": "70",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -6966,14 +8645,25 @@
   "gate": "62",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "773",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 42,
+   "W": 0,
+   "Y": 356
   }
  },
  {
@@ -6992,14 +8682,25 @@
   "gate": "41",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "77W",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 6,
+   "J": 53,
+   "W": 34,
+   "Y": 201
   }
  },
  {
@@ -7018,14 +8719,25 @@
   "gate": "44",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -7044,14 +8756,25 @@
   "gate": "12",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "32Q",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 12,
+   "W": 0,
+   "Y": 190
   }
  },
  {
@@ -7070,14 +8793,25 @@
   "gate": "521",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "359",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 38,
+   "W": 28,
+   "Y": 214
   }
  },
  {
@@ -7096,14 +8830,25 @@
   "gate": "1",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "773",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 42,
+   "W": 0,
+   "Y": 356
   }
  },
  {
@@ -7122,14 +8867,25 @@
   "gate": "514",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -7148,14 +8904,25 @@
   "gate": "5",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "773",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 42,
+   "W": 0,
+   "Y": 356
   }
  },
  {
@@ -7174,14 +8941,25 @@
   "gate": "27",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -7201,14 +8979,25 @@
   "gate": null,
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": null,
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -7227,14 +9016,25 @@
   "gate": "35",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "773",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 42,
+   "W": 0,
+   "Y": 356
   }
  },
  {
@@ -7253,14 +9053,25 @@
   "gate": "11",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -7279,14 +9090,25 @@
   "gate": null,
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": null,
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -7305,14 +9127,25 @@
   "gate": "2",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -7331,14 +9164,25 @@
   "gate": "24",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -7357,14 +9201,25 @@
   "gate": "65",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "773",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 42,
+   "W": 0,
+   "Y": 356
   }
  },
  {
@@ -7383,14 +9238,25 @@
   "gate": "45",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "773",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 42,
+   "W": 0,
+   "Y": 356
   }
  },
  {
@@ -7409,14 +9275,25 @@
   "gate": "41",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -7435,14 +9312,25 @@
   "gate": "3",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "351",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 46,
+   "W": 32,
+   "Y": 256
   }
  },
  {
@@ -7461,14 +9349,25 @@
   "gate": "14",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "32Q",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 12,
+   "W": 0,
+   "Y": 190
   }
  },
  {
@@ -7487,14 +9386,25 @@
   "gate": "71",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "359",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 38,
+   "W": 28,
+   "Y": 214
   }
  },
  {
@@ -7513,14 +9423,25 @@
   "gate": null,
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": null,
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -7539,14 +9460,25 @@
   "gate": "64",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "77W",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 6,
+   "J": 53,
+   "W": 34,
+   "Y": 201
   }
  },
  {
@@ -7565,14 +9497,25 @@
   "gate": "15",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "32Q",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 12,
+   "W": 0,
+   "Y": 190
   }
  },
  {
@@ -7591,14 +9534,25 @@
   "gate": "33",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "359",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 38,
+   "W": 28,
+   "Y": 214
   }
  },
  {
@@ -7621,47 +9575,71 @@
     "at": "2026-10-21T07:21:13.137000+08:00",
     "state": "Scheduled",
     "est": null,
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
    },
    {
     "at": "2026-10-22T23:21:50.056000+08:00",
     "state": "Scheduled",
     "est": "2026-10-23T11:20:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": null
+   },
+   {
+    "at": "2026-10-23T09:21:15.345000+08:00",
+    "state": "Scheduled",
+    "est": "2026-10-23T11:20:00+08:00",
+    "on_ground": null,
+    "gate": "44"
    },
    {
     "at": "2026-10-23T11:18:06.056000+08:00",
     "state": "OutGate",
     "est": "2026-10-23T11:14:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "44"
    },
    {
     "at": "2026-10-23T11:33:29.338000+08:00",
     "state": "InAir",
     "est": "2026-10-23T11:14:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "44"
    },
    {
     "at": "2026-10-23T19:47:05.637000+08:00",
     "state": "Landed",
     "est": "2026-10-23T11:14:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "44"
    },
    {
     "at": "2026-10-23T19:52:33.687000+08:00",
     "state": "InGate",
     "est": "2026-10-23T11:14:00+08:00",
-    "on_ground": null
+    "on_ground": null,
+    "gate": "44"
    }
   ],
+  "aircraft_type": "77W",
   "dest_sched_arrival": "2026-10-23T23:15",
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 6,
+   "J": 53,
+   "W": 34,
+   "Y": 201
   }
  },
  {
@@ -7680,14 +9658,25 @@
   "gate": "49",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "359",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 38,
+   "W": 28,
+   "Y": 214
   }
  },
  {
@@ -7706,14 +9695,25 @@
   "gate": "60",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "359",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 38,
+   "W": 28,
+   "Y": 214
   }
  },
  {
@@ -7732,14 +9732,25 @@
   "gate": "1",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -7758,14 +9769,25 @@
   "gate": "61",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -7784,14 +9806,25 @@
   "gate": "26",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "351",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 46,
+   "W": 32,
+   "Y": 256
   }
  },
  {
@@ -7810,14 +9843,25 @@
   "gate": "41",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -7836,14 +9880,25 @@
   "gate": "3",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -7862,14 +9917,25 @@
   "gate": "63",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "77W",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 6,
+   "J": 53,
+   "W": 34,
+   "Y": 201
   }
  },
  {
@@ -7888,14 +9954,25 @@
   "gate": "2",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -7914,14 +9991,25 @@
   "gate": "24",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -7940,14 +10028,25 @@
   "gate": null,
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": null,
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -7966,14 +10065,25 @@
   "gate": "17",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "32Q",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 12,
+   "W": 0,
+   "Y": 190
   }
  },
  {
@@ -7992,14 +10102,25 @@
   "gate": "13",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "32Q",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 12,
+   "W": 0,
+   "Y": 190
   }
  },
  {
@@ -8018,14 +10139,25 @@
   "gate": "8",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "77W",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 6,
+   "J": 53,
+   "W": 34,
+   "Y": 201
   }
  },
  {
@@ -8044,14 +10176,25 @@
   "gate": "9",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "77W",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 6,
+   "J": 53,
+   "W": 34,
+   "Y": 201
   }
  },
  {
@@ -8070,14 +10213,25 @@
   "gate": null,
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": null,
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -8096,14 +10250,25 @@
   "gate": "66",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -8122,14 +10287,25 @@
   "gate": "47",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -8148,14 +10324,25 @@
   "gate": "50",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -8174,14 +10361,25 @@
   "gate": "34",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "77W",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 6,
+   "J": 53,
+   "W": 34,
+   "Y": 201
   }
  },
  {
@@ -8200,14 +10398,25 @@
   "gate": "20",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "32Q",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 12,
+   "W": 0,
+   "Y": 190
   }
  },
  {
@@ -8226,14 +10435,25 @@
   "gate": "30",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -8252,14 +10472,25 @@
   "gate": "25",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -8278,14 +10509,25 @@
   "gate": "17",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "32Q",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 12,
+   "W": 0,
+   "Y": 190
   }
  },
  {
@@ -8304,14 +10546,25 @@
   "gate": "21",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "32Q",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 12,
+   "W": 0,
+   "Y": 190
   }
  },
  {
@@ -8330,14 +10583,25 @@
   "gate": "28",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "359",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 38,
+   "W": 28,
+   "Y": 214
   }
  },
  {
@@ -8356,14 +10620,25 @@
   "gate": "13",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "32Q",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 12,
+   "W": 0,
+   "Y": 190
   }
  },
  {
@@ -8382,14 +10657,25 @@
   "gate": "49",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -8408,14 +10694,25 @@
   "gate": "65",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -8434,14 +10731,25 @@
   "gate": "33",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -8460,14 +10768,25 @@
   "gate": "10",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "32Q",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 12,
+   "W": 0,
+   "Y": 190
   }
  },
  {
@@ -8486,14 +10805,25 @@
   "gate": "63",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -8512,14 +10842,25 @@
   "gate": "68",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -8538,14 +10879,25 @@
   "gate": "64",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "77W",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 6,
+   "J": 53,
+   "W": 34,
+   "Y": 201
   }
  },
  {
@@ -8564,14 +10916,25 @@
   "gate": null,
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": null,
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -8590,14 +10953,25 @@
   "gate": "29",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "773",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 42,
+   "W": 0,
+   "Y": 356
   }
  },
  {
@@ -8616,14 +10990,25 @@
   "gate": "3",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "77W",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 6,
+   "J": 53,
+   "W": 34,
+   "Y": 201
   }
  },
  {
@@ -8642,14 +11027,25 @@
   "gate": "43",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -8668,14 +11064,25 @@
   "gate": "27",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "773",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 42,
+   "W": 0,
+   "Y": 356
   }
  },
  {
@@ -8694,14 +11101,25 @@
   "gate": "9",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "351",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 46,
+   "W": 32,
+   "Y": 256
   }
  },
  {
@@ -8720,14 +11138,25 @@
   "gate": "16",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "32Q",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 12,
+   "W": 0,
+   "Y": 190
   }
  },
  {
@@ -8746,14 +11175,25 @@
   "gate": "45",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "773",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 42,
+   "W": 0,
+   "Y": 356
   }
  },
  {
@@ -8772,14 +11212,25 @@
   "gate": "24",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -8798,14 +11249,25 @@
   "gate": "41",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "351",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 46,
+   "W": 32,
+   "Y": 256
   }
  },
  {
@@ -8824,14 +11286,25 @@
   "gate": null,
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": null,
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -8850,14 +11323,25 @@
   "gate": "30",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "773",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 42,
+   "W": 0,
+   "Y": 356
   }
  },
  {
@@ -8876,14 +11360,25 @@
   "gate": "20",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "32Q",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 12,
+   "W": 0,
+   "Y": 190
   }
  },
  {
@@ -8902,14 +11397,25 @@
   "gate": "2",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "359",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 38,
+   "W": 28,
+   "Y": 214
   }
  },
  {
@@ -8928,14 +11434,25 @@
   "gate": "1",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -8954,14 +11471,25 @@
   "gate": "19",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "32Q",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 12,
+   "W": 0,
+   "Y": 190
   }
  },
  {
@@ -8980,14 +11508,25 @@
   "gate": "8",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -9006,14 +11545,25 @@
   "gate": "65",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "77W",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 6,
+   "J": 53,
+   "W": 34,
+   "Y": 201
   }
  },
  {
@@ -9032,14 +11582,25 @@
   "gate": "67",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -9058,14 +11619,25 @@
   "gate": "62",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -9084,14 +11656,25 @@
   "gate": "17",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "32Q",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 12,
+   "W": 0,
+   "Y": 190
   }
  },
  {
@@ -9110,14 +11693,25 @@
   "gate": "2",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -9136,14 +11730,25 @@
   "gate": "11",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -9162,14 +11767,25 @@
   "gate": "7",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "77W",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 6,
+   "J": 53,
+   "W": 34,
+   "Y": 201
   }
  },
  {
@@ -9188,14 +11804,25 @@
   "gate": null,
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": null,
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -9214,14 +11841,25 @@
   "gate": "3",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "77W",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 6,
+   "J": 53,
+   "W": 34,
+   "Y": 201
   }
  },
  {
@@ -9240,14 +11878,25 @@
   "gate": "70",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -9266,14 +11915,25 @@
   "gate": "71",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "359",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 38,
+   "W": 28,
+   "Y": 214
   }
  },
  {
@@ -9292,14 +11952,25 @@
   "gate": "31",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -9318,14 +11989,25 @@
   "gate": "44",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "359",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 38,
+   "W": 28,
+   "Y": 214
   }
  },
  {
@@ -9344,14 +12026,25 @@
   "gate": "34",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "773",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 42,
+   "W": 0,
+   "Y": 356
   }
  },
  {
@@ -9370,14 +12063,25 @@
   "gate": "41",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "351",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 46,
+   "W": 32,
+   "Y": 256
   }
  },
  {
@@ -9396,14 +12100,25 @@
   "gate": "26",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "359",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 38,
+   "W": 28,
+   "Y": 214
   }
  },
  {
@@ -9422,14 +12137,25 @@
   "gate": "20",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "32Q",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 12,
+   "W": 0,
+   "Y": 190
   }
  },
  {
@@ -9448,14 +12174,25 @@
   "gate": "24",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "773",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 42,
+   "W": 0,
+   "Y": 356
   }
  },
  {
@@ -9474,14 +12211,25 @@
   "gate": null,
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": null,
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  },
  {
@@ -9500,14 +12248,25 @@
   "gate": "4",
   "terminal": "T1",
   "timeline": [],
+  "aircraft_type": "333",
   "dest_sched_arrival": null,
+  "origin_sched_departure": null,
   "labels": {
    "sched": "REAL",
    "actual": "REAL",
    "stand": "REAL",
    "gate": "REAL",
    "timeline": "REAL",
-   "dest_sched_arrival": "REAL"
+   "dest_sched_arrival": "REAL",
+   "origin_sched_departure": "REAL",
+   "aircraft_type": "REAL",
+   "cabin_seats": "ASSUMED"
+  },
+  "cabin_seats": {
+   "F": 0,
+   "J": 39,
+   "W": 21,
+   "Y": 202
   }
  }
 ]

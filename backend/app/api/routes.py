@@ -8,7 +8,11 @@ from datetime import datetime
 
 from fastapi import APIRouter, HTTPException, Query
 
-from app import schemas
+import asyncio
+from dataclasses import asdict
+
+from app import planner, schemas
+from flowcore.engine.gate_planner import PlanRequest, plan
 from app.replay.sim import PolicyError
 from app.state import Runtime
 from flowcore.config import find_repo_root
@@ -138,6 +142,32 @@ def build_router(runtime: Runtime) -> APIRouter:
             raise refuse(err) from err
         await runtime.publish(events)
         return s.draft_view(s.drafts[draft_id])
+
+    # ---- gate planner
+
+    @router.get("/planner/options", response_model=schemas.PlannerOptions)
+    async def planner_options():
+        s = sim()
+        return {"t": s.t, "origins": [{"id": o["id"], "name": o["name"]} for o in planner.origins()],
+                "flights": planner.flight_choices(s.flights, s.t)}
+
+    @router.post("/planner/plan", response_model=schemas.PlannerResult)
+    async def planner_plan(body: schemas.PlannerRequest):
+        s = sim()
+        flight = s.flights.get(body.flight_key)
+        if not flight or flight["kind"] != "dep":
+            raise HTTPException(404, f"Unknown departure {body.flight_key}.")
+        try:
+            planner.origin(body.origin_id)
+        except KeyError:
+            raise HTTPException(404, f"Unknown starting point {body.origin_id}.") from None
+        request = PlanRequest(**body.model_dump())
+        road = planner.road_for(body.origin_id, body.mode, s.config)
+        # Road lookups may call Google: keep them off the event loop.
+        result = await asyncio.to_thread(plan, request, flight, s.t, s.config, s.zones, road, s.seed)
+        return {**asdict(result), "t": s.t,
+                "labels": {"departure": "REAL", "gate": "REAL", "deadline": "ASSUMED", "leave_by": "SIMULATED",
+                           "typical_total": "SIMULATED", "upper_total": "SIMULATED"}}
 
     # ---- impact
 

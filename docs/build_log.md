@@ -106,3 +106,91 @@ Per milestone: wall-clock time, who/which agent, what went wrong and the rule th
 - **Story gap found:** CX254's delay was published at 05:37 HKT (late pushback in London), so Mei is already at
   risk when the replay starts at 16:00; there is no on-screen "slip". Decision pending (start the replay earlier, or
   tell the story as "already at risk").
+
+## Defensible passenger numbers, 20:15–21:30 HKT
+
+- **Why:** the per-pair random count gave every arrival 18–54 connecting passengers, unrelated to aircraft size.
+  Now seats × 87.2% load factor × 28% transfer share: 49 (A321neo) to 97 (777-300) per arrival, 1,950 in total.
+  Free seats use the same load factor. Every arrival is checked against the formula in
+  `research/tests/test_research_scenario.py`.
+- **OAG:** a schedule query (10 departures per page) gave aircraft types for 207 of 221 flights. Ledger 127 of 800.
+- **What went wrong:**
+  - OAG limits calls per minute (HTTP 429, "Try again in N seconds"), and one request timed out. The client now
+    waits and retries both. *Proposed rule (§17.4):* every API client honours rate-limit replies and retries
+    timeouts.
+  - Seat depletion per hour, harmless on a 4.5-hour replay, would have emptied Business on a 15-hour one. Dropped.
+- **Test time:** `make test` went from 41 s to 3.5 min (twice the passengers, seeks from 05:30). Acceptable for now.
+
+## M5: Screens, finished 21:23 HKT (start not timed)
+
+- **Built:** `web/` (React 18, Vite 5, TypeScript, Tailwind 3; versions pinned and over two weeks old). Phone (`/app`):
+  home, Connect (Plan A / Plan B, keep both or switch, confirm sheet), Plan B confirmed, lock-screen alert, journey
+  strip, with live updates over the WebSocket. Staff (`/staff`): inbound-delay card, risk table with approve,
+  keep-on-original and Approve all, replay controls, source badges on every number. `/impact` waits for M4.
+- **Checked against `docs/design/` at 390×844 and 1440×900** with screenshots driven by Playwright and the local
+  Chrome (headless Chrome alone cannot go below about 500 px wide). The whole loop ran: Safe at 05:30 → tight before
+  landing → Approve all → lock-screen alert on the phone → switch → Plan B confirmed → staff row "Rebooked on CX105".
+- **Copy guard:** `web/src/copy.test.ts` parses every component with the TypeScript compiler and fails on a digit in
+  JSX text or a string prop. A first regex version flagged code like `count > 0)`. *Proposed rule (§17.1):* check UI
+  copy with a parser, not a regex.
+- **What went wrong:** the phone fetched data only after its WebSocket opened and sat on "Loading" in a slow first
+  connect; it now also fetches on mount. The London departure showed Hong Kong's date (Thursday) instead of London's
+  (Wednesday); times and dates at the origin now use the origin's time zone.
+- `make test`: 146 Python tests and 9 web tests pass.
+
+## M4: Backtest and evidence, finished 21:36 HKT
+
+- **Backtest** (`research/flowresearch/backtest.py`): 69,124 tight Cathay connection pairs over 91 days, scored on
+  45,826 after a 30-day training window. 15 s on a laptop.
+- **What it found first:** the day-before forecast was overconfident (said 47% where 29% broke), and the engine's
+  in-flight estimate spread (6 min, ASSUMED) was half of what OAG's estimates actually missed by (11 min, measured on
+  30 arrivals, 4 min early on average). Both fixed: late departures from history, and the measured spread and bias.
+  Mei's T−90 chance moved from 56% to 42%, still inside AGENTS.md's 30–60%.
+- **Result:**
+  - **Fixed 38-minute rule:** catches 0% of breaks.
+  - **Engine 90 minutes out:** AUC 0.97, catching 93% of breaks while flagging 22% of tight connections.
+  - **A day ahead:** AUC 0.68, calibrated but weak.
+- **Evidence** (`scripts/build_evidence.py` → `data/evidence.json`, shown on `/impact`): on the scenario evening,
+  145 passengers miss; Flow gives 94 an approved plan before landing with 0 wrong bumps; an AURA-style auto-rebook
+  would give 75 a plan and wrongly move 23.
+- **What went wrong:** build-log times written from memory were wrong twice in this session. *Proposed rule
+  (§14):* take every logged time from `date` or a service timestamp.
+- *Proposed rule (§17.6):* label a figure that mixes real timing with an assumed model SIMULATED, never REAL.
+
+## Phone screens to the Figma detail, finished 22:13 HKT
+
+- **Alex's review:** the look was not close enough to the Figma, and "Plan A / Plan B" plus the likelihood read oddly.
+  Both changed.
+- **Phone:** rebuilt against every export at 390×844, screen by screen.
+  - **Shared parts:** a status bar (in the laptop frame only), the mint header shape, journey-strip progress with the
+    plane, and a ring on the current stop.
+  - **Home:** the brushwing mark, Asia Miles, duration and HKG node, and the entry-requirements and alerts cards.
+  - **Lock screen:** full date, a stacked notification, the bag notification, torch and camera.
+  - **New screens:** Prepare, Navigate, Bags, Arrival and Set up.
+- **Staff:** compact rows (the reason shows on hover), a Review button that filters to pending drafts, "✓ Approved".
+- **Demo:** `make demo` serves everything locally; nothing is fetched from the internet, so `OFFLINE=1 make demo` works
+  with Wi-Fi off. `docs/demo-script.md` is filled in with the real numbers and button presses.
+- **Browser test:** `make e2e` (Playwright on the installed Chrome) runs the whole demo loop, including the
+  real-time 05:37 slip; passes in 17 s.
+- **What went wrong:**
+  - Vitest picked up the Playwright file; it now only collects `src/**/*.test.ts`.
+  - A "1 of 1" label had been routed through a string trick past the no-digits guard; removed instead. *Proposed
+    rule (§17.1):* never work around the copy guard; drop or source the number.
+
+## M8: Gate Planner, finished 22:47 HKT
+
+- **Engine** (`flowcore/engine/gate_planner.py`): road + check-in/bag drop + immigration and security + walk to the
+  gate. The deadline is bag drop at departure − 60 with bags, else gate close. "Leave by" is set at the chosen
+  percentile. Parameters and sources are in `config/engine.yaml` (`planner`).
+- **Re-plans in the replay on real events:** a departure delay once it is published, and the gate once it is
+  published. Departure gates and their publish times are now kept from OAG's status history. For example, CX135's
+  gate 49 is published at 15:15 and "leave by" moves from 16:35 to 16:40.
+- **Road:** Google Routes (PESSIMISTIC as the 95th percentile, BEST_GUESS typical), cached for 5 starting points
+  × 11 hours; 112 Google calls in total. It works offline from the cache, and falls back to the Airport Express
+  timetable on any failure.
+- **Screen:** Travel tools tab.
+- **Tests:** engine tests on hand-worked cases; API tests; `make test` 156 Python + 14 web; `make e2e` passes.
+- **What went wrong:**
+  - The screen's three-second throttle dropped a re-plan that arrived inside the window (a seek while paused), so
+    it never caught up. It now plans once the window ends.
+  - Two tests expected exact values that depended on sampling or on two changes landing at once; corrected.

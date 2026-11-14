@@ -1,6 +1,9 @@
 """Seat inventory on later flights, and the guard on the original seat (AGENTS.md §11.3, §2.1).
 
-Free seats are ASSUMED (config/policy.yaml): OAG gives aircraft capacity, not availability.
+Free seats on a flight = its seats per cabin (aircraft type REAL from OAG, layout ASSUMED) x
+(1 - Cathay's published passenger load factor, REAL). A load factor is how full flights are on
+average at departure, so this is the number of seats left unsold, not a guess per flight.
+Flights with no known type fall back to config/policy.yaml `free_seats` (ASSUMED).
 """
 
 from __future__ import annotations
@@ -30,18 +33,22 @@ def release_original_seat(party_state, reason: str, t: datetime, gate_close: dat
 
 
 class Seats:
-    """Free seats per (flight, cabin). Other passengers book over time, so the pool shrinks."""
+    """Free seats per (flight, cabin), less those already held or booked for our passengers."""
 
-    def __init__(self, policy: dict, start: datetime):
-        self.initial = dict(policy["free_seats"])
-        self.depletion_per_hour = float(policy["seat_depletion_per_hour"])
-        self.start = start
+    def __init__(self, policy: dict, flights: dict | None = None, load_factor: float | None = None):
+        self.fallback = dict(policy["free_seats"])
+        self.flights = flights or {}
+        self.load_factor = load_factor
         self.taken: dict[tuple[str, str], int] = {}
 
-    def free(self, flight_key: str, cabin: str, t: datetime) -> int:
-        hours = max((t - self.start).total_seconds() / 3600.0, 0.0)
-        pool = max(self.initial.get(cabin, 0) - int(self.depletion_per_hour * hours), 0)
-        return max(pool - self.taken.get((flight_key, cabin), 0), 0)
+    def capacity(self, flight_key: str, cabin: str) -> int:
+        layout = (self.flights.get(flight_key) or {}).get("cabin_seats")
+        if layout and self.load_factor is not None:
+            return int(layout.get(cabin, 0) * (1.0 - self.load_factor))
+        return int(self.fallback.get(cabin, 0))
+
+    def free(self, flight_key: str, cabin: str, t: datetime | None = None) -> int:
+        return max(self.capacity(flight_key, cabin) - self.taken.get((flight_key, cabin), 0), 0)
 
     def take(self, flight_key: str, cabin: str, seats: int, t: datetime) -> bool:
         """All seats or none: a party is never split (non-negotiable 4)."""
