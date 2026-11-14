@@ -1,0 +1,13 @@
+[project]
+name = "flow-infra"
+version = "0.1.0"
+description = "Cathay Flow infrastructure (AWS CDK v2, Python)"
+requires-python = ">=3.12"
+# Pinned together with the CLI in the Makefile (AGENTS.md §17.2.1).
+dependencies = [
+    "aws-cdk-lib==2.274.0",
+    "constructs>=10.0,<11",
+]
+
+[tool.uv]
+package = false

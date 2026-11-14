@@ -1,0 +1,279 @@
+{
+ "source": "hkia",
+ "key": "past_2026-11-13_dep",
+ "request": {
+  "source": "hkia",
+  "url": "https://www.hongkongairport.com/flightinfo-rest/rest/flights/past",
+  "params": {
+   "date": "2026-11-13",
+   "lang": "en",
+   "cargo": "false",
+   "arrival": "false"
+  },
+  "body": null
+ },
+ "status": 200,
+ "fetched_at": "2026-11-14T09:43:23.027887+00:00",
+ "body": [
+  {
+   "date": "2026-11-12",
+   "arrival": false,
+   "cargo": false,
+   "list": [
+    {
+     "time": "22:55",
+     "flight": [
+      {
+       "no": "PR 311",
+       "airline": "PAL"
+      }
+     ],
+     "status": "Dep 00:27 (13/11/2026)",
+     "statusCode": null,
+     "destination": [
+      "MNL"
+     ],
+     "terminal": "T1",
+     "aisle": "F",
+     "gate": "27"
+    },
+    {
+     "time": "23:30",
+     "flight": [
+      {
+       "no": "CX 173",
+       "airline": "CPA"
+      },
+      {
+       "no": "AY 5119",
+       "airline": "FIN"
+      },
+      {
+       "no": "BA 4577",
+       "airline": "BAW"
+      }
+     ],
+     "status": "Dep 01:03 (13/11/2026)",
+     "statusCode": null,
+     "destination": [
+      "ADL"
+     ],
+     "terminal": "T1",
+     "aisle": "C",
+     "gate": "46"
+    },
+    {
+     "time": "23:30",
+     "flight": [
+      {
+       "no": "LX 139",
+       "airline": "SWR"
+      },
+      {
+       "no": "CX 6633",
+       "airline": "CPA"
+      }
+     ],
+     "status": "Dep 00:02 (13/11/2026)",
+     "statusCode": null,
+     "destination": [
+      "ZRH"
+     ],
+     "terminal": "T1",
+     "aisle": "F",
+     "gate": "25"
+    },
+    {
+     "time": "23:55",
+     "flight": [
+      {
+       "no": "ET 645",
+       "airline": "ETH"
+      }
+     ],
+     "status": "Dep 00:14 (13/11/2026)",
+     "statusCode": null,
+     "destination": [
+      "ADD"
+     ],
+     "terminal": "T1",
+     "aisle": "K",
+     "gate": "40"
+    }
+   ],
+   "lastUpdatedTime": "2026-11-14T16:04:51+08:00"
+  },
+  {
+   "date": "2026-11-13",
+   "arrival": false,
+   "cargo": false,
+   "list": [
+    {
+     "time": "00:05",
+     "flight": [
+      {
+       "no": "ZE 862",
+       "airline": "ESR"
+      }
+     ],
+     "status": "Dep 23:57 (12/11/2026)",
+     "statusCode": null,
+     "destination": [
+      "ICN"
+     ],
+     "terminal": "T1",
+     "aisle": "J",
+     "gate": "21"
+    },
+    {
+     "time": "00:20",
+     "flight": [
+      {
+       "no": "CX 289",
+       "airline": "CPA"
+      },
+      {
+       "no": "LH 7015",
+       "airline": "DLH"
+      }
+     ],
+     "status": "Dep 00:21",
+     "statusCode": null,
+     "destination": [
+      "FRA"
+     ],
+     "terminal": "T1",
+     "aisle": "C",
+     "gate": "42"
+    },
+    {
+     "time": "00:25",
+     "flight": [
+      {
+       "no": "QR 815",
+       "airline": "QTR"
+      },
+      {
+       "no": "AH 4909",
+       "airline": "DAH"
+      },
+      {
+       "no": "B6 6587",
+       "airline": "JBU"
+      },
+      {
+       "no": "BA 2328",
+       "airline": "BAW"
+      },
+      {
+       "no": "CX 9201",
+       "airline": "CPA"
+      },
+      {
+       "no": "IB 6245",
+       "airline": "IBE"
+      },
+      {
+       "no": "JU 8317",
+       "airline": "ASL"
+      },
+      {
+       "no": "LA 7419",
+       "airline": "LAN"
+      }
+     ],
+     "status": "Dep 00:22",
+     "statusCode": null,
+     "destination": [
+      "DOH"
+     ],
+     "terminal": "T1",
+     "aisle": "E",
+     "gate": "62"
+    },
+    {
+     "time": "08:30",
+     "flight": [
+      {
+       "no": "CX 564",
+       "airline": "CPA"
+      },
+      {
+       "no": "JL 7054",
+       "airline": "JAL"
+      }
+     ],
+     "status": "Dep 08:36",
+     "statusCode": null,
+     "destination": [
+      "TPE",
+      "KIX"
+     ],
+     "terminal": "T1",
+     "aisle": "E",
+     "gate": "23"
+    },
+    {
+     "time": "12:20",
+     "flight": [
+      {
+       "no": "HX 775",
+       "airline": "CRK"
+      },
+      {
+       "no": "TK 9221",
+       "airline": "THY"
+      }
+     ],
+     "status": "Cancelled",
+     "statusCode": null,
+     "destination": [
+      "BKK"
+     ],
+     "terminal": "T2",
+     "aisle": "R",
+     "gate": ""
+    },
+    {
+     "time": "13:30",
+     "flight": [
+      {
+       "no": "CX 253",
+       "airline": "CPA"
+      }
+     ],
+     "status": "Dep 13:28",
+     "statusCode": null,
+     "destination": [
+      "LHR"
+     ],
+     "terminal": "T1",
+     "aisle": "C",
+     "gate": "41"
+    },
+    {
+     "time": "23:30",
+     "flight": [
+      {
+       "no": "LX 139",
+       "airline": "SWR"
+      },
+      {
+       "no": "CX 6633",
+       "airline": "CPA"
+      }
+     ],
+     "status": "Dep 00:01 (14/11/2026)",
+     "statusCode": null,
+     "destination": [
+      "ZRH"
+     ],
+     "terminal": "T1",
+     "aisle": "F",
+     "gate": "29"
+    }
+   ],
+   "lastUpdatedTime": "2026-11-14T16:04:51+08:00"
+  }
+ ]
+}

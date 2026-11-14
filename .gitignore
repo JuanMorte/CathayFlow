@@ -1,0 +1,30 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Secrets and local settings (AGENTS.md non-negotiable 9)
+.env
+.make.env
+
+# Web
+node_modules/
+web/dist/
+web/playwright-report/
+web/test-results/
+backend/app/static/
+
+# CDK output embeds the account ID
+infra/cdk.out/
+infra/cdk.context.json
+
+# Local mirror of S3: only reference data, scenarios and the evidence file are committed
+data/*
+!data/reference/
+!data/scenarios/
+!data/evidence.json
+
+.DS_Store

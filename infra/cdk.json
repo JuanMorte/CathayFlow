@@ -1,0 +1,7 @@
+{
+  "app": "uv run python cdk_app.py",
+  "context": {
+    "prefix": "flow",
+    "oag_key_profile": "demo"
+  }
+}

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flow WebSocket test</title>
+<style>
+  body { font-family: system-ui, sans-serif; background: #F9F8F6; color: #262425; margin: 0; padding: 24px 16px; }
+  h1 { font-size: 20px; }
+  dl { display: grid; grid-template-columns: auto 1fr; gap: 8px 16px; max-width: 420px; }
+  dt { color: #595959; }
+  dd { margin: 0; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .ok { color: #2E7D4F; } .bad { color: #C2262E; }
+</style>
+</head>
+<body>
+<h1>WebSocket test</h1>
+<p>Leave this page open. Clock messages should keep arriving and "Drops" should stay at zero.</p>
+<dl>
+  <dt>Status</dt><dd id="status">connecting</dd>
+  <dt>Open for</dt><dd id="elapsed">0:00</dd>
+  <dt>Clock messages</dt><dd id="clocks">0</dd>
+  <dt>Pings</dt><dd id="pings">0</dd>
+  <dt>Last clock</dt><dd id="last">none</dd>
+  <dt>Longest gap</dt><dd id="gap">0.0 s</dd>
+  <dt>Drops</dt><dd id="drops" class="ok">0</dd>
+</dl>
+<script>
+  const el = (id) => document.getElementById(id);
+  const started = Date.now();
+  let clocks = 0, pings = 0, drops = 0, lastAt = null, longest = 0, delay = 500;
+
+  function connect() {
+    const scheme = location.protocol === "https:" ? "wss" : "ws";
+    const socket = new WebSocket(`${scheme}://${location.host}/ws?role=staff`);
+    socket.onopen = () => { el("status").textContent = "connected"; el("status").className = "ok"; delay = 500; };
+    socket.onmessage = (event) => {
+      const message = JSON.parse(event.data);
+      if (message.type === "ping") { pings += 1; el("pings").textContent = pings; return; }
+      if (message.type !== "clock") return;
+      const now = Date.now();
+      if (lastAt !== null) longest = Math.max(longest, (now - lastAt) / 1000);
+      lastAt = now;
+      clocks += 1;
+      el("clocks").textContent = clocks;
+      el("last").textContent = message.t;
+      el("gap").textContent = longest.toFixed(1) + " s";
+    };
+    socket.onclose = () => {
+      drops += 1;
+      el("drops").textContent = drops;
+      el("drops").className = "bad";
+      el("status").textContent = "reconnecting";
+      el("status").className = "bad";
+      setTimeout(connect, delay);
+      delay = Math.min(delay * 2, 8000);
+    };
+  }
+
+  setInterval(() => {
+    const seconds = Math.floor((Date.now() - started) / 1000);
+    el("elapsed").textContent = Math.floor(seconds / 60) + ":" + String(seconds % 60).padStart(2, "0");
+  }, 1000);
+  connect();
+</script>
+</body>
+</html>

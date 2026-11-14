@@ -1,0 +1,21 @@
+# uv workspace root (no package). Members hold the code; see AGENTS.md §5 and §6.
+
+[tool.uv.workspace]
+members = ["flowcore", "backend", "research", "infra"]
+
+[tool.uv]
+# AGENTS.md §17.2.1: only versions at least two weeks old. Exact pins live in uv.lock.
+exclude-newer = "2026-10-31T00:00:00Z"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "moto[s3,ssm]>=5.0",
+]
+
+[tool.pytest.ini_options]
+# Default import mode, no __init__.py in test folders, unique test file names (AGENTS.md §17.2.3).
+testpaths = ["flowcore/tests", "backend/tests", "research/tests", "infra/tests"]
+pythonpath = ["infra"]
+norecursedirs = ["cdk.out", "node_modules", "dist", ".venv", ".git"]
+addopts = "-q"

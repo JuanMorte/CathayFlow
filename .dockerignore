@@ -1,0 +1,14 @@
+.git
+.venv
+.env
+.make.env
+**/__pycache__
+**/node_modules
+web/dist
+data/raw
+data/processed
+data/state
+data/models
+research
+infra/cdk.out
+docs

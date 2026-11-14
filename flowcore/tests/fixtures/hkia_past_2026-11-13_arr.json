@@ -1,0 +1,315 @@
+{
+ "source": "hkia",
+ "key": "past_2026-11-13_arr",
+ "request": {
+  "source": "hkia",
+  "url": "https://www.hongkongairport.com/flightinfo-rest/rest/flights/past",
+  "params": {
+   "date": "2026-11-13",
+   "lang": "en",
+   "cargo": "false",
+   "arrival": "true"
+  },
+  "body": null
+ },
+ "status": 200,
+ "fetched_at": "2026-11-14T09:43:20.746142+00:00",
+ "body": [
+  {
+   "date": "2026-11-13",
+   "arrival": true,
+   "cargo": false,
+   "list": [
+    {
+     "time": "00:10",
+     "flight": [
+      {
+       "no": "ZE 921",
+       "airline": "ESR"
+      }
+     ],
+     "status": "At gate 00:13",
+     "statusCode": null,
+     "origin": [
+      "PUS"
+     ],
+     "baggage": "17",
+     "hall": "B",
+     "terminal": "",
+     "stand": "S31"
+    },
+    {
+     "time": "00:10",
+     "flight": [
+      {
+       "no": "CX 636",
+       "airline": "CPA"
+      },
+      {
+       "no": "AY 5852",
+       "airline": "FIN"
+      },
+      {
+       "no": "FJ 5463",
+       "airline": "FJI"
+      },
+      {
+       "no": "GF 4062",
+       "airline": "GFA"
+      },
+      {
+       "no": "OM 5614",
+       "airline": "MGL"
+      }
+     ],
+     "status": "At gate 00:03",
+     "statusCode": null,
+     "origin": [
+      "SIN"
+     ],
+     "baggage": "13",
+     "hall": "B",
+     "terminal": "",
+     "stand": "W48"
+    },
+    {
+     "time": "00:15",
+     "flight": [
+      {
+       "no": "CX 529",
+       "airline": "CPA"
+      },
+      {
+       "no": "JL 7060",
+       "airline": "JAL"
+      }
+     ],
+     "status": "At gate 23:32 (12/11/2026)",
+     "statusCode": null,
+     "origin": [
+      "FUK"
+     ],
+     "baggage": "16",
+     "hall": "B",
+     "terminal": "",
+     "stand": "R17"
+    },
+    {
+     "time": "00:30",
+     "flight": [
+      {
+       "no": "UO 651",
+       "airline": "HKE"
+      },
+      {
+       "no": "CX 5651",
+       "airline": "CPA"
+      }
+     ],
+     "status": "At gate 23:57 (12/11/2026)",
+     "statusCode": null,
+     "origin": [
+      "NRT"
+     ],
+     "baggage": "12",
+     "hall": "B",
+     "terminal": "",
+     "stand": "W121L"
+    },
+    {
+     "time": "07:15",
+     "flight": [
+      {
+       "no": "CX 270D",
+       "airline": "CPA"
+      }
+     ],
+     "status": "At gate 10:10 (14/11/2026)",
+     "statusCode": null,
+     "origin": [
+      "AMS"
+     ],
+     "baggage": "9",
+     "hall": "A",
+     "terminal": "",
+     "stand": "W50"
+    },
+    {
+     "time": "11:30",
+     "flight": [
+      {
+       "no": "CX 361",
+       "airline": "CPA"
+      }
+     ],
+     "status": "At gate 01:11 (14/11/2026)",
+     "statusCode": null,
+     "origin": [
+      "PVG"
+     ],
+     "baggage": "9",
+     "hall": "B",
+     "terminal": "",
+     "stand": "S23"
+    },
+    {
+     "time": "15:25",
+     "flight": [
+      {
+       "no": "CX 495",
+       "airline": "CPA"
+      }
+     ],
+     "status": "At gate 15:10",
+     "statusCode": null,
+     "origin": [
+      "TPE"
+     ],
+     "baggage": "2",
+     "hall": "A",
+     "terminal": "",
+     "stand": "W61"
+    },
+    {
+     "time": "17:40",
+     "flight": [
+      {
+       "no": "EK 384",
+       "airline": "UAE"
+      }
+     ],
+     "status": "At gate 18:45",
+     "statusCode": null,
+     "origin": [
+      "DXB",
+      "BKK"
+     ],
+     "baggage": "8",
+     "hall": "A",
+     "terminal": "",
+     "stand": "N60"
+    },
+    {
+     "time": "19:30",
+     "flight": [
+      {
+       "no": "HX 776",
+       "airline": "CRK"
+      },
+      {
+       "no": "TK 9220",
+       "airline": "THY"
+      }
+     ],
+     "status": "Cancelled",
+     "statusCode": null,
+     "origin": [
+      "BKK"
+     ],
+     "baggage": "",
+     "hall": "",
+     "terminal": "",
+     "stand": ""
+    },
+    {
+     "time": "21:40",
+     "flight": [
+      {
+       "no": "CX 565",
+       "airline": "CPA"
+      },
+      {
+       "no": "JL 7055",
+       "airline": "JAL"
+      }
+     ],
+     "status": "At gate 21:36",
+     "statusCode": null,
+     "origin": [
+      "KIX",
+      "TPE"
+     ],
+     "baggage": "5",
+     "hall": "A",
+     "terminal": "",
+     "stand": "W46"
+    }
+   ],
+   "lastUpdatedTime": "2026-11-14T16:43:29+08:00"
+  },
+  {
+   "date": "2026-11-14",
+   "arrival": true,
+   "cargo": false,
+   "list": [
+    {
+     "time": "00:10",
+     "flight": [
+      {
+       "no": "HX 307",
+       "airline": "CRK"
+      },
+      {
+       "no": "HU 8170",
+       "airline": "CHH"
+      }
+     ],
+     "status": "At gate 23:57 (13/11/2026)",
+     "statusCode": null,
+     "origin": [
+      "PEK"
+     ],
+     "baggage": "14",
+     "hall": "B",
+     "terminal": "",
+     "stand": "D217"
+    },
+    {
+     "time": "00:15",
+     "flight": [
+      {
+       "no": "MU 725",
+       "airline": "CES"
+      },
+      {
+       "no": "FM 3029",
+       "airline": "CSH"
+      }
+     ],
+     "status": "At gate 23:50 (13/11/2026)",
+     "statusCode": null,
+     "origin": [
+      "PVG"
+     ],
+     "baggage": "8",
+     "hall": "A",
+     "terminal": "",
+     "stand": "S108"
+    },
+    {
+     "time": "00:30",
+     "flight": [
+      {
+       "no": "UO 685",
+       "airline": "HKE"
+      },
+      {
+       "no": "CX 5685",
+       "airline": "CPA"
+      }
+     ],
+     "status": "At gate 23:53 (13/11/2026)",
+     "statusCode": null,
+     "origin": [
+      "NGO"
+     ],
+     "baggage": "9",
+     "hall": "A",
+     "terminal": "",
+     "stand": "D319"
+    }
+   ],
+   "lastUpdatedTime": "2026-11-14T16:43:29+08:00"
+  }
+ ]
+}

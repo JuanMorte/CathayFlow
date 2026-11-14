@@ -1,0 +1,92 @@
+# Airports Cathay operated to or from at HKG, 2026-08-15 to 2026-11-13 (codes REAL, from HKIA).
+# city: display name. region: used only to decide which synthetic connections are plausible
+# (ASSUMED grouping): EUR Europe, NAM North America, SWP South-west Pacific, SAS South Asia,
+# SEA South-east Asia, NEA Japan and Korea, CHN mainland China, TWN Taiwan, AFR Africa.
+airports:
+  ADL: {city: Adelaide, region: SWP}
+  AKL: {city: Auckland, region: SWP}
+  AMS: {city: Amsterdam, region: EUR}
+  BCN: {city: Barcelona, region: EUR}
+  BKK: {city: Bangkok, region: SEA}
+  BLR: {city: Bengaluru, region: SAS}
+  BNE: {city: Brisbane, region: SWP}
+  BOM: {city: Mumbai, region: SAS}
+  BOS: {city: Boston, region: NAM}
+  BRU: {city: Brussels, region: EUR}
+  CAN: {city: Guangzhou, region: CHN}
+  CDG: {city: Paris, region: EUR}
+  CEB: {city: Cebu, region: SEA}
+  CGK: {city: Jakarta, region: SEA}
+  CGO: {city: Zhengzhou, region: CHN}
+  CHC: {city: Christchurch, region: SWP}
+  CKG: {city: Chongqing, region: CHN}
+  CMB: {city: Colombo, region: SAS}
+  CSX: {city: Changsha, region: CHN}
+  CTS: {city: Sapporo, region: NEA}
+  CTU: {city: Chengdu, region: CHN}
+  DAC: {city: Dhaka, region: SAS}
+  DEL: {city: Delhi, region: SAS}
+  DFW: {city: Dallas, region: NAM}
+  DPS: {city: Denpasar, region: SEA}
+  FCO: {city: Rome, region: EUR}
+  FOC: {city: Fuzhou, region: CHN}
+  FRA: {city: Frankfurt, region: EUR}
+  FUK: {city: Fukuoka, region: NEA}
+  HAK: {city: Haikou, region: CHN}
+  HAN: {city: Hanoi, region: SEA}
+  HGH: {city: Hangzhou, region: CHN}
+  HKG: {city: Hong Kong, region: HKG}
+  HKT: {city: Phuket, region: SEA}
+  HND: {city: Tokyo, region: NEA}
+  HYD: {city: Hyderabad, region: SAS}
+  ICN: {city: Seoul, region: NEA}
+  JFK: {city: New York, region: NAM}
+  JNB: {city: Johannesburg, region: AFR}
+  KHH: {city: Kaohsiung, region: TWN}
+  KIX: {city: Osaka, region: NEA}
+  KTI: {city: Phnom Penh, region: SEA}
+  KTM: {city: Kathmandu, region: SAS}
+  KUL: {city: Kuala Lumpur, region: SEA}
+  LAX: {city: Los Angeles, region: NAM}
+  LHR: {city: London, region: EUR}
+  MAA: {city: Chennai, region: SAS}
+  MAD: {city: Madrid, region: EUR}
+  MAN: {city: Manchester, region: EUR}
+  MEL: {city: Melbourne, region: SWP}
+  MNL: {city: Manila, region: SEA}
+  MUC: {city: Munich, region: EUR}
+  MXP: {city: Milan, region: EUR}
+  NGB: {city: Ningbo, region: CHN}
+  NGO: {city: Nagoya, region: NEA}
+  NKG: {city: Nanjing, region: CHN}
+  NRT: {city: Tokyo, region: NEA}
+  ORD: {city: Chicago, region: NAM}
+  PEK: {city: Beijing, region: CHN}
+  PEN: {city: Penang, region: SEA}
+  PER: {city: Perth, region: SWP}
+  PVG: {city: Shanghai, region: CHN}
+  SEA: {city: Seattle, region: NAM}
+  SFO: {city: San Francisco, region: NAM}
+  SGN: {city: Ho Chi Minh City, region: SEA}
+  SHA: {city: Shanghai, region: CHN}
+  SIN: {city: Singapore, region: SEA}
+  SUB: {city: Surabaya, region: SEA}
+  SYD: {city: Sydney, region: SWP}
+  TAO: {city: Qingdao, region: CHN}
+  TPE: {city: Taipei, region: TWN}
+  URC: {city: Urumqi, region: CHN}
+  WNZ: {city: Wenzhou, region: CHN}
+  WUH: {city: Wuhan, region: CHN}
+  XIY: {city: Xi'an, region: CHN}
+  XMN: {city: Xiamen, region: CHN}
+  YVR: {city: Vancouver, region: NAM}
+  YYZ: {city: Toronto, region: NAM}
+  ZRH: {city: Zurich, region: EUR}
+
+# Region pairs nobody would route through Hong Kong (in either direction). Same-region pairs
+# are also excluded.
+implausible_pairs:
+  - [EUR, NAM]
+  - [EUR, AFR]
+  - [SWP, SEA]
+  - [SAS, EUR]
