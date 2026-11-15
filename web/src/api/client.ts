@@ -47,7 +47,7 @@ export const api = {
     post<ReplayState>("/api/replay/control", { action, ...extra }),
   trip: (pid: string) => call<Trip>(`/api/passengers/${pid}/trip`),
   protect: (pid: string) => call<ConnectionStatus>(`/api/passengers/${pid}/protect`),
-  wave: () => call<Wave>("/api/staff/wave"),
+  wave: (everyone = false) => call<Wave>(`/api/staff/wave${everyone ? "?everyone=true" : ""}`),
   drafts: (status?: string) => call<Draft[]>(`/api/staff/drafts${status ? `?status=${status}` : ""}`),
   decide: (id: string, decision: "approve" | "reject", note?: string) =>
     post<Draft>(`/api/staff/drafts/${id}`, { decision, note }),

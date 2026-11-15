@@ -1262,6 +1262,7 @@ export interface operations {
             query?: {
                 from?: string | null;
                 to?: string | null;
+                everyone?: boolean;
             };
             header?: never;
             path?: never;

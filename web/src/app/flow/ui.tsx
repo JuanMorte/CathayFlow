@@ -13,15 +13,16 @@ import upArrow from "../../assets/flow/icon-up.png";
 /** An SVG from the design, recoloured to the text colour. */
 export function Svg({ src, className = "", keepFill = false }: { src: string; className?: string; keepFill?: boolean }) {
   let markup = src.replace(/stroke="#(616163|367877|151515)"/g, 'stroke="currentColor"');
-  if (!keepFill) markup = markup.replace(/fill="#(616163|367877|151515)"/g, 'fill="currentColor"');
+  if (!keepFill) markup = markup.replace(/fill="(#616163|#367877|#151515|black)"/g, 'fill="currentColor"');
   markup = markup.replace(/ style="display: block;"/, "").replace(/width="[\d.]+" height="[\d.]+"/, 'width="100%" height="100%"');
   return <span className={`inline-block ${className}`} dangerouslySetInnerHTML={{ __html: markup }} />;
 }
 
 export function PhoneFrame({ children }: { children: ReactNode }) {
   return (
-    <div className="min-h-screen bg-[#E7EEEE] font-jost sm:flex sm:items-center sm:justify-center sm:py-6">
-      <div className="relative mx-auto flex h-[100dvh] w-full max-w-[430px] flex-col overflow-hidden bg-page sm:h-[852px] sm:w-[393px] sm:rounded-[44px] sm:border-[10px] sm:border-[#1D1D1F] sm:shadow-2xl">
+    // On a phone the app fills the screen exactly and never scrolls as a page; on a laptop it sits in a frame.
+    <div className="fixed inset-0 bg-white font-jost sm:static sm:flex sm:min-h-screen sm:items-center sm:justify-center sm:bg-[#E7EEEE] sm:py-6">
+      <div className="relative mx-auto flex h-full w-full max-w-[430px] flex-col overflow-hidden bg-page sm:h-[852px] sm:w-[393px] sm:rounded-[44px] sm:border-[10px] sm:border-[#1D1D1F] sm:shadow-2xl">
         {children}
       </div>
     </div>
@@ -52,7 +53,7 @@ export function StatusBar({ time, light = false }: { time: string; light?: boole
 /** White bar: back arrow and "Cathay Flow". Fixed at the top. */
 export function TopBar({ time, title = "Cathay Flow", onBack }: { time: string; title?: string; onBack?: () => void }) {
   return (
-    <div className="relative z-20 shrink-0 border-b border-[#E6E6E6] bg-white">
+    <div className="relative z-20 shrink-0 border-b border-[#E6E6E6] bg-white pt-[env(safe-area-inset-top)]">
       <StatusBar time={time} />
       <div className="relative flex h-[50px] items-center justify-center pt-2 sm:h-[50px]">
         <button onClick={onBack} aria-label="Back" className="absolute left-[18px] flex h-9 w-9 items-center justify-center text-[#151515]">
@@ -246,7 +247,7 @@ export function BottomNav({ active, onHome, onTrips, onTools }: {
           );
         })}
       </div>
-      <div className="flex justify-center pb-[8px] pt-[16px]">
+      <div className="flex justify-center pb-[max(8px,env(safe-area-inset-bottom))] pt-[16px]">
         <span className="hidden h-[5px] w-[134px] rounded-full bg-black sm:block" />
       </div>
     </nav>

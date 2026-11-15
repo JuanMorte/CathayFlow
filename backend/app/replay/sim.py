@@ -589,8 +589,8 @@ class Sim:
             "labels": {"sched_gap_min": "REAL"},
         }
 
-    def wave(self, start: datetime | None = None, end: datetime | None = None) -> dict:
-        """Every connecting passenger who is not plainly safe, plus totals per inbound flight."""
+    def wave(self, start: datetime | None = None, end: datetime | None = None, everyone: bool = False) -> dict:
+        """Every connecting passenger who is not plainly safe (or everyone), plus totals per inbound flight."""
         rows, inbounds, totals = [], {}, {"SAFE": 0, "AT_RISK": 0, "WONT_MAKE": 0}
         for ps in self.parties.values():
             if (start and ps.inbound["sched"] < start) or (end and ps.inbound["sched"] > end):
@@ -602,7 +602,7 @@ class Sim:
             if ps.zone != "SAFE":
                 entry[ps.zone] += ps.size
             # Listed: anyone at risk, and anyone with a hold, draft or rebooking in play.
-            if ps.zone != "SAFE" or ps.state not in ("MONITORING", "MADE_ORIGINAL"):
+            if everyone or ps.zone != "SAFE" or ps.state not in ("MONITORING", "MADE_ORIGINAL"):
                 rows.append(ps)
         rows.sort(key=lambda ps: (-ps.assessment.p_miss, ps.party["party_id"]))
         inbound_list = []

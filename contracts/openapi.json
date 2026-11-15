@@ -2174,6 +2174,16 @@
               ],
               "title": "To"
             }
+          },
+          {
+            "in": "query",
+            "name": "everyone",
+            "required": false,
+            "schema": {
+              "default": false,
+              "title": "Everyone",
+              "type": "boolean"
+            }
           }
         ],
         "responses": {

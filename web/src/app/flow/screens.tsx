@@ -1,6 +1,7 @@
 // The passenger screens, one per Figma frame (S1 to S11). Every time comes from journey.ts (API times
 // plus the offsets in sample.ts); every fixed detail comes from sample.ts.
 import type { ReactNode } from "react";
+import cathayLogo from "../../assets/flow/cathay-logo.png";
 import checkinHall from "../../assets/flow/checkin-hall.jpg";
 import heroBags from "../../assets/flow/hero-bags.jpg";
 import heroHome from "../../assets/flow/hero-home.jpg";
@@ -102,12 +103,10 @@ export function HomeScreen({ s, onFlow, onBags, onMenu, onBell }: {
   const total = arrival ? mins(arrival - s.schedDep) : 0;
   return (
     <>
-      <div className="relative h-[262px] w-full overflow-hidden sm:-mt-[54px]">
+      <div className="relative h-[262px] w-full overflow-hidden">
         <img src={heroHome} alt="" className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/10 to-black/30" />
-        <svg viewBox="0 0 40 28" className="absolute left-1/2 top-[110px] h-[30px] w-[40px] -translate-x-1/2 text-white" fill="currentColor" aria-hidden="true">
-          <path d="M2 18c9-1 17-6 24-15 2-2 4-2 3 1-3 7-9 13-17 16 7 0 13-2 19-6 2-1 4 0 2 2-6 6-15 9-25 9-4 0-7-2-6-7z" />
-        </svg>
+        <img src={cathayLogo} alt="Cathay" className="absolute left-1/2 top-[106px] h-[40px] w-[40px] -translate-x-1/2" />
         <div className="absolute right-[38px] top-[109px] flex items-center gap-[22px] text-white">
           <button onClick={onBell} aria-label="Notifications" className="relative">
             <svg viewBox="0 0 24 24" className="h-[22px] w-[22px]" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M6 16V11a6 6 0 1 1 12 0v5l2 2H4zM10 20a2 2 0 0 0 4 0" /></svg>
@@ -206,7 +205,7 @@ export function SettingsScreen({ s }: { s: Story }) {
     ["Bag updates", "Each time your bags are scanned"],
   ];
   return (
-    <div className="bg-white">
+    <div className="flex min-h-full flex-col bg-white">
       <div className="px-6 pt-[22px]">
         <h1 className="text-[32px] text-black">Settings</h1>
         <p className="mt-[4px] text-[14px] font-light text-black">
@@ -231,13 +230,13 @@ export function SettingsScreen({ s }: { s: Story }) {
         ))}
         <div className="mt-[18px] border-b border-[#E2E2E2] pb-[12px] text-[15px] text-[#8A6D1F]">Alerts</div>
         {alerts.map(([title, detail]) => (
-          <div key={title} className="flex items-center justify-between border-b border-[#E2E2E2] py-[14px]">
+          <div key={title} className="flex items-center justify-between border-b border-[#E2E2E2] py-[14px] last:mb-[40px]">
             <div><div className="text-[17px] text-black">{title}</div><div className="mt-[4px] text-[13px] font-light text-black">{detail}</div></div>
             <Toggle on />
           </div>
         ))}
       </div>
-      <div className="mt-[60px] bg-[#F1F0EC] px-6 py-[22px] text-[13px] font-light leading-relaxed text-muted">
+      <div className="mt-auto bg-[#F1F0EC] px-6 py-[22px] text-[13px] font-light leading-relaxed text-muted">
         You can change these any time in Settings.<br />Turning Flow off deletes your preferences.
       </div>
     </div>
@@ -344,7 +343,7 @@ export function InsideScreen({ s, place }: { s: Story; place: "origin" | "hkg" }
           image={hkg ? mapHkg : mapCgk} />
       </Section>
       <Section title="Explore the Terminal">
-        <div className="-mx-[8px] flex gap-[8px] overflow-x-auto px-[8px] pb-[10px]">
+        <div className="no-scrollbar -mx-[8px] flex gap-[8px] overflow-x-auto px-[8px] pb-[10px]">
           {shops.map((shop) => <Shop key={shop.name} {...shop} />)}
         </div>
       </Section>
@@ -487,7 +486,7 @@ export function ArriveScreen({ s, exit }: { s: Story; exit: boolean }) {
        { icon: svgIcon(carSvg), title: "Taxi to your hotel", detail: "No traffic signals", time: at(s.taxi) }]
     : [{ icon: iconPlane, title: `Landed in ${s.destCity}`, detail: `${s.onward.flight} at ${s.onward.terminal ?? ""}`, time: at(s.landed) },
        { icon: iconOfficer, title: "UK Border", detail: `About ${SAMPLE.borderMin} min right now`, time: at(s.border) },
-       { icon: svgIcon(bagSolid), title: `Belt ${SAMPLE.belt}`, detail: "Priority bags come out first", time: at(s.belt) }];
+       { icon: svgIcon(bagSolid.replace('fill="black"', 'fill="#367877"')), title: `Belt ${SAMPLE.belt}`, detail: "Priority bags come out first", time: at(s.belt) }];
   return (
     <>
       <PhotoHeader photo={heroLondon} label="Arrival" title={`Welcome to ${s.dest}`} />

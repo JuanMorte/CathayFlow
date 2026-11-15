@@ -29,7 +29,7 @@ export function StaffConsole() {
 
   const refresh = useCallback(async () => {
     try {
-      const [nextWave, nextDrafts, nextReplay] = await Promise.all([api.wave(), api.drafts(), api.replayState()]);
+      const [nextWave, nextDrafts, nextReplay] = await Promise.all([api.wave(true), api.drafts(), api.replayState()]);
       setWave(nextWave);
       setDrafts(nextDrafts);
       setReplay(nextReplay);
@@ -54,7 +54,8 @@ export function StaffConsole() {
   }, [drafts]);
 
   // The inbound flight with the most passengers at risk.
-  const inbound = [...(wave?.summary.inbounds ?? [])].sort((a, b) => (b.at_risk + b.wont_make) - (a.at_risk + a.wont_make))[0];
+  const inbound = [...(wave?.summary.inbounds ?? [])].sort((a, b) => (b.at_risk + b.wont_make) - (a.at_risk + a.wont_make)
+    || b.connecting - a.connecting)[0];
   const rows = (wave?.connections ?? []).filter((r) => r.inbound.flight === inbound?.flight);
   const pendingOf = (r: ConnectionStatus) => draftFor.get(r.connection_id)?.status === "PENDING";
   rows.sort((a, b) => Number(pendingOf(b)) - Number(pendingOf(a))
@@ -130,7 +131,7 @@ export function StaffConsole() {
           </section>
         )}
 
-        <h2 className="mt-[22px] text-[22px]">Needs your decision</h2>
+        <h2 className="mt-[22px] text-[22px]">{waiting ? "Needs your decision" : "Connections on this flight"}</h2>
         <section className="mt-[14px] rounded-[15px] bg-white px-4 pb-2 shadow-[0_0_20px_rgba(0,0,0,0.05)]">
           <table className="w-full text-left">
             <thead>
@@ -184,12 +185,12 @@ function DecisionRow({ row, draft, busy, onDecide }: {
   const who = row.assistance_note ?? [row.tier, CABIN[row.cabin], row.bags && row.bags > 1 ? `${row.bags} bags` : null].filter(Boolean).join(", ");
   const why = row.assistance
     ? ["Assistance must move too", "Needs a booked helper"]
-    : row.zone === "SAFE" ? ["Likely to make it", "Backup held, just in case"]
+    : row.zone === "SAFE" ? ["Likely to make it", alt ? "Backup held, just in case" : `${row.minutes_available} min to reach the gate`]
       : alt ? [`Next ${alt.dest_city} flight`, later(alt.hours_later)] : ["No later flight", "Needs manual rebooking"];
   const suggest = draft || alt
     ? [`Rebook ${alt?.flight ?? draft?.alt_flight} ${clock(instant(alt?.dep ?? draft!.alt_dep))}`,
        row.assistance ? "Aisle seat + assist" : alt?.seat ? `Seat ${alt.seat}${window_(alt.seat)}` : ""]
-    : [`Keep ${out.flight}`, row.expedite_offered ? "Fast-transfer route" : ""];
+    : [`Keep ${out.flight}`, row.expedite_offered ? "Fast-transfer route" : "On time so far"];
   const risk = Math.round(row.p_miss * 100);
   let decision;
   if (row.outcome === "MADE") decision = <span className="text-[15px] text-muted">Made {out.flight}</span>;

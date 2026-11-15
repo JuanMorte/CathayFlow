@@ -95,8 +95,8 @@ def build_router(runtime: Runtime) -> APIRouter:
 
     @router.get("/staff/wave", response_model=schemas.Wave)
     async def wave(start: datetime | None = Query(None, alias="from"),
-                   end: datetime | None = Query(None, alias="to")):
-        return sim().wave(start, end)
+                   end: datetime | None = Query(None, alias="to"), everyone: bool = False):
+        return sim().wave(start, end, everyone)
 
     @router.get("/staff/drafts", response_model=list[schemas.Draft])
     async def drafts(status: str | None = None):

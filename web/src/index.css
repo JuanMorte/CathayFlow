@@ -4,3 +4,7 @@
 
 html, body, #root { height: 100%; }
 body { font-family: Figtree, system-ui, sans-serif; background: #F9F8F6; color: #262425; -webkit-font-smoothing: antialiased; }
+
+/* Scroll without a visible scrollbar (the phone frame on a laptop). */
+.no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
